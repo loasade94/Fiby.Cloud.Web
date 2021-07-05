@@ -1,0 +1,59 @@
+﻿.is-hidden {
+    display: none !important;
+}
+
+.modal-content {
+    padding: 30px;
+}
+
+.modal-control-group {
+    padding-top: 20px;
+    text-align: initial;
+}
+
+.modal-text-input {
+    width: 75%;
+}
+
+.modal-buttons-div {
+    padding-top: 20px;
+}
+
+.modal-btn-save {
+    margin-right: 5px;
+}
+
+.modal-select {
+    width: auto !important;
+    display: inline !important;
+}
+
+.modal-form .modal-content {
+    padding: 30px;
+}
+
+.ctn-btn-tabla {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+    .ctn-btn-tabla > img,
+    .ctn-btn-tabla a > img {
+        height: 20px;
+        cursor: pointer;
+        margin-right: 10px;
+    }
+
+    .ctn-btn-tabla img:first-child {
+        margin-right: 10px;
+    }
+
+    .ctn-btn-tabla img {
+        height: 20px;
+        cursor: pointer;
+    }
+
+        .ctn-btn-tabla img:last-child {
+            margin-right: 0px;
+        }

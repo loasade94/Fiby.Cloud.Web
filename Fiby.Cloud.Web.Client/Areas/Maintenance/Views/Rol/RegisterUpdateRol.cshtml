@@ -1,0 +1,42 @@
+﻿@*@model Adryan.Cloud.Web.DTO.Modules.Attendance.Response.VariableDTOResponse*@
+@{ Layout = null; }
+<div class="modal-content">
+    <div class="text-center">
+        <div class="modal-header center-block">
+            <h4 class="modal-title text-center" id="modal-step-title">
+                <strong>@ViewBag.titleModal</strong>
+            </h4>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="control-group modal-control-group">
+                    <label class="control-label">Descripcion : </label>
+                    <input placeholder="Ingrese el dato" class="modal-text-input" name="exam_file" id="txtModalDescription" type="text">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="control-group modal-control-group">
+                    <label class="control-label">
+                        Estado de Registro :
+                    </label>  
+                    <select class="form-select modal-select" id="cboModalActive">
+                        <option value="1" selected>Activo</option>
+                        <option value="2">Inactivo</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        @*<input type="hidden" id="hiddenModalRolIsNew" name="hiddenModalRolIsNew" value="@ViewBag.ModalGeneralIsNew" />
+        <input type="hidden" id="hiddenRolId" name="hiddenRolId" value="@Model.VariableId" />*@
+    </div>
+
+    <div class="align-self-center d-flex modal-buttons-div">
+        <button type="button" class="btn btn-info btn modal-btn-save" id="btnSaveOrUpdate" onclick="roljs.save();">
+            GUARDAR
+        </button>
+        <button type="button" class="btn btn-info btn" data-dismiss="modal">
+            CERRAR
+        </button>
+    </div>
+
+</div>
