@@ -1,4 +1,5 @@
 ﻿var roljs = {
+    RolId: 0,
 
     initializeEvent: function () {
 
@@ -53,9 +54,9 @@
                             html += '<tr>';
                             html += '    <td>';
                             html += '        <div class="ctn-btn-tabla ctn-btn-tabla-mx">';
-                            html += '            <img src="/cssadmin/assets/images/edit.png" onclick="roljs.edit(\'' + response[i].rolId + '\');" alt="Editar" data-toggle="tooltip" title="Editar" ';
+                            html += '            <img src="/cssadmin/assets/images/edit.png" onclick="roljs.edit(\'' + response[i].rolId + '\',\'' + 0 +  '\');" alt="Editar" data-toggle="tooltip" title="Editar" ';
                             html += '                      class="material-tooltip-main" data-id-ctn="_editar-consulta">';
-                            html += '            <img src="/cssadmin/assets/images/trash.png" onclick="roljs.deleteConfirm(\'' + response[i].rolId + '\');" class="material-tooltip-main eliminar-movimiento" alt="Eliminar" ';
+                            html += '            <img src="/cssadmin/assets/images/trash.png" onclick="roljs.deleteRol(\'' + response[i].rolId + '\');" class="material-tooltip-main eliminar-movimiento" alt="Eliminar" ';
                             html += '                      data-toggle="tooltip" title="Eliminar">';
                             html += '        </div>';
                             html += '    </td>';
@@ -110,10 +111,10 @@
         });
     },
 
-    openModal: function (variableId, option) {
+    openModal: function (rolId, option) {
         var url = '/Maintenance/Rol/RegisterUpdateRol';
         $.get(url, {
-            variableId: variableId, option: option
+            rolId: rolId, option: option
         }, function (data) {
             createModal(data);
             //createSelect('cboRegistrationStatusNew');
@@ -125,8 +126,9 @@
         var cboModalActive = $('#cboModalActive').val();
 
         var request = {
+            RolId: $("#hiddenRolId").val(),
             Description: txtModalDescription,
-            Active: cboModalActive,
+            Active: cboModalActive == 1 ? true : false,
         };
 
         return request;
@@ -136,11 +138,10 @@
 
         var returns = true;
 
-        if (request.Description == "") {
+        if (request.RolId == "") {
+            RolId = 0;
+        }else if (request.Description == "") {
             ModalAlert("Debe ingresar la descripción.");
-            returns = false;
-        } else if (request.Active == "" || request.Active == null) {
-            ModalAlert("Debe ingresar el estado");
             returns = false;
         }
 
@@ -183,6 +184,57 @@
                 async: true,
             })
         }
+    },
+
+    deleteRol: function (obj) {
+        ModalConfirm('¿Seguro que desea eliminar el registro?', 'roljs.deleteRol_callback(\'' + obj + '\');');
+    },
+
+    deleteRol_callback: function (obj) {
+
+        var rolId = obj;
+
+        $.ajax({
+            type: "DELETE",
+            data: {
+                rolId
+            },
+            beforeSend: function () {
+                $('#loading').show();
+            },
+            url: '/Maintenance/Rol/DeleteRol',
+            success: function (response, textStatus, jqXhr) {
+
+                if (response == "1") {
+                    /*IziToastMessage(0, 'Eliminado Correctamente', 'green', 'topRight', 5000);*/
+                    ModalAlert("OK");
+                    roljs.search();
+                } else {
+                    /* IziToastMessage(1, 'Ocurrio un error: ' + response, '', 'topRight', 5000);*/
+                    ModalAlert("ERROR");
+                    $('#loading').hide();
+                }
+
+            },
+            complete: function () {
+                $('#loading').hide();
+            },
+            error: function (xhr, status, errorThrown) {
+                var err = "Status: " + status + " " + errorThrown;
+                console.log(err);
+                IziToastMessage(1, 'Ocurrio un error.', '', 'topRight', 5000);
+                $('#loading').hide();
+
+            },
+            async: true,
+        });
+
+
+    },
+
+    edit: function (rolId, option) {
+        roljs.openModal(rolId, option);
+        $('html, body').animate({ scrollTop: 0 }, 'slow');
     },
 
 }

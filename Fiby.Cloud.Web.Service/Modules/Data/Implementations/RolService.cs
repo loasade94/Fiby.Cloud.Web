@@ -41,5 +41,34 @@ namespace Fiby.Cloud.Web.Service.Modules.Data.Implementations
             return response.Data;
         }
 
+        public async Task<string> DeleteRol(RolDTORequest rolDTORequest)
+        {
+            //string uri = ApiPaths.Personal.DeleteApplyUpdate();
+            string uri = "https://localhost:5032/api/Rol/DeleteRol";
+            var result = await _httpClient.DeleteAsync(uri, rolDTORequest);
+            var data = await result.Content.ReadAsStringAsync();
+            var response = JsonConvert.DeserializeObject<ResponseObject<string>>(data);
+            return response.Data;
+        }
+
+        public async Task<RolDTOResponse> GetRolById(RolDTORequest rolDTORequest)
+        {
+            string uri = "https://localhost:5032/api/Rol/GetRolById";
+            var result = await _httpClient.GetStringAsync(uri, rolDTORequest);
+            var response = JsonConvert.DeserializeObject<ResponseObject<RolDTOResponse>>(result);
+            return response.Data;
+        }
+
+        public async Task<string> UpdateRol(RolDTORequest rolDTORequest)
+        {
+            //string uri = ApiPaths.Security.PostAccountAuth();
+            string uri = "https://localhost:5032/api/Rol/UpdateRol";
+            var result = await _httpClient.PostInitAsync(uri, rolDTORequest);
+            result.EnsureSuccessStatusCode();
+            var data = await result.Content.ReadAsStringAsync();
+            var response = JsonConvert.DeserializeObject<ResponseObject<string>>(data);
+            return response.Data;
+        }
+
     }
 }
