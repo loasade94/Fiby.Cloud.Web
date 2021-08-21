@@ -82,3 +82,126 @@ function createModal(html, $Size = "") {
     $("#divSection").append(divModal);
     $('#modal-register').modal('show');
 }
+
+function CreatePickaDate(id) {
+    $('#' + id).datepicker({
+        autoclose: true,
+        todayHighlight: true,
+        monthsFull: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Setiembre', 'Octubre',
+            'Noviembre', 'Diciembre'],
+        weekdaysShort: ['Dom', 'Lun', 'Mar', 'Mier', 'Jue', 'Vie', 'Sab'],
+        today: 'Hoy',
+        clear: 'Borrar',
+        close: 'Cerrar',
+        formatSubmit: 'dd/mm/yyyy',
+        format: 'dd/mm/yyyy'
+    });
+
+}
+
+function CreateDataTable(value) {
+
+    $('#' + value).DataTable({
+        "language": {
+            "lengthMenu": "Mostrar _MENU_ registros por página",
+            "zeroRecords": "No se ha encontrado nada",
+            "info": "Mostrando página _PAGE_ de _PAGES_",
+            "infoEmpty": "No hay registros disponibles",
+            "infoFiltered": "(filtered from _MAX_ total records)",
+            //"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
+            "processing": "Procesando...",
+            "search": "Buscar:",
+            "paginate": {
+                "first": "Primero",
+                "last": "Último",
+                "next": "Siguiente",
+                "previous": "Anterior"
+            },
+            "aria": {
+                "sortAscending": ": activar para ordenar columnas ascendentemente",
+                "sortDescending": ": activar para ordenar columnas descendentemente"
+            }
+        }
+    });
+}
+
+function exportarGenerico(url, request, parametersModel) {
+    
+    setPostUrl(url, request, parametersModel);
+    return false;
+};
+
+function setPostUrl(url, params1, params2, params3) {
+
+    var form = document.createElement("FORM");
+    form.action = url;
+    form.method = 'POST';
+    //IMPORTANTE: No debe tener ningun tipo de serializacion
+    var indexQM = url.indexOf("?");
+    if (indexQM >= 0) {
+        // the URL has parameters => convert them to hidden form inputs
+        var params = url.substring(indexQM + 1).split("&");
+        for (var i = 0; i < params.length; i++) {
+            var keyValuePair = params[i].split("=");
+            var input = document.createElement("INPUT");
+            input.type = "hidden";
+            input.name = keyValuePair[0];
+            if (input.name != '__RequestVerificationToken') {
+                input.value = keyValuePair[1];
+                form.appendChild(input);
+            }
+        }
+    }
+
+    // En caso se envia el array de serializeArray
+    if (params1 != undefined)
+        for (var i = 0; i < params1.length; i++) {
+            var keyValuePair = params1[i];
+            var input = document.createElement("INPUT");
+            input.type = "hidden";
+            input.name = keyValuePair.name;
+            if (input.name != '__RequestVerificationToken') {
+                input.value = keyValuePair.value;
+                form.appendChild(input);
+            }
+        }
+
+    // En caso se envia el array de serializeArray
+    if (params2 != undefined)
+        for (var i = 0; i < params2.length; i++) {
+            var keyValuePair = params2[i];
+            var input = document.createElement("INPUT");
+            input.type = "hidden";
+            input.name = keyValuePair.name;
+            if (input.name != '__RequestVerificationToken') {
+                input.value = keyValuePair.value;
+                form.appendChild(input);
+            }
+        }
+
+    // En caso se envia el array de serializeArray
+    if (params3 != undefined)
+        for (var i = 0; i < params3.length; i++) {
+            var keyValuePair = params3[i];
+            var input = document.createElement("INPUT");
+            input.type = "hidden";
+            input.name = keyValuePair.name;
+            input.value = keyValuePair.value;
+            form.appendChild(input);
+        }
+
+    var forgeryToke = $("input[name='__RequestVerificationToken']").val();
+
+    if (forgeryToke != undefined && forgeryToke != null) {
+        var input = document.createElement("INPUT");
+        input.type = "hidden";
+        input.name = '__RequestVerificationToken';
+        input.value = forgeryToke;
+
+        form.appendChild(input);
+    }
+
+    document.body.appendChild(form);
+    //helperjs.showWait();
+    form.submit();
+};

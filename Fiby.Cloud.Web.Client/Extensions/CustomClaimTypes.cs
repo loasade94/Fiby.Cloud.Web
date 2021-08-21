@@ -9,5 +9,6 @@ namespace Fiby.Cloud.Web.Client.Extensions
     public class CustomClaimTypes : IdentityUser
     {
         public const string AplicationAdmin = "AplicationAdmin";
+        public const string CompanyId = "CompanyId";
     }
 }

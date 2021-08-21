@@ -32,6 +32,13 @@
     padding: 30px;
 }
 
+.ctn-button {
+/*    display: flex;*/
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+}
+
 .ctn-btn-tabla {
     display: flex;
     justify-content: center;

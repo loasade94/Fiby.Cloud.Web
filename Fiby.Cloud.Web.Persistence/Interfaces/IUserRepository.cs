@@ -5,13 +5,11 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Fiby.Cloud.Web.Service.Modules.Data.Interfaces
+namespace Fiby.Cloud.Web.Persistence.Interfaces
 {
-    public interface IUserService
+    public interface IUserRepository
     {
         Task<string> LoginUser(UserDTORequest userDTORequest);
         Task<UserDTOResponse> GetUserLogin(UserDTORequest userDTORequest);
-        Task<string> LoginUserNew(UserDTORequest userDTORequest);
-        Task<UserDTOResponse> GetUserLoginNew(UserDTORequest userDTORequest);
     }
 }

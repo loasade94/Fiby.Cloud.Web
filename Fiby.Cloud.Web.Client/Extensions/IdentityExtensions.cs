@@ -22,5 +22,17 @@ namespace Fiby.Cloud.Web.Client.Extensions
             var result = JsonConvert.DeserializeObject<UserDTOResponse>(ValueToString);
             return result;
         }
+
+        public static string CompanyId(this IIdentity identity)
+        {
+            ClaimsIdentity claimsIdentity = identity as ClaimsIdentity;
+            Claim claim = claimsIdentity?.FindFirst("CompanyId");
+            string asas = string.Empty;
+            if (claim == null)
+                return asas;
+            string ValueToString = claim.Value;
+            var result = JsonConvert.DeserializeObject<string>(ValueToString);
+            return result;
+        }
     }
 }

@@ -5,12 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="5.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Fiby.Cloud.Web.DTO\Fiby.Cloud.Web.DTO.csproj" />
+    <ProjectReference Include="..\Fiby.Cloud.Web.Persistence\Fiby.Cloud.Web.Persistence.csproj" />
     <ProjectReference Include="..\Fiby.Cloud.Web.Proxy\Fiby.Cloud.Web.Proxy.csproj" />
     <ProjectReference Include="..\Fiby.Cloud.Web.Util\Fiby.Cloud.Web.Util.csproj" />
   </ItemGroup>

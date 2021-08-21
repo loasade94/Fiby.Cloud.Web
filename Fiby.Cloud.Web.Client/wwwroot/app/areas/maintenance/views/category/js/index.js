@@ -1,25 +1,25 @@
-﻿var roljs = {
-    RolId: 0,
+﻿var categoryjs = {
+    CategoryId: 0,
 
     initializeEvent: function () {
 
-        $("#btnSearchRol").click(function () {
-            roljs.search();
+        $("#btnSearchCategory").click(function () {
+            categoryjs.search();
         });
 
-        $("#btnNewRol").click(function () {
-            roljs.openModal();
+        $("#btnNewCategory").click(function () {
+            categoryjs.openModal();
         });
 
-        roljs.search();
+        categoryjs.search();
 
     },
 
     search: function () {
 
-        var txtDescription = $("#txtDescriptionRolSearch").val();
+        var txtDescription = $("#txtDescriptionCategorySearch").val();
 
-        var rolDTORequest = {
+        var categoryDTORequest = {
             Description: txtDescription
         };
 
@@ -29,9 +29,9 @@
             type: "POST",
             data:
             {
-                rolDTORequest
+                categoryDTORequest
             },
-            url: '/Maintenance/Rol/GetRolAll',
+            url: '/Maintenance/Category/GetCategoryAll',
             // dataType: "json",
             beforeSend: function () {
                 $('#loading').show();
@@ -42,11 +42,11 @@
             success: function (response, textStatus, jqXhr) {
 
                 if (response != null) {
-                    $("#tbRolAllMaintenance > tbody").html("");
-                    $('#tbRolAllMaintenance').DataTable().clear().destroy();
+                    $("#tbCategoryAllMaintenance > tbody").html("");
+                    $('#tbCategoryAllMaintenance').DataTable().clear().destroy();
 
                     if (response.length > 0) {
-  
+
                         var html = "";
                         var eje = "";
                         for (var i = 0; i < response.length; i++) {
@@ -54,13 +54,13 @@
                             html += '<tr>';
                             html += '    <td>';
                             html += '        <div class="ctn-btn-tabla ctn-btn-tabla-mx">';
-                            html += '            <img src="/cssadmin/assets/images/edit.png" onclick="roljs.edit(\'' + response[i].rolId + '\',\'' + 0 +  '\');" alt="Editar" data-toggle="tooltip" title="Editar" ';
+                            html += '            <img src="/cssadmin/assets/images/edit.png" onclick="categoryjs.edit(\'' + response[i].categoryId + '\',\'' + 0 + '\');" alt="Editar" data-toggle="tooltip" title="Editar" ';
                             html += '                      class="material-tooltip-main" data-id-ctn="_editar-consulta">';
-                            html += '            <img src="/cssadmin/assets/images/trash.png" onclick="roljs.deleteRol(\'' + response[i].rolId + '\');" class="material-tooltip-main eliminar-movimiento" alt="Eliminar" ';
+                            html += '            <img src="/cssadmin/assets/images/trash.png" onclick="categoryjs.deleteCategory(\'' + response[i].categoryId + '\');" class="material-tooltip-main eliminar-movimiento" alt="Eliminar" ';
                             html += '                      data-toggle="tooltip" title="Eliminar">';
                             html += '        </div>';
                             html += '    </td>';
-                            html += '    <td style="text-align:center;">' + response[i].rolId + '</td>';
+                            html += '    <td style="text-align:center;">' + response[i].categoryId + '</td>';
                             html += '    <td style="text-align:center;">' + response[i].description + '</td>';
 
                             if (response[i].active == true) {
@@ -71,9 +71,9 @@
 
                             html += '</tr>';
                         }
-                        $('#tbRolAllMaintenance tbody').append(html);
+                        $('#tbCategoryAllMaintenance tbody').append(html);
                     }
-                    CreateDataTable('tbRolAllMaintenance');
+                    CreateDataTable('tbCategoryAllMaintenance');
                 }
             },
             error: function (xhr, status, errorThrown) {
@@ -85,10 +85,10 @@
         })
     },
 
-    openModal: function (rolId, option) {
-        var url = '/Maintenance/Rol/RegisterUpdateRol';
+    openModal: function (categoryId, option) {
+        var url = '/Maintenance/Category/RegisterUpdateCategory';
         $.get(url, {
-            rolId: rolId, option: option
+            categoryId: categoryId, option: option
         }, function (data) {
             createModal(data);
             //createSelect('cboRegistrationStatusNew');
@@ -100,7 +100,7 @@
         var cboModalActive = $('#cboModalActive').val();
 
         var request = {
-            RolId: $("#hiddenRolId").val(),
+            CategoryId: $("#hiddenCategoryId").val(),
             Description: txtModalDescription,
             Active: cboModalActive == 1 ? true : false,
         };
@@ -112,9 +112,9 @@
 
         var returns = true;
 
-        if (request.RolId == "") {
-            RolId = 0;
-        }else if (request.Description == "") {
+        if (request.CategoryId == "") {
+            CategoryId = 0;
+        } else if (request.Description == "") {
             ModalAlert("Debe ingresar la descripción.");
             returns = false;
         }
@@ -123,12 +123,12 @@
     },
 
     save: function () {
-        var request = roljs.getParametersInput();
-        if (roljs.validateForm(request)) {
+        var request = categoryjs.getParametersInput();
+        if (categoryjs.validateForm(request)) {
             $.ajax({
                 type: "POST",
                 data: { request: request },
-                url: '/Maintenance/Rol/RegisterOrUpdateRol',
+                url: '/Maintenance/Category/RegisterOrUpdateCategory',
                 beforeSend: function () {
                     $('#loading').show();
                 },
@@ -145,7 +145,7 @@
                         $('#modal-register').modal('hide');
                         ModalAlert(response);
                     }
-                    roljs.search();
+                    categoryjs.search();
                 },
                 complete: function () {
                     $('#loading').hide();
@@ -160,29 +160,29 @@
         }
     },
 
-    deleteRol: function (obj) {
-        ModalConfirm('¿Seguro que desea eliminar el registro?', 'roljs.deleteRol_callback(\'' + obj + '\');');
+    deleteCategory: function (obj) {
+        ModalConfirm('¿Seguro que desea eliminar el registro?', 'categoryjs.deleteCategory_callback(\'' + obj + '\');');
     },
 
-    deleteRol_callback: function (obj) {
+    deleteCategory_callback: function (obj) {
 
-        var rolId = obj;
+        var categoryId = obj;
 
         $.ajax({
             type: "DELETE",
             data: {
-                rolId
+                categoryId
             },
             beforeSend: function () {
                 $('#loading').show();
             },
-            url: '/Maintenance/Rol/DeleteRol',
+            url: '/Maintenance/Category/DeleteCategory',
             success: function (response, textStatus, jqXhr) {
 
                 if (response == "1") {
                     /*IziToastMessage(0, 'Eliminado Correctamente', 'green', 'topRight', 5000);*/
                     ModalAlert("OK");
-                    roljs.search();
+                    categoryjs.search();
                 } else {
                     /* IziToastMessage(1, 'Ocurrio un error: ' + response, '', 'topRight', 5000);*/
                     ModalAlert("ERROR");
@@ -207,7 +207,7 @@
     },
 
     edit: function (rolId, option) {
-        roljs.openModal(rolId, option);
+        categoryjs.openModal(rolId, option);
         $('html, body').animate({ scrollTop: 0 }, 'slow');
     },
 
@@ -215,6 +215,6 @@
 
 $(function () {
 
-    roljs.initializeEvent();
+    categoryjs.initializeEvent();
 
 });

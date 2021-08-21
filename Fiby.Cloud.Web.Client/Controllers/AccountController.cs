@@ -38,20 +38,24 @@ namespace Fiby.Cloud.Web.Client.Controllers
         {
             var authDTORequest = new UserDTORequest() { NameUser = user, Password = pass };
 
-            var response = await _userService.LoginUser(authDTORequest);
+            //var response = await _userService.LoginUser(authDTORequest);
+            var response = await _userService.LoginUserNew(authDTORequest);
 
             if (response == "1")
             {
                 UserDTORequest userDTORequest = new UserDTORequest();
                 userDTORequest.UserId = 1;
 
-                var listDataUser = await _userService.GetUserLogin(userDTORequest);
+                //var listDataUser = await _userService.GetUserLogin(userDTORequest);
+                var listDataUser = await _userService.GetUserLoginNew(userDTORequest);
 
-                TempData["UserOptions"] = JsonConvert.SerializeObject(listDataUser); ;
+                TempData["UserOptions"] = JsonConvert.SerializeObject(listDataUser);
+                //TempData["CompanyId"] = JsonConvert.SerializeObject(listDataUser.oCompany.CompanyId.ToString());
 
                 List<Claim> claims = new List<Claim>();
 
                 claims.Add(new Claim(CustomClaimTypes.AplicationAdmin, JsonConvert.SerializeObject(listDataUser)));
+                claims.Add(new Claim(CustomClaimTypes.CompanyId, JsonConvert.SerializeObject(listDataUser.oCompany.CompanyId.ToString())));
 
                 ClaimsIdentity userIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                 ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);

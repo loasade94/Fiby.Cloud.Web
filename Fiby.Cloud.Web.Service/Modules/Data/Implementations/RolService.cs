@@ -22,7 +22,7 @@ namespace Fiby.Cloud.Web.Service.Modules.Data.Implementations
 
         public async Task<List<RolDTOResponse>> GetRolAll(RolDTORequest rolDTORequest)
         {
-            string uri = "https://localhost:5032/api/Rol/GetRolAll";
+            string uri = "http://loasadetestapi-001-site1.ftempurl.com/api/Rol/GetRolAll";
             //string uri = $"{_configuration["proxy:UrlPersonal"]}/api/TableBase/GetTableDetailAll?tableCode={tableCode}";
             //string uri = ApiPaths.Personal.GetTableDetailAll(_isLocal, tableCode);
             var result = await _httpClient.GetStringAsync(uri, rolDTORequest);
@@ -33,7 +33,7 @@ namespace Fiby.Cloud.Web.Service.Modules.Data.Implementations
         public async Task<string> RegisterRol(RolDTORequest rolDTORequest)
         {
             //string uri = ApiPaths.Security.PostAccountAuth();
-            string uri = "https://localhost:5032/api/Rol/RegisterRol";
+            string uri = "http://loasadetestapi-001-site1.ftempurl.com/api/Rol/RegisterRol";
             var result = await _httpClient.PostInitAsync(uri, rolDTORequest);
             result.EnsureSuccessStatusCode();
             var data = await result.Content.ReadAsStringAsync();
@@ -44,7 +44,7 @@ namespace Fiby.Cloud.Web.Service.Modules.Data.Implementations
         public async Task<string> DeleteRol(RolDTORequest rolDTORequest)
         {
             //string uri = ApiPaths.Personal.DeleteApplyUpdate();
-            string uri = "https://localhost:5032/api/Rol/DeleteRol";
+            string uri = "http://loasadetestapi-001-site1.ftempurl.com/api/Rol/DeleteRol";
             var result = await _httpClient.DeleteAsync(uri, rolDTORequest);
             var data = await result.Content.ReadAsStringAsync();
             var response = JsonConvert.DeserializeObject<ResponseObject<string>>(data);
@@ -53,7 +53,7 @@ namespace Fiby.Cloud.Web.Service.Modules.Data.Implementations
 
         public async Task<RolDTOResponse> GetRolById(RolDTORequest rolDTORequest)
         {
-            string uri = "https://localhost:5032/api/Rol/GetRolById";
+            string uri = "http://loasadetestapi-001-site1.ftempurl.com/api/Rol/GetRolById";
             var result = await _httpClient.GetStringAsync(uri, rolDTORequest);
             var response = JsonConvert.DeserializeObject<ResponseObject<RolDTOResponse>>(result);
             return response.Data;
@@ -62,7 +62,7 @@ namespace Fiby.Cloud.Web.Service.Modules.Data.Implementations
         public async Task<string> UpdateRol(RolDTORequest rolDTORequest)
         {
             //string uri = ApiPaths.Security.PostAccountAuth();
-            string uri = "https://localhost:5032/api/Rol/UpdateRol";
+            string uri = "http://loasadetestapi-001-site1.ftempurl.com/api/Rol/UpdateRol";
             var result = await _httpClient.PostInitAsync(uri, rolDTORequest);
             result.EnsureSuccessStatusCode();
             var data = await result.Content.ReadAsStringAsync();

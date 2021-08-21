@@ -1,6 +1,8 @@
-﻿using Fiby.Cloud.Cross.Util.DTOGeneric;
+﻿using AutoMapper;
+using Fiby.Cloud.Cross.Util.DTOGeneric;
 using Fiby.Cloud.Web.DTO.Modules.User.Request;
 using Fiby.Cloud.Web.DTO.Modules.User.Response;
+using Fiby.Cloud.Web.Persistence.Interfaces;
 using Fiby.Cloud.Web.Proxy.Src;
 using Fiby.Cloud.Web.Service.Modules.Data.Interfaces;
 using Microsoft.Extensions.Configuration;
@@ -16,16 +18,20 @@ namespace Fiby.Cloud.Web.Service.Modules.Data.Implementations
     {
         private readonly IConfiguration _configuration;
         private readonly IHttpClient _httpClient;
+        private readonly IUserRepository _userRepository;
+        private readonly IMapper _mapper;
 
-        public UserService(IConfiguration configuration, IHttpClient httpClient)
+        public UserService(IConfiguration configuration, IHttpClient httpClient, IUserRepository userRepository, IMapper mapper)
         {
             _configuration = configuration;
             _httpClient = httpClient;
+            _userRepository = userRepository;
+            _mapper = mapper;
         }
 
         public async Task<string> LoginUser(UserDTORequest userDTORequest)
         {
-            string uri = "https://localhost:5032/api/User/LoginUser";
+            string uri = "http://loasadetestapi-001-site1.ftempurl.com/api/User/LoginUser";
             //string uri = $"{_configuration["proxy:UrlPersonal"]}/api/TableBase/GetTableDetailAll?tableCode={tableCode}";
             //string uri = ApiPaths.Personal.GetTableDetailAll(_isLocal, tableCode);
             var result = await _httpClient.GetStringAsync(uri, userDTORequest);
@@ -39,7 +45,7 @@ namespace Fiby.Cloud.Web.Service.Modules.Data.Implementations
             try
             {
                 //string uri = ApiPaths.Security.PostAccountAuth();
-                string uri = "https://localhost:5032/api/User/GetUserLogin";
+                string uri = "http://loasadetestapi-001-site1.ftempurl.com/api/User/GetUserLogin";
                 var result = await _httpClient.PostInitAsync(uri, userDTORequest);
                 result.EnsureSuccessStatusCode();
                 var data = await result.Content.ReadAsStringAsync();
@@ -55,6 +61,18 @@ namespace Fiby.Cloud.Web.Service.Modules.Data.Implementations
                 throw;
             }
 
+        }
+
+        public async Task<string> LoginUserNew(UserDTORequest userDTORequest)
+        {
+            var response = await _userRepository.LoginUser(userDTORequest);
+            return response;
+        }
+
+        public async Task<UserDTOResponse> GetUserLoginNew(UserDTORequest userDTORequest)
+        {
+            var response = await _userRepository.GetUserLogin(userDTORequest);
+            return response;
         }
     }
 }

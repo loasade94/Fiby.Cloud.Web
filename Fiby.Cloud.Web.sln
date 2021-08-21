@@ -7,9 +7,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01-presentation", "01-prese
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02-service", "02-service", "{AD294A16-01B7-466C-9694-5E1D66EED32A}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03- common", "03- common", "{6995D5CC-D837-458B-BFEC-DBA55870B5EF}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04- common", "04- common", "{6995D5CC-D837-458B-BFEC-DBA55870B5EF}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04- cross", "04- cross", "{D1DE1CE5-112E-48DB-8CF5-BE6F0F70C51D}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "05- cross", "05- cross", "{D1DE1CE5-112E-48DB-8CF5-BE6F0F70C51D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fiby.Cloud.Web.Common", "Fiby.Cloud.Web.Common\Fiby.Cloud.Web.Common.csproj", "{1C73C6D7-0BB4-4C23-ABB3-CFD38558529A}"
 EndProject
@@ -21,7 +21,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fiby.Cloud.Web.Proxy", "Fib
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fiby.Cloud.Web.Client", "Fiby.Cloud.Web.Client\Fiby.Cloud.Web.Client.csproj", "{BF771F9F-66B5-413C-8CA1-8DD03DAF5CDD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fiby.Cloud.Web.Util", "Fiby.Cloud.Web.Util\Fiby.Cloud.Web.Util.csproj", "{BAECA314-2D15-4105-9744-0CDBB9CFCFF1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fiby.Cloud.Web.Util", "Fiby.Cloud.Web.Util\Fiby.Cloud.Web.Util.csproj", "{BAECA314-2D15-4105-9744-0CDBB9CFCFF1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03-persistence", "03-persistence", "{80AF12EB-1882-4BBF-B61B-09E4F1A447CF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fiby.Cloud.Web.Persistence", "Fiby.Cloud.Web.Persistence\Fiby.Cloud.Web.Persistence.csproj", "{EBD0748F-7C43-405C-8E09-556285939363}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +57,10 @@ Global
 		{BAECA314-2D15-4105-9744-0CDBB9CFCFF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BAECA314-2D15-4105-9744-0CDBB9CFCFF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BAECA314-2D15-4105-9744-0CDBB9CFCFF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EBD0748F-7C43-405C-8E09-556285939363}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBD0748F-7C43-405C-8E09-556285939363}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBD0748F-7C43-405C-8E09-556285939363}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBD0748F-7C43-405C-8E09-556285939363}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -64,6 +72,7 @@ Global
 		{58165065-71C1-4F51-8422-81E352F9D34C} = {D1DE1CE5-112E-48DB-8CF5-BE6F0F70C51D}
 		{BF771F9F-66B5-413C-8CA1-8DD03DAF5CDD} = {368DF7DF-FB0E-4B32-960A-E9AA2239EC94}
 		{BAECA314-2D15-4105-9744-0CDBB9CFCFF1} = {D1DE1CE5-112E-48DB-8CF5-BE6F0F70C51D}
+		{EBD0748F-7C43-405C-8E09-556285939363} = {80AF12EB-1882-4BBF-B61B-09E4F1A447CF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0370A687-AD38-4014-A702-EDED6EBF3096}
