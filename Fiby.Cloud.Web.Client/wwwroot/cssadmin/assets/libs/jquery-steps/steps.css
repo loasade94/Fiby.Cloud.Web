@@ -62,7 +62,8 @@ File: css
     /*padding-top: 52px;
     margin-top: 20px;*/
     margin-bottom: 20px;
-    display: block
+    display: block;
+    cursor:pointer;
 }
 
 .wizard-content .wizard>.steps>ul>li:before {

@@ -1,0 +1,105 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutAdministrator.cshtml";
+}
+
+
+<div class="card">
+    <div class="card-body wizard-content">
+        <h4 class="card-title">Basic Form Example</h4>
+        <h6 class="card-subtitle"></h6>
+        <form id="example-form" action="#" class="mt-5" novalidate="novalidate">
+            <div role="application" class="wizard clearfix" id="steps-uid-0">
+                <div class="steps clearfix">
+                    <ul style="width:50%" role="tablist">
+                        <li role="tab" class="first current" id="tabConsult" aria-disabled="false" aria-selected="true">
+                            <a style="cursor:pointer;" id="steps-uid-0-t-0" href="#steps-uid-0-h-0" aria-controls="steps-uid-0-p-0">
+                                <span class="current-info audible">current step: </span>
+                                <span class="number">Consultar</span>
+                            </a>
+                        </li>
+                        <li role="tab" class="disabled" aria-disabled="false" id="tabAdd" aria-selected="true">
+                            <a style="cursor:pointer;" id="steps-uid-0-t-1" href="#steps-uid-0-h-1" aria-controls="steps-uid-0-p1">
+                                <span class="current-info audible">current step: </span>
+                                <span class="number">Agregar</span>
+                            </a>
+                        </li>
+                        @*<li role="tab" class="disabled is-hidden" aria-disabled="true"><a id="steps-uid-0-t-2" href="#steps-uid-0-h-2" aria-controls="steps-uid-0-p-2"><span class="number">3.</span> Hints</a></li>
+                        <li role="tab" class="disabled last is-hidden" aria-disabled="true"><a id="steps-uid-0-t-3" href="#steps-uid-0-h-3" aria-controls="steps-uid-0-p-3"><span class="number">4.</span> Finish</a></li>*@
+                    </ul>
+                </div>
+                <div class="content clearfix">
+                    <h3 id="steps-uid-0-h-0" tabindex="-1" class="title current">Account</h3>
+                    <div id="steps-uid-0-p-0" role="tabpanel" aria-labelledby="steps-uid-0-h-0"  aria-hidden="false">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title">Datos de Venta</h4>
+                                        <div class="col-md-12">
+
+                                            <div class="row mb-3">
+                                                <div class="col-lg-2">
+                                                    <label for="" class="text-right control-label col-form-label">Tipo Documento Venta :</label>
+                                                </div>
+                                                <div class="col-lg-2">
+                                                    <input type="text" class="form-control" id="txtFechaInicialEntrada" placeholder="dd/mm/yyyy">
+                                                </div>
+                                                <div class="col-lg-2">
+                                                    <label for="" class="text-right control-label col-form-label">Fecha Emisión : </label>
+                                                </div>
+                                                <div class="col-lg-2">
+                                                    <input type="text" class="form-control" id="txtFechaFinalEntrada" placeholder="dd/mm/yyyy">
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="card-body text-center">
+                                        <div class="ctn-button">
+                                            <button type="button" id="btnBuscar" class="btn btn-info btn">Buscar</button>
+                                            <button type="button" id="btnLimpiar" class="btn btn-info btn">Limpiar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Registros</h5>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                @Html.Partial("Grid")
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h3 id="steps-uid-0-h-1" tabindex="-1" class="title">Profile</h3>
+                    <section id="steps-uid-0-p-1" role="tabpanel" aria-labelledby="steps-uid-0-h-1" class="body" aria-hidden="true" style="display: none;">
+                        <label for="name">First name *</label>
+                        <input id="name" name="name" type="text" class="required form-control">
+                        <label for="surname">Last name *</label>
+                        <input id="surname" name="surname" type="text" class="required form-control">
+                        <label for="email">Email *</label>
+                        <input id="email" name="email" type="text" class="required email form-control">
+                        <label for="address">Address</label>
+                        <input id="address" name="address" type="text" class=" form-control">
+                        <p>(*) Mandatory</p>
+                    </section>
+                </div>
+                @*<div class="actions clearfix">
+                    <ul role="menu" aria-label="Pagination">
+                        <li class="disabled" aria-disabled="true"><a href="#previous" role="menuitem">Previous</a></li>
+                        <li aria-hidden="false" aria-disabled="false"><a href="#next" role="menuitem">Next</a></li>
+                        <li aria-hidden="true" style="display: none;"><a href="#finish" role="menuitem">Finish</a></li>
+                    </ul>
+                </div>*@
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript" src="@Url.Content("~/app/areas/almacen/views/entrada/js/index.js")" asp-append-version="true"></script>

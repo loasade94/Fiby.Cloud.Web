@@ -43,6 +43,7 @@ namespace Fiby.Cloud.Web.DTO.Modules.Ple.Request
         public string ERROR_TIPO_1 { get; set; }
         public string INDIC_COM_CAN_MED_PAGO { get; set; }
         public string ESTADO { get; set; }
+        public string MesLista { get; set; }
 
     }
 }

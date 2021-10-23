@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using Fiby.Cloud.Web.DTO.Modules.Ple.Request;
+using Fiby.Cloud.Web.DTO.Modules.Ple.Response;
 using Fiby.Cloud.Web.DTO.Modules.User.Request;
 using Fiby.Cloud.Web.DTO.Modules.User.Response;
 using Fiby.Cloud.Web.Persistence.Connection;
@@ -22,24 +23,15 @@ namespace Fiby.Cloud.Web.Persistence.Implementations
             _connectionFactory = connectionFactory;
         }
 
-        public async Task<List<PleDTOResponse>> GetPleAll(PleDTORequest pleDTORequest)
+        public async Task<List<PleDTOResponse>> GetPleAll(PLE14100DTORequest pLE14100DTORequest)
         {
             var listResponse = new List<PleDTOResponse>();
             try
             {
                 var parameters = new DynamicParameters();
 
-                parameters.Add("@pSecuenciaCUO", pleDTORequest.SequenceCUO, direction: ParameterDirection.Input);
-                parameters.Add("@pTipoDocumento", pleDTORequest.TipoDocumento, direction: ParameterDirection.Input);
-                parameters.Add("@pFechaEmision", pleDTORequest.FechaEmision, direction: ParameterDirection.Input);
-                parameters.Add("@pSerie", pleDTORequest.Serie, direction: ParameterDirection.Input);
-                parameters.Add("@pNumeroSerie", pleDTORequest.NumeroSerie, direction: ParameterDirection.Input);
-                parameters.Add("@pValorNeto", pleDTORequest.ValorNeto, direction: ParameterDirection.Input);
-                parameters.Add("@pValorIgv", pleDTORequest.ValorIgv, direction: ParameterDirection.Input);
-                parameters.Add("@pValorTotal", pleDTORequest.ValorTotal, direction: ParameterDirection.Input);
-                parameters.Add("@pTipoDocumentoCliente", pleDTORequest.TipoDocumentoCliente, direction: ParameterDirection.Input);
-                parameters.Add("@pNumeroDocumentoCliente", pleDTORequest.NumeroDocumentoCliente, direction: ParameterDirection.Input);
-                parameters.Add("@pNombresDocumentoCliente", pleDTORequest.NombresDocumentoCliente, direction: ParameterDirection.Input);
+                parameters.Add("@pCodigo", pLE14100DTORequest.CODIGO, direction: ParameterDirection.Input);
+                parameters.Add("@pMes", pLE14100DTORequest.MesLista, direction: ParameterDirection.Input);
 
                 var cn = _connectionFactory.GetConnection();
                 var sp = "uspGenerarDataPLE140";
@@ -139,6 +131,82 @@ namespace Fiby.Cloud.Web.Persistence.Implementations
 
             return result;
 
+        }
+
+
+        public async Task<List<PLE14100DTOResponse>> GetPlePLE14100All(PLE14100DTORequest pLE14100DTORequest)
+        {
+            var listResponse = new List<PLE14100DTOResponse>();
+            try
+            {
+                var parameters = new DynamicParameters();
+
+                parameters.Add("@pIdEmpresa", pLE14100DTORequest.IdEmpresa, direction: ParameterDirection.Input);
+                parameters.Add("@pMesLista", pLE14100DTORequest.MesLista, direction: ParameterDirection.Input);
+
+                var cn = _connectionFactory.GetConnection();
+                var sp = "uspPLE14100Lst";
+
+                var result = await cn.ExecuteReaderAsync(
+                             sp,
+                             parameters,
+                             commandTimeout: 0,
+                             commandType: CommandType.StoredProcedure);
+
+                if (result.FieldCount > 0)
+                {
+                    while (result.Read())
+                    {
+                        listResponse.Add(new PLE14100DTOResponse
+                        {
+                            codigo = DataUtility.ObjectToInt(result["CODIGO"]),
+                            periodo = DataUtility.ObjectToString(result["PERIODO"]),
+                            idempresa = DataUtility.ObjectToInt(result["IdEmpresa"]),
+                            cod_unico_oper_cuo = DataUtility.ObjectToString(result["COD_UNICO_OPER_CUO"]),
+                            linea_sec_cuo = DataUtility.ObjectToString(result["LINEA_SEC_CUO"]),
+                            fecha_emision = DataUtility.ObjectToString(result["FECHA_EMISION"]),
+                            fecha_vencimiento = DataUtility.ObjectToString(result["FECHA_VENCIMIENTO"]),
+                            tipo_doc_comprobante = DataUtility.ObjectToString(result["TIPO_DOC_COMPROBANTE"]),
+                            serie = DataUtility.ObjectToString(result["SERIE"]),
+                            numero = DataUtility.ObjectToString(result["NUMERO"]),
+                            num_final_boletas = DataUtility.ObjectToString(result["NUM_FINAL_BOLETAS"]),
+                            tipo_doc_cliente = DataUtility.ObjectToString(result["TIPO_DOC_CLIENTE"]),
+                            numero_doc_cliente = DataUtility.ObjectToString(result["NUMERO_DOC_CLIENTE"]),
+                            nombre_cliente = DataUtility.ObjectToString(result["NOMBRE_CLIENTE"]),
+                            exportacion = DataUtility.ObjectToString(result["EXPORTACION"]),
+                            base_imponible_grav = DataUtility.ObjectToString(result["BASE_IMPONIBLE_GRAV"]),
+                            dcto_base_imponible_grav = DataUtility.ObjectToString(result["DCTO_BASE_IMPONIBLE_GRAV"]),
+                            igv_grav = DataUtility.ObjectToString(result["IGV_GRAV"]),
+                            dcto_igv_grav = DataUtility.ObjectToString(result["DCTO_IGV_GRAV"]),
+                            exonerada_oper = DataUtility.ObjectToString(result["EXONERADA_OPER"]),
+                            inafecta_oper = DataUtility.ObjectToString(result["INAFECTA_OPER"]),
+                            isc = DataUtility.ObjectToString(result["ISC"]),
+                            base_imponible_arroz = DataUtility.ObjectToString(result["BASE_IMPONIBLE_ARROZ"]),
+                            ivap_arroz = DataUtility.ObjectToString(result["IVAP_ARROZ"]),
+                            icpb = DataUtility.ObjectToString(result["ICPB"]),
+                            otros_concepto = DataUtility.ObjectToString(result["OTROS_CONCEPTO"]),
+                            importe_total = DataUtility.ObjectToString(result["IMPORTE_TOTAL"]),
+                            codigo_moneda = DataUtility.ObjectToString(result["CODIGO_MONEDA"]),
+                            tipo_cambio = DataUtility.ObjectToString(result["TIPO_CAMBIO"]),
+                            fecha_doc_ref = DataUtility.ObjectToString(result["FECHA_DOC_REF"]),
+                            tipo_doc_ref = DataUtility.ObjectToString(result["TIPO_DOC_REF"]),
+                            serie_doc_ref = DataUtility.ObjectToString(result["SERIE_DOC_REF"]),
+                            numero_doc_ref = DataUtility.ObjectToString(result["NUMERO_DOC_REF"]),
+                            contrato_empresarial = DataUtility.ObjectToString(result["CONTRATO_EMPRESARIAL"]),
+                            error_tipo_1 = DataUtility.ObjectToString(result["ERROR_TIPO_1"]),
+                            indic_com_can_med_pago = DataUtility.ObjectToString(result["INDIC_COM_CAN_MED_PAGO"]),
+                            estado = DataUtility.ObjectToString(result["ESTADO"])
+                        });
+                    }
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                listResponse = null;
+            }
+            return listResponse;
         }
     }
 }

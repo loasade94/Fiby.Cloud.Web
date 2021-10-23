@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Fiby.Cloud.Web.Client.Extensions;
+using Fiby.Cloud.Web.DTO.Modules.Ple.Response;
 
 namespace Fiby.Cloud.Web.Client.Areas.Sale.Controllers
 {
@@ -31,14 +32,19 @@ namespace Fiby.Cloud.Web.Client.Areas.Sale.Controllers
         }
 
         //[HttpPost]
-        public async Task<FileResult> GetPleAll(PleDTORequest pleDTORequest)
+        public async Task<FileResult> GetPleAll(string mes)
         {
             //pleDTORequest.SequenceCUO = pleDTORequest.Description == null ? string.Empty : pleDTORequest.Description;
 
             TextWriter tw = new StreamWriter(Path.Combine(Path.GetTempPath(), "plantilla.txt"), true);
 
             //var model = await _pleService.GetPleAll(pleDTORequest);
-            var model = await _pleService.GetPleAllNew(pleDTORequest);
+
+            PLE14100DTORequest pLE14100DTORequest = new PLE14100DTORequest();
+            pLE14100DTORequest.CODIGO = 0;
+            pLE14100DTORequest.MesLista = "01/" + mes + "/2021";
+
+            var model = await _pleService.GetPleAllNew(pLE14100DTORequest);
 
             for (int i = 0; i < model.Count; i++)
             {
@@ -77,6 +83,20 @@ namespace Fiby.Cloud.Web.Client.Areas.Sale.Controllers
             }
 
             return resultado;
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> BuscarPle14100DPorMes(PLE14100DTORequest pLE14100DTORequest, int indicadorInicio)
+        {
+            pLE14100DTORequest.IdEmpresa = Int16.Parse(User.Identity.CompanyId());
+
+            if (indicadorInicio == 1)
+            {
+                pLE14100DTORequest.MesLista = DateTime.Now.ToString("dd/MM/yyyy");
+            }
+
+            var model = await _pleService.GetPlePLE14100All(pLE14100DTORequest);
+            return Json(model);
         }
 
 
