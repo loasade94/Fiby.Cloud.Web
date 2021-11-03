@@ -8,6 +8,10 @@
             generatesalejs.DownloadDocument();
         });
 
+        $("#btnGenerarXML").click(function () {
+            generatesalejs.generateXML();
+        });
+
 
         $("#btnGrabar").click(function () {
             generatesalejs.registrarPle14100();
@@ -201,6 +205,50 @@
                     }
                     generatesalejs.intitDataTable();
                 }
+            },
+            error: function (xhr, status, errorThrown) {
+                var err = "Status: " + status + " " + errorThrown;
+                console.log(err);
+                $('#loading').hide();
+            },
+            async: true,
+        })
+    },
+
+    generateXML: function () {
+
+        //var pLE14100DTORequest = {
+        //    TIPO_DOC_COMPROBANTE: $("#cboTypeDocumentSale").val(),
+        //    FECHA_EMISION: $("#txtDateRegisterSale").val(),
+        //    SERIE: $("#txtSerieRegisterSale").val(),
+        //    NUMERO: $("#txtNumberSerieRegisterSale").val(),
+        //    BASE_IMPONIBLE_GRAV: $("#txtNetoProduct").val(),
+        //    IGV_GRAV: $("#txtIGVProduct").val(),
+        //    IMPORTE_TOTAL: $("#txtBrutoProduct").val(),
+        //    TIPO_DOC_CLIENTE: $("#cboTypeDocumentClientSale").val(),
+        //    NUMERO_DOC_CLIENTE: $("#txtNumberDocumentClient").val(),
+        //    NOMBRE_CLIENTE: $("#txtNameCompleteClient").val()
+        //};
+
+        /*        var html = "";*/
+
+        $.ajax({
+            type: "POST",
+            //data:
+            //{
+            //    pLE14100DTORequest
+            //},
+            url: '/Sale/GeneratorSale/GenerarXML',
+            // dataType: "json",
+            beforeSend: function () {
+                $('#loading').show();
+            },
+            complete: function () {
+                $('#loading').hide();
+            },
+            success: function (response, textStatus, jqXhr) {
+
+
             },
             error: function (xhr, status, errorThrown) {
                 var err = "Status: " + status + " " + errorThrown;

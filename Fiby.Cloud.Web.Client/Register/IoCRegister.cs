@@ -1,10 +1,13 @@
 ﻿using Fiby.Cloud.Web.Client.Extensions;
 using Fiby.Cloud.Web.Persistence.Connection;
 using Fiby.Cloud.Web.Persistence.Implementations;
+using Fiby.Cloud.Web.Persistence.Implementations.Sale;
 using Fiby.Cloud.Web.Persistence.Interfaces;
 using Fiby.Cloud.Web.Proxy.Src;
 using Fiby.Cloud.Web.Service.Modules.Data.Implementations;
+using Fiby.Cloud.Web.Service.Modules.Data.Implementations.Sale;
 using Fiby.Cloud.Web.Service.Modules.Data.Interfaces;
+using Fiby.Cloud.Web.Service.Modules.Data.Interfaces.Sale;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -35,6 +38,7 @@ namespace Fiby.Cloud.Web.Client.Register
             services.AddScoped<IRolService, RolService>();
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IPleService, PleService>();
+            services.AddScoped<ISerieService, SerieService>();
 
             return services;
         }
@@ -61,6 +65,7 @@ namespace Fiby.Cloud.Web.Client.Register
         {
             services.AddSingleton<IPleRepository, PleRepository>();
             services.AddSingleton<IUserRepository, UserRepository>();
+            services.AddSingleton<ISerieRepository, SerieRepository>();
             return services;
         }
 

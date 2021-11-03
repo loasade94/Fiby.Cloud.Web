@@ -5,7 +5,7 @@
 
 <div class="card">
     <div class="card-body wizard-content">
-        @*<h4 class="card-title">Gestión de Entradas : </h4>*@
+        @*<h4 class="card-title">Gestión de Salidas : </h4>*@
         <h6 class="card-subtitle"></h6>
         <form id="example-form" action="#" class="mt-5" novalidate="novalidate">
             <div role="application" class="wizard clearfix" id="steps-uid-0">
@@ -24,11 +24,11 @@
                             </a>
                         </li>
                         @*<li role="tab" class="disabled is-hidden" aria-disabled="true"><a id="steps-uid-0-t-2" href="#steps-uid-0-h-2" aria-controls="steps-uid-0-p-2"><span class="number">3.</span> Hints</a></li>
-                        <li role="tab" class="disabled last is-hidden" aria-disabled="true"><a id="steps-uid-0-t-3" href="#steps-uid-0-h-3" aria-controls="steps-uid-0-p-3"><span class="number">4.</span> Finish</a></li>*@
+                            <li role="tab" class="disabled last is-hidden" aria-disabled="true"><a id="steps-uid-0-t-3" href="#steps-uid-0-h-3" aria-controls="steps-uid-0-p-3"><span class="number">4.</span> Finish</a></li>*@
                     </ul>
                 </div>
                 <div class="content clearfix">
-                    <div id="steps-uid-0-p-0" role="tabpanel" class="body" aria-labelledby="steps-uid-0-h-0"  aria-hidden="false">
+                    <div id="steps-uid-0-p-0" role="tabpanel" class="body" aria-labelledby="steps-uid-0-h-0" aria-hidden="false">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="card">
@@ -37,14 +37,14 @@
                                             <div class="row">
                                                 <div class="col-md-2">
                                                     <div class="fiby-md-form">
-                                                        <input type="text" class="fiby-input-text form-control" id="txtFechaInicialEntrada" value="@DateTime.Now.ToString("dd/MM/yyyy")">
-                                                        <label for="txtFechaInicialEntrada" class="fiby-label active">Fecha Inicial</label>
+                                                        <input type="text" class="fiby-input-text form-control" id="txtFechaInicialSalida" value="@DateTime.Now.ToString("dd/MM/yyyy")">
+                                                        <label for="txtFechaInicialSalida" class="fiby-label active">Fecha Inicial</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-2">
                                                     <div class="fiby-md-form">
-                                                        <input type="text" class="fiby-input-text form-control" id="txtFechaFinalEntrada" value="@DateTime.Now.ToString("dd/MM/yyyy")">
-                                                        <label for="txtFechaFinalEntrada" class="fiby-label active">Fecha Final</label>
+                                                        <input type="text" class="fiby-input-text form-control" id="txtFechaFinalSalida" value="@DateTime.Now.ToString("dd/MM/yyyy")">
+                                                        <label for="txtFechaFinalSalida" class="fiby-label active">Fecha Final</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -84,7 +84,7 @@
                                             <div class="row">
                                                 <div class="col-md-2">
                                                     <div class="fiby-md-form">
-                                                        <input type="text" class="fiby-input-text form-control" id="txtNumeroDocumentoAdd" placeholder="Ingresa el dato">
+                                                        <input readonly value="Autogenerado" type="text" class="fiby-input-text form-control" id="txtNumeroDocumentoAdd" placeholder="Ingresa el dato">
                                                         <label for="txtNumeroDocumentoAdd" class="fiby-label active">Nº de Documento <span style="color:red">*</span></label>
                                                     </div>
                                                 </div>
@@ -106,16 +106,16 @@
                                             <div class="row">
                                                 <div class="col-md-2">
                                                     <div class="fiby-md-form">
-                                                        <input type="text" class="fiby-input-text form-control" id="txtDocProveedorEntrada" placeholder="Ingresa el dato">
-                                                        <label for="txtDocProveedorEntrada" class="fiby-label active">Doc. Proveedor</label>
+                                                        <input type="text" class="fiby-input-text form-control" id="txtDocClienteSalida" placeholder="Ingresa el dato">
+                                                        <label for="txtDocClienteSalida" class="fiby-label active">Doc. Cliente</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="row">
                                                         <div class="col-10">
                                                             <div class="fiby-md-form">
-                                                                <input type="text" class="fiby-input-text form-control" id="txtNombreProveedorEntrada">
-                                                                <label for="txtNombreProveedorEntrada" class="fiby-label active">Nombre Proveedor</label>
+                                                                <input type="text" class="fiby-input-text form-control" id="txtNombreClienteSalida">
+                                                                <label for="txtNombreClienteSalida" class="fiby-label active">Nombre Cliente</label>
                                                             </div>
                                                         </div>
                                                         <div class="col-2 dv-fiby-search">
@@ -135,16 +135,16 @@
                                             <div class="row">
                                                 <div class="col-md-2">
                                                     <div class="fiby-md-form">
-                                                        <input type="text" class="fiby-input-text form-control" id="txtCodProdEntrada" placeholder="Ingresa el dato">
-                                                        <label for="txtCodProdEntrada" class="fiby-label active">Codigo Producto</label>
+                                                        <input type="text" class="fiby-input-text form-control" id="txtCodProdSalida" placeholder="Ingresa el dato">
+                                                        <label for="txtCodProdSalida" class="fiby-label active">Codigo Producto</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="row">
                                                         <div class="col-10">
                                                             <div class="fiby-md-form">
-                                                                <input type="text" class="fiby-input-text form-control" id="txtDescProductoEntrada">
-                                                                <label for="txtDescProductoEntrada" class="fiby-label active">Descripción Producto</label>
+                                                                <input type="text" class="fiby-input-text form-control" id="txtDescProductoSalida">
+                                                                <label for="txtDescProductoSalida" class="fiby-label active">Descripción Producto</label>
                                                             </div>
                                                         </div>
                                                         <div class="col-2 dv-fiby-search">
@@ -154,24 +154,24 @@
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="col-md-2">
+                                                @*<div class="col-md-2">
                                                     <div class="fiby-md-form">
-                                                        <input type="text" class="fiby-input-text form-control" id="txtPrecioCompraEntrada" placeholder="Ingresa el dato">
-                                                        <label for="txtPrecioCompraEntrada" class="fiby-label active">Precio Compra</label>
+                                                        <input type="text" class="fiby-input-text form-control" id="txtPrecioCompraSalida" placeholder="Ingresa el dato">
+                                                        <label for="txtPrecioCompraSalida" class="fiby-label active">Precio Compra</label>
                                                     </div>
-                                                </div>
+                                                </div>*@
                                                 <div class="col-md-2">
                                                     <div class="fiby-md-form">
-                                                        <input type="text" class="fiby-input-text form-control" id="txtPrecioVentaEntrada" placeholder="Ingresa el dato">
-                                                        <label for="txtPrecioVentaEntrada" class="fiby-label active">Precio Venta</label>
+                                                        <input readonly type="number" class="fiby-input-text form-control" id="txtStockSalida" placeholder="Ingresa el dato">
+                                                        <label for="txtStockSalida" class="fiby-label active">Stock</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-2">
                                                     <div class="row">
                                                         <div class="col-10">
                                                             <div class="fiby-md-form">
-                                                                <input type="text" class="fiby-input-text form-control" id="txtCantidadEntrada" placeholder="Ingresa el dato">
-                                                                <label for="txtCantidadEntrada" class="fiby-label active">Cantidad</label>
+                                                                <input type="number" class="fiby-input-text form-control" id="txtCantidadSalida" placeholder="Ingresa el dato">
+                                                                <label for="txtCantidadSalida" class="fiby-label active">Cantidad</label>
                                                             </div>
                                                         </div>
                                                         <div class="col-2 dv-fiby-search">
@@ -192,26 +192,26 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="table-responsive">
-                                                    <table id="tbEntradaAgregar" class="table table-striped table-bordered">
-                                                        <thead id="thEntradaAgregarData">
+                                                    <table id="tbSalidaAgregar" class="table table-striped table-bordered">
+                                                        <thead id="thSalidaAgregarData">
                                                             <tr>
                                                                 <th class="text-center">Codigo</th>
                                                                 <th class="text-center">Descripción</th>
-                                                                <th class="text-center">Precio Compra</th>
+                                                                <th class="text-center">Precio Venta</th>
                                                                 <th class="text-center">Cantidad</th>
                                                                 <th class="text-center">Sub Total</th>
                                                             </tr>
                                                         </thead>
-                                                        <tbody id="tbEntradaAgregarData">
+                                                        <tbody id="tbSalidaAgregarData">
                                                         </tbody>
                                                     </table>
                                                 </div>
-                                                <label for="txtNumeroDocumentoEntrada" class="text-right control-label col-form-label" style=""><b>Total : 0.00</b></label>
+                                                <label for="txtNumeroDocumentoSalida" class="text-right control-label col-form-label" style=""><b>Total : 0.00</b></label>
                                             </div>
                                         </div>
                                         <div class="card-body text-center">
                                             <div class="ctn-button">
-                                                <button type="button" id="btnGrabarEntrada" class="btn btn-info btn">Grabar Entrada</button>
+                                                <button type="button" id="btnGrabarSalida" class="btn btn-info btn">Grabar Salida</button>
                                             </div>
                                         </div>
                                     </div>
@@ -224,4 +224,4 @@
         </form>
     </div>
 </div>
-<script type="text/javascript" src="@Url.Content("~/app/areas/almacen/views/entrada/js/index.js")" asp-append-version="true"></script>
+<script type="text/javascript" src="@Url.Content("~/app/areas/almacen/views/salida/js/index.js")" asp-append-version="true"></script>

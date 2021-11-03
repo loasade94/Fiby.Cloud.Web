@@ -1,0 +1,53 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutAdministrator.cshtml";
+}
+
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+            <h4 class="page-title">Mantenimiento de Productos</h4>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Buscar Producto</h4>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="fiby-md-form">
+                                <input type="text" class="fiby-input-text form-control" id="txtDescriptionProductoSearch" placeholder=" ">
+                                <label for="txtDescriptionProductoSearch" class="fiby-label active">Descripción</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="border-top">
+                    <div class="card-body">
+                        <button type="button" id="btnSearchProducto" class="btn btn-dark">Buscar</button>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <button type="button" id="btnNewProducto" class="btn btn-info btn">Nuevo Producto</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Resultados</h5>
+                    <div class="row">
+                        @*<div class="col-md-12">
+                            @Html.Partial("Grid")
+                        </div>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+@*<script type="text/javascript" src="@Url.Content("~/app/areas/maintenance/views/rol/js/index.js")" asp-append-version="true"></script>*@

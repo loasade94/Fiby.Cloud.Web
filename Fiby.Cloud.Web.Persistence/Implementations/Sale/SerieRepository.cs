@@ -31,7 +31,7 @@ namespace Fiby.Cloud.Web.Persistence.Implementations.Sale
                 parameters.Add("pDescripcion", rolDTORequest.Description, direction: ParameterDirection.Input);
 
                 var cn = _connectionFactory.GetConnection();
-                var sp = "usp_ObtenerSeriees";
+                var sp = "usp_ObtenerSeries";
 
                 var result = await cn.ExecuteReaderAsync(
                              sp,
@@ -46,8 +46,7 @@ namespace Fiby.Cloud.Web.Persistence.Implementations.Sale
                         listResponse.Add(new SerieDTOResponse
                         {
                             SerieId = DataUtility.ObjectToInt32(result["IdSerie"]),
-                            Description = DataUtility.ObjectToString(result["Descripcion"]),
-                            Active = DataUtility.ObjectToBool(result["Activo"]),
+                            Description = DataUtility.ObjectToString(result["SERIE"])
                         });
                     }
                 }

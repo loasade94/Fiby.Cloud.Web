@@ -58,10 +58,15 @@
                         </div>
                         <div class="row mb-3">
                             <div class="col-lg-2">
-                                <label for="" class="text-right control-label col-form-label">Serie : </label>
+                                <label for="txtSerieRegisterSale" class="text-right control-label col-form-label">Serie :</label>
                             </div>
                             <div class="col-lg-2">
-                                <input type="text" class="form-control" id="txtSerieRegisterSale" placeholder="Ingrese dato">
+                                <select class="form-select modal-select" id="txtSerieRegisterSale">
+                                    @foreach (var item in ViewBag.listaSerie)
+                                    {
+                                        <option value="@item.SerieId">@item.Description</option>
+                                    }
+                                </select>
                             </div>
                             <div class="col-lg-2">
                                 <label for="" class="text-right control-label col-form-label">Numero Serie : </label>
@@ -172,6 +177,7 @@
     <div class="card">
         <div class="card-body text-center">
             <div class="ctn-button">
+                <button type="button" id="btnGenerarXML" class="btn btn-info btn">Generar XML</button>
                 <button type="button" id="btnBuscar" class="btn btn-info btn">Buscar</button>
                 <button type="button" id="btnLimpiar" class="btn btn-info btn">Limpiar</button>
                 <button type="button" id="btnGrabar" class="btn btn-info btn">Grabar</button>
