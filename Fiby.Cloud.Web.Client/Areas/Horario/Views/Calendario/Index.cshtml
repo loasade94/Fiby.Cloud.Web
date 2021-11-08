@@ -1,0 +1,110 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutAdministrator.cshtml";
+}
+
+<div class="card">
+    <div class="card-body wizard-content">
+        <h4 class="card-title">Programación de Servicios</h4>
+        <h6 class="card-subtitle"></h6>
+        <form id="example-form" action="#" class="mt-5" novalidate="novalidate">
+            <div role="application" class="wizard clearfix" id="steps-uid-0">
+                <div class="content clearfix">
+                    <div id="steps-uid-0-p-0" role="tabpanel" class="body" aria-labelledby="steps-uid-0-h-0" aria-hidden="false">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="col-md-12">
+
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="fiby-md-form">
+                                                        <select class="fiby-input-text" id="cboEmpleado">
+
+                                                            <option value="1" selected>ELSA</option>
+                                                            <option value="2">KATELIN</option>
+
+                                                        </select>
+                                                        <label for="cboEmpleado" class="fiby-label active">Empleado</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="fiby-md-form">
+                                                        <input readonly type="text" class="fiby-input-text form-control" id="txtFecha" placeholder=" ">
+                                                        <label for="txtFecha" class="fiby-label active">Fecha</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="fiby-md-form">
+                                                        <input readonly type="text" class="fiby-input-text form-control" id="txtHoraInicio" placeholder=" ">
+                                                        <label for="txtHoraFin" class="fiby-label active">Hora Inicio</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="fiby-md-form">
+                                                        <input readonly type="text" class="fiby-input-text form-control" id="txtHoraFin" placeholder=" ">
+                                                        <label for="txtHoraFin" class="fiby-label active">Hora Fin</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                    <div class="card-body text-center">
+                                        <div class="ctn-button">
+                                            <button type="button" id="btnBuscar" class="btn btn-info btn">Buscar Servicios por Fecha</button>
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <button type="button" id="btnLimpiar" class="btn btn-info btn">Limpiar</button>
+                                        </div>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Detallado por empleado</h5>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="table-responsive">
+                                                        <table id="tbRolAllMaintenance" class="table table-striped table-bordered">
+                                                            <thead id="thRolAllData">
+                                                                <tr>
+                                                                    <th class="text-center">Acciones</th>
+                                                                    <th class="text-center">Codigo</th>
+                                                                    <th class="text-center">Descripción</th>
+                                                                    <th class="text-center">Activo</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody id="tbRolAllData">
+                                                                @*<tr>
+                                                                    <td>Tiger Nixon</td>
+                                                                    <td>System Architect</td>
+                                                                    <td>Edinburgh</td>
+                                                                </tr>*@
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        @Html.Partial("Calendario")
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript" src="@Url.Content("~/app/areas/horario/views/calendario/js/index.js")" asp-append-version="true"></script>
