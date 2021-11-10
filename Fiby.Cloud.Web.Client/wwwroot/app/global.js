@@ -7,7 +7,7 @@
     html += '<div class="modal-dialog" role="document">';
     html += '<div class="modal-content">';
     html += '<div class="text-center">';
-    html += '<img src="/../../admin-profile/imgadmin/warning.png" style="width: 100px;" />';
+    html += '<img src="../img/confirm.png" style="width: 100px;" />';
     html += '<h4 style="margin-top: 20px; font-weight: 600;">';
     html += message;
     html += '</h4>';
@@ -39,7 +39,7 @@ function ModalConfirm(message, xfunction) {
     html += '<div class="modal-dialog" role="document">';
     html += '<div class="modal-content">';
     html += '<div class="text-center">';
-    html += '<img src="/../../admin-profile/imgadmin/modal.png" style="width: 100px;" />';
+    html += '<img src="../img/question.png" style="width: 100px;" />';
     html += '<h4 style="margin-top: 20px; font-weight: 600;">';
     html += message;
     html += '</h4>';
@@ -97,6 +97,20 @@ function CreatePickaDate(id) {
         format: 'dd/mm/yyyy'
     });
 
+}
+
+function CreatePickaTime(id) {
+    $('#' + id).timepicker({
+        timeFormat: 'HH:mm',
+        template:'modal',
+        interval: 30,
+        minTime: '6',
+        defaultTime: '6',
+        maxTime: '10:00pm',
+        dynamic: false,
+        dropdown: true,
+        scrollbar: true,
+    });
 }
 
 function CreateDataTable(value) {
@@ -205,3 +219,22 @@ function setPostUrl(url, params1, params2, params3) {
     //helperjs.showWait();
     form.submit();
 };
+
+function CurrentDateFormat(value) {
+
+    if (value == null || value == '') {
+        var retorno = '';
+
+        return retorno;
+
+    } else {
+        var from = value.split("/")
+        var f = new Date(from[2], from[1] - 1, from[0]);
+
+        var today = new Date(f);
+
+        return today.toISOString();
+    }
+
+
+}
