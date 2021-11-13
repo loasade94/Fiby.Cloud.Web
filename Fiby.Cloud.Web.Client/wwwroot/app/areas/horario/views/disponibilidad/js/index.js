@@ -35,13 +35,49 @@
 
                             html += '<tr>';
                             html += '    <td style="text-align:center;">' + response[i].horario + '</td>';
-                            html += '    <td style="text-align:center;">' + response[i].lunes + '</td>';
-                            html += '    <td style="text-align:center;">' + response[i].martes + '</td>';
-                            html += '    <td style="text-align:center;">' + response[i].miercoles + '</td>';
-                            html += '    <td style="text-align:center;">' + response[i].jueves + '</td>';
-                            html += '    <td style="text-align:center;">' + response[i].viernes + '</td>';
-                            html += '    <td style="text-align:center;">' + response[i].sabado + '</td>';
-                            html += '    <td style="text-align:center;">' + response[i].domingo + '</td>';
+
+                            if (response[i].lunes == "0") {
+                                html += '<td style="background-color:red;color:white;text-align:center;">Ocupado</td>';
+                            } else {
+                                html += '<td style="background-color:green;color:white;text-align:center;">' + response[i].lunes + '</td>';
+                            }
+
+                            if (response[i].martes == "0") {
+                                html += '<td style="background-color:red;color:white;text-align:center;">Ocupado</td>';
+                            } else {
+                                html += '<td style="background-color:green;color:white;text-align:center;">' + response[i].martes + '</td>';
+                            }
+
+                            if (response[i].miercoles == "0") {
+                                html += '<td style="background-color:red;color:white;text-align:center;">Ocupado</td>';
+                            } else {
+                                html += '<td style="background-color:green;color:white;text-align:center;">' + response[i].miercoles + '</td>';
+                            }
+
+                            if (response[i].jueves == "0") {
+                                html += '<td style="background-color:red;color:white;text-align:center;">Ocupado</td>';
+                            } else {
+                                html += '<td style="background-color:green;color:white;text-align:center;">' + response[i].jueves + '</td>';
+                            }
+
+                            if (response[i].viernes == "0") {
+                                html += '<td style="background-color:red;color:white;text-align:center;">Ocupado</td>';
+                            } else {
+                                html += '<td style="background-color:green;color:white;text-align:center;">' + response[i].viernes + '</td>';
+                            }
+
+                            if (response[i].sabado == "0") {
+                                html += '<td style="background-color:red;color:white;text-align:center;">Ocupado</td>';
+                            } else {
+                                html += '<td style="background-color:green;color:white;text-align:center;">' + response[i].sabado + '</td>';
+                            }
+
+                            if (response[i].domingo == "0") {
+                                html += '<td style="background-color:red;color:white;text-align:center;">Ocupado</td>';
+                            } else {
+                                html += '<td style="background-color:green;color:white;text-align:center;">' + response[i].domingo + '</td>';
+                            }
+
                             html += '</tr>';
 
                         }
