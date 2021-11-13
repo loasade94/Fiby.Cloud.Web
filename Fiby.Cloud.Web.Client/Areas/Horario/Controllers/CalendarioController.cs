@@ -3,6 +3,7 @@ using Fiby.Cloud.Web.DTO.Modules.Horario.Request;
 using Fiby.Cloud.Web.DTO.Modules.Horario.Response;
 using Fiby.Cloud.Web.Service.Interfaces;
 using Fiby.Cloud.Web.Service.Interfaces.Horario;
+using Fiby.Cloud.Web.Util.Utility;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -39,7 +40,8 @@ namespace Fiby.Cloud.Web.Client.Areas.Horario.Controllers
             calendarioDTORequest.UsuarioCreacion = 1;
             try
             {
-                calendarioDTORequest.Fecha = DateTime.Parse(calendarioDTORequest.FechaText);
+                //calendarioDTORequest.Fecha = DateTime.Parse(calendarioDTORequest.FechaText);
+                calendarioDTORequest.Fecha = General.ConvertFormatDateTime(calendarioDTORequest.FechaText);
                 resultado = await _calendarioService.RegistrarServicio(calendarioDTORequest);
             }
             catch (Exception ex)
@@ -53,7 +55,7 @@ namespace Fiby.Cloud.Web.Client.Areas.Horario.Controllers
         [HttpPost]
         public async Task<JsonResult> BuscarServicioXEmpleado(CalendarioDTORequest calendarioDTORequest, int indicadorInicio)
         {
-            calendarioDTORequest.Fecha = DateTime.Parse(calendarioDTORequest.FechaText);
+            calendarioDTORequest.Fecha = General.ConvertFormatDateTime(calendarioDTORequest.FechaText);
             var model = await _calendarioService.GetServicioXEmpleado(calendarioDTORequest);
             return Json(model);
         }
@@ -68,7 +70,7 @@ namespace Fiby.Cloud.Web.Client.Areas.Horario.Controllers
         [HttpPost]
         public async Task<JsonResult> BuscarServicioXEmpleadoTotales(CalendarioDTORequest calendarioDTORequest, int indicadorInicio)
         {
-            calendarioDTORequest.Fecha = DateTime.Parse(calendarioDTORequest.FechaText);
+            calendarioDTORequest.Fecha = General.ConvertFormatDateTime(calendarioDTORequest.FechaText);
             var model = await _calendarioService.GetServicioXEmpleadoTotales(calendarioDTORequest);
             return Json(model);
         }

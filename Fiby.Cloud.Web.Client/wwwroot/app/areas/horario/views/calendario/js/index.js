@@ -10,6 +10,10 @@
             calendariojs.buscarServicio();
         });
 
+        $("#btnLimpiar").click(function () {
+            calendariojs.limpiar();
+        });
+
         //$("#btnNewRol").click(function () {
         //    roljs.openModal();
         //});
@@ -84,6 +88,7 @@
                 if (response == "OK") {
                     ModalAlert('Registrado Correctamente');
                     calendariojs.buscarServicio();
+                    calendariojs.limpiar();
                 }
                 else
                 {
@@ -145,6 +150,7 @@
                             html += '                      data-toggle="tooltip" title="Eliminar">';
                             html += '        </div>';
                             html += '    </td>';
+                            html += '    <td style="text-align:center;">' + response[i].nombreDia + ' ' + response[i].numeroDia + '</td>';
                             html += '    <td style="text-align:center;">' + response[i].clienteOpcional + '</td>';
                             html += '    <td style="text-align:center;">' + response[i].horaInicio + '</td>';
                             html += '    <td style="text-align:center;">' + response[i].horaFin + '</td>';
@@ -396,11 +402,9 @@
     },
 
     limpiar: function () {
-        $('#txtFecha').val('');
-        $('#txtHoraInicio').val('');
-        $('#txtHoraFin').val('');
+        $('#txtHoraInicio').val('06:00');
+        $('#txtHoraFin').val('06:00');
         $('#txtCliente').val('');
-        $('#txtDesServicio').val('');
         $('#txtDesServicio').val('');
 
         calendariojs.buscarServicio();

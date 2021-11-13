@@ -95,7 +95,9 @@ namespace Fiby.Cloud.Web.Persistence.Implementations.Horario
                             HoraFin = DataUtility.ObjectToString(result["HoraFin"]),
                             Descripcion = DataUtility.ObjectToString(result["Descripcion"]),
                             FechaInicio = DataUtility.ObjectToString(result["FechaInicio"]),
-                            FechaFin = DataUtility.ObjectToString(result["FechaFin"])
+                            FechaFin = DataUtility.ObjectToString(result["FechaFin"]),
+                            NombreDia = DataUtility.ObjectToString(result["NombreDia"]),
+                            NumeroDia = DataUtility.ObjectToString(result["NumeroDia"])
                         });
                     }
                 }

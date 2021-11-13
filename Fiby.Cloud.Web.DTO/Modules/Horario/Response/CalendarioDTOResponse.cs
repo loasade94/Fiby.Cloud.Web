@@ -25,6 +25,8 @@ namespace Fiby.Cloud.Web.DTO.Modules.Horario.Response
         public int TotalHorasDia { get; set; }
         public int TotalHoraSemana { get; set; }
         public int TotalHoraMes { get; set; }
+        public string NombreDia { get; set; }
+        public string NumeroDia { get; set; }
 
     }
 }

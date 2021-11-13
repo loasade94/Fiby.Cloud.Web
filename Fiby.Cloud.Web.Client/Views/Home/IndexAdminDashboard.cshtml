@@ -31,19 +31,19 @@
         <!-- Column -->
         <div class="col-md-6 col-lg-2 col-xlg-3">
             <div class="card card-hover">
-                <div class="box bg-cyan text-center">
-                    <h1 class="font-light text-white"><i class="mdi mdi-view-dashboard"></i></h1>
-                    <h6 class="text-white">Dashboard</h6>
-                </div>
+                <a href="@Url.Action("Index", "Calendario", new { Area = "Horario" })" class="box bg-cyan text-center">
+                    <h1 class="font-light text-white"><i class="mdi mdi-calendar-plus"></i></h1>
+                    <h6 class="text-white">Registrar Servicio</h6>
+                </a>
             </div>
         </div>
         <!-- Column -->
         <div class="col-md-6 col-lg-4 col-xlg-3">
             <div class="card card-hover">
-                <div class="box bg-success text-center">
-                    <h1 class="font-light text-white"><i class="mdi mdi-chart-areaspline"></i></h1>
-                    <h6 class="text-white">Charts</h6>
-                </div>
+                <a href="@Url.Action("Index", "Disponibilidad", new { Area = "Horario" })" class="box bg-success text-center">
+                    <h1 class="font-light text-white"><i class="mdi mdi-calendar-search"></i></h1>
+                    <h6 class="text-white">Ver Disponibilidad</h6>
+                </a>
             </div>
         </div>
         <!-- Column -->
