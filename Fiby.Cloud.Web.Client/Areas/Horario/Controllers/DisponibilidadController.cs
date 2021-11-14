@@ -19,8 +19,9 @@ namespace Fiby.Cloud.Web.Client.Areas.Horario.Controllers
             _semanaService = semanaService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            ViewBag.ListaSemana = await _semanaService.GetListaSemana();
             return View();
         }
 

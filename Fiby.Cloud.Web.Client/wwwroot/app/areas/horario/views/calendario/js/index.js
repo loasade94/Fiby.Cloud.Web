@@ -80,9 +80,9 @@
             beforeSend: function () {
                 $('#loading').show();
             },
-            complete: function () {
-                $('#loading').hide();
-            },
+            //complete: function () {
+            //    $('#loading').hide();
+            //},
             success: function (response, textStatus, jqXhr) {
 
                 if (response == "OK") {
@@ -96,7 +96,7 @@
                     calendariojs.buscarServicio();
                 }
 
-                calendariojs.buscarServicio();
+/*                calendariojs.buscarServicio();*/
             },
             error: function (xhr, status, errorThrown) {
                 var err = "Status: " + status + " " + errorThrown;
@@ -287,7 +287,7 @@
                 }
             },
             complete: function () {
-                calendariojs.buscarServicioCalendario();
+                $('#loading').hide();
             },
             error: function (xhr, status, errorThrown) {
                 var err = "Status: " + status + " " + errorThrown;

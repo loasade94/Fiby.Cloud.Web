@@ -28,5 +28,11 @@ namespace Fiby.Cloud.Web.Service.Implementations.Horario
             var response = await _semanaRepository.GetDisponibilidadSemana(semanaDTORequest);
             return response;
         }
+
+        public async Task<List<SemanaDTOResponse>> GetListaSemana()
+        {
+            var response = await _semanaRepository.GetListaSemana();
+            return response;
+        }
     }
 }

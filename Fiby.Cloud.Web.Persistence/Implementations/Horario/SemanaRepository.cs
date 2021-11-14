@@ -66,5 +66,42 @@ namespace Fiby.Cloud.Web.Persistence.Implementations.Horario
             }
             return listResponse;
         }
+
+        public async Task<List<SemanaDTOResponse>> GetListaSemana()
+        {
+            var listResponse = new List<SemanaDTOResponse>();
+            try
+            {
+                var parameters = new DynamicParameters();
+
+                var cn = _connectionFactory.GetConnection();
+                var sp = "uspListarSemana";
+
+                var result = await cn.ExecuteReaderAsync(
+                             sp,
+                             parameters,
+                             commandTimeout: 0,
+                             commandType: CommandType.StoredProcedure);
+
+                if (result.FieldCount > 0)
+                {
+                    while (result.Read())
+                    {
+                        listResponse.Add(new SemanaDTOResponse
+                        {
+                            IdSemana = DataUtility.ObjectToInt(result["IdSemana"]),
+                            NombreSemana = DataUtility.ObjectToString(result["NombreSemana"])
+                        });
+                    }
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                listResponse = null;
+            }
+            return listResponse;
+        }
     }
 }

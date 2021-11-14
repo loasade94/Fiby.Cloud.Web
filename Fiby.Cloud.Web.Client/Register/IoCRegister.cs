@@ -3,15 +3,19 @@ using Fiby.Cloud.Web.Persistence.Connection;
 using Fiby.Cloud.Web.Persistence.Implementations;
 using Fiby.Cloud.Web.Persistence.Implementations.Horario;
 using Fiby.Cloud.Web.Persistence.Implementations.Maintenance;
+using Fiby.Cloud.Web.Persistence.Implementations.Pagos;
 using Fiby.Cloud.Web.Persistence.Implementations.Sale;
 using Fiby.Cloud.Web.Persistence.Interfaces;
 using Fiby.Cloud.Web.Persistence.Interfaces.Horario;
 using Fiby.Cloud.Web.Persistence.Interfaces.Maintenance;
+using Fiby.Cloud.Web.Persistence.Interfaces.Pagos;
 using Fiby.Cloud.Web.Proxy.Src;
 using Fiby.Cloud.Web.Service.Implementations;
 using Fiby.Cloud.Web.Service.Implementations.Horario;
+using Fiby.Cloud.Web.Service.Implementations.Pagos;
 using Fiby.Cloud.Web.Service.Interfaces;
 using Fiby.Cloud.Web.Service.Interfaces.Horario;
+using Fiby.Cloud.Web.Service.Interfaces.Pagos;
 using Fiby.Cloud.Web.Service.Modules.Data.Implementations;
 using Fiby.Cloud.Web.Service.Modules.Data.Implementations.Sale;
 using Fiby.Cloud.Web.Service.Modules.Data.Interfaces;
@@ -50,6 +54,7 @@ namespace Fiby.Cloud.Web.Client.Register
             services.AddScoped<IEmpleadoService, EmpleadoService>();
             services.AddScoped<ICalendarioService, CalendarioService>();
             services.AddScoped<ISemanaService, SemanaService>();
+            services.AddScoped<IPagoEmpleadoService, PagoEmpleadoService>();
 
             return services;
         }
@@ -80,6 +85,7 @@ namespace Fiby.Cloud.Web.Client.Register
             services.AddSingleton<IEmpleadoRepository, EmpleadoRepository>();
             services.AddSingleton<ICalendarioRepository, CalendarioRepository>();
             services.AddSingleton<ISemanaRepository, SemanaRepository>();
+            services.AddSingleton<IPagoEmpleadoRepository, PagoEmpleadoRepository>();
             return services;
         }
 

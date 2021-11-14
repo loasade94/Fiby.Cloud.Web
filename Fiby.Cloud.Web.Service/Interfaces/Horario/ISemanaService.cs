@@ -10,5 +10,6 @@ namespace Fiby.Cloud.Web.Service.Interfaces.Horario
     public interface ISemanaService
     {
         Task<List<SemanaDTOResponse>> GetDisponibilidadSemana(SemanaDTORequest semanaDTORequest);
+        Task<List<SemanaDTOResponse>> GetListaSemana();
     }
 }

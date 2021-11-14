@@ -12,7 +12,7 @@
     buscarDisponibilidad: function () {
 
         var semanaDTORequest = {
-            IdSemana: 1
+            IdSemana: $('#cboSemana').val()
         };
 
         $.ajax({
@@ -22,6 +22,9 @@
                 semanaDTORequest
             },
             url: '/Horario/Disponibilidad/GetDisponibilidadSemana',
+            beforeSend: function () {
+                $('#loading').show();
+            },
             success: function (response, textStatus, jqXhr) {
 
                 if (response != null) {
@@ -88,7 +91,7 @@
                 }
             },
             complete: function () {
-
+                $('#loading').hide();
             },
             error: function (xhr, status, errorThrown) {
                 var err = "Status: " + status + " " + errorThrown;

@@ -5,7 +5,7 @@
 
 <div class="card">
     <div class="card-body wizard-content">
-        <h4 class="card-title">Programación de Servicios</h4>
+        <h4 class="card-title">Disponibilidad de Empleados</h4>
         <h6 class="card-subtitle"></h6>
         <form id="example-form" action="#" class="mt-5" novalidate="novalidate">
             <div role="application" class="wizard clearfix" id="steps-uid-0">
@@ -16,7 +16,20 @@
 
                                 <div class="card">
                                     <div class="card-body">
-                                        <h5 class="card-title">Programaciones de la Semana del Empleado</h5>
+                                        <h5 class="card-title">Filtros</h5>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="fiby-md-form">
+                                                    <select class="fiby-input-text" id="cboSemana">
+                                                        @foreach (var item in ViewBag.ListaSemana)
+                                                        {
+                                                            <option value="@item.IdSemana">@item.NombreSemana</option>
+                                                        }
+                                                    </select>
+                                                    <label for="cboSemana" class="fiby-label active">Semana</label>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="table-responsive">
