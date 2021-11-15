@@ -18,5 +18,7 @@ namespace Fiby.Cloud.Web.DTO.Modules.Pagos.Request
         public int IdEmpleado { get; set; }
         public int IdPagoEmpleado { get; set; }
         public int Estado { get; set; }
+        public decimal Pasaje { get; set; }
+        public string PasajeText { get; set; }
     }
 }

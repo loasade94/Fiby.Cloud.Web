@@ -53,7 +53,8 @@ namespace Fiby.Cloud.Web.Persistence.Implementations.Pagos
                             HoraInicio = DataUtility.ObjectToString(result["HoraInicio"]),
                             HoraFin = DataUtility.ObjectToString(result["HoraFin"]),
                             Horas = DataUtility.ObjectToInt(result["Horas"]),
-                            Pago = DataUtility.ObjectToDecimal(result["Pago"])
+                            Pago = DataUtility.ObjectToDecimal(result["Pago"]),
+                            Pasaje = DataUtility.ObjectToDecimal(result["Pasaje"])
                         });
                     }
                 }
@@ -144,6 +145,42 @@ namespace Fiby.Cloud.Web.Persistence.Implementations.Pagos
                 listResponse = null;
             }
             return listResponse;
+        }
+
+        public async Task<string> ActualizarPasajeXServicio(PagoEmpleadoDTORequest pagoEmpleadoDTORequest)
+        {
+            var parameters = new DynamicParameters();
+            var result = string.Empty;
+            try
+            {
+
+                parameters.Add("@pIdServicio", pagoEmpleadoDTORequest.IdServicio, direction: ParameterDirection.Input);
+                parameters.Add("@pPasaje", pagoEmpleadoDTORequest.Pasaje, direction: ParameterDirection.Input);
+
+                parameters.Add("@pMensajeResultado", string.Empty, direction: ParameterDirection.Output);
+
+                var sp = "uspUdpPasajeXServicio";
+                var cn = _connectionFactory.GetConnection();
+                var rpta = await cn.ExecuteReaderAsync(
+                        sp,
+                        parameters,
+                        commandType: CommandType.StoredProcedure
+                    );
+
+                string err = (parameters.Get<string>("pMensajeResultado") == null ?
+                    string.Empty :
+                    parameters.Get<string>("pMensajeResultado"));
+
+                result = err;
+            }
+            catch (Exception ex)
+            {
+
+                result = ex.Message;
+            }
+
+            return result;
+
         }
     }
 }

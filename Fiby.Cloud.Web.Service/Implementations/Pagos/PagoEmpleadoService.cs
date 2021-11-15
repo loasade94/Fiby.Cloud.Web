@@ -40,5 +40,11 @@ namespace Fiby.Cloud.Web.Service.Implementations.Pagos
             var response = await _pagoEmpleadoRepository.GetPagosXEmpleadoSemanaCab(pagoEmpleadoDTORequest);
             return response;
         }
+
+        public async Task<string> ActualizarPasajeXServicio(PagoEmpleadoDTORequest pagoEmpleadoDTORequest)
+        {
+            var response = await _pagoEmpleadoRepository.ActualizarPasajeXServicio(pagoEmpleadoDTORequest);
+            return response;
+        }
     }
 }

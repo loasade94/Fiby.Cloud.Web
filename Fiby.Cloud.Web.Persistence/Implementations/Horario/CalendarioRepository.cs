@@ -256,7 +256,8 @@ namespace Fiby.Cloud.Web.Persistence.Implementations.Horario
                             ClienteOpcional = DataUtility.ObjectToString(result["ClienteOpcional"]),
                             Descripcion = DataUtility.ObjectToString(result["Descripcion"]),
                             HoraInicio = DataUtility.ObjectToString(result["HoraInicio"]),
-                            HoraFin = DataUtility.ObjectToString(result["HoraFin"])
+                            HoraFin = DataUtility.ObjectToString(result["HoraFin"]),
+                            Pasaje = DataUtility.ObjectToDecimal(result["Pasaje"])
                         };
                     }
                 }
