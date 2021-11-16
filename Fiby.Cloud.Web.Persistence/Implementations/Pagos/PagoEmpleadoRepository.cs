@@ -54,7 +54,9 @@ namespace Fiby.Cloud.Web.Persistence.Implementations.Pagos
                             HoraFin = DataUtility.ObjectToString(result["HoraFin"]),
                             Horas = DataUtility.ObjectToInt(result["Horas"]),
                             Pago = DataUtility.ObjectToDecimal(result["Pago"]),
-                            Pasaje = DataUtility.ObjectToDecimal(result["Pasaje"])
+                            SubTotal = DataUtility.ObjectToDecimal(result["SubTotal"]),
+                            Pasaje = DataUtility.ObjectToDecimal(result["Pasaje"]),
+                            MontoPagoCliente = DataUtility.ObjectToDecimal(result["MontoPagoCliente"])
                         });
                     }
                 }
@@ -133,7 +135,11 @@ namespace Fiby.Cloud.Web.Persistence.Implementations.Pagos
                         {
                             Horas = DataUtility.ObjectToInt(result["HorasTotal"]),
                             Pago = DataUtility.ObjectToDecimal(result["MontoTotal"]),
-                            DescripcionEstado = DataUtility.ObjectToString(result["DescripcionEstado"])
+                            Fecha = DataUtility.ObjectToDateTime(result["FechaRegistro"]),
+                            DescripcionEstado = DataUtility.ObjectToString(result["DescripcionEstado"]),
+                            Nombres = DataUtility.ObjectToString(result["Nombres"]),
+                            ApellidoPaterno = DataUtility.ObjectToString(result["ApellidoPaterno"]),
+                            ApellidoMaterno = DataUtility.ObjectToString(result["ApellidoMaterno"])
                         });
                     }
                 }

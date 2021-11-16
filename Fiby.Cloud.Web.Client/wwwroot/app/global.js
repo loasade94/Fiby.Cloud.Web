@@ -238,3 +238,14 @@ function CurrentDateFormat(value) {
 
 
 }
+
+function formatDateTime(dateStr) {
+    var u = dateStr.substring(0, 10);
+    var t = u.split('-');
+    var monthNames = ["01", "02", "03", "04", "05", "06",
+        "07", "08", "09", "10", "11", "12"];
+    var year = t[0];
+    var month = monthNames[parseInt(t[1]) - 1];
+    var day = t[2];
+    return (day + '/' + month + '/' + year);
+}

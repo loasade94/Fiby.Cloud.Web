@@ -8,5 +8,6 @@ namespace Fiby.Cloud.Web.DTO.Modules.Maintenance.Request
     {
         public int Codigo { get; set; }
         public string Descripcion { get; set; }
+        public string Apellido { get; set; }
     }
 }

@@ -60,6 +60,48 @@ namespace Fiby.Cloud.Web.Persistence.Implementations.Maintenance
             }
             return listResponse;
         }
+        public async Task<List<EmpleadoDTOResponse>> GetEmpleadoApellido(EmpleadoDTORequest empleadoDTORequest)
+        {
+            var listResponse = new List<EmpleadoDTOResponse>();
+            try
+            {
+                var parameters = new DynamicParameters();
+
+                parameters.Add("@pApellidoPaterno", empleadoDTORequest.Apellido, direction: ParameterDirection.Input);
+                //parameters.Add("@pMes", pLE14100DTORequest.MesLista, direction: ParameterDirection.Input);
+
+                var cn = _connectionFactory.GetConnection();
+                var sp = "usplistaTrabajadores";
+
+                var result = await cn.ExecuteReaderAsync(
+                             sp,
+                             parameters,
+                             commandTimeout: 0,
+                             commandType: CommandType.StoredProcedure);
+
+                if (result.FieldCount > 0)
+                {
+                    while (result.Read())
+                    {
+                        listResponse.Add(new EmpleadoDTOResponse
+                        {
+                            Codigo = DataUtility.ObjectToInt32(result["IdEmpleado"]),
+                            Nombre = DataUtility.ObjectToString(result["Nombres"]),
+                         ApellidoPaterno= DataUtility.ObjectToString(result["ApellidoPaterno"]),
+                            ApellidoMaterno = DataUtility.ObjectToString(result["ApellidoMaterno"])
+                        });
+                    }
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                listResponse = null;
+            }
+            return listResponse;
+        }
+
 
     }
 }

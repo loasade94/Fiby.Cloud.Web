@@ -120,6 +120,9 @@
             {
                 calendarioDTORequest
             },
+            beforeSend: function () {
+                $('#loading').show();
+            },
             url: '/Horario/Calendario/BuscarServicioXEmpleado',
             success: function (response, textStatus, jqXhr) {
 

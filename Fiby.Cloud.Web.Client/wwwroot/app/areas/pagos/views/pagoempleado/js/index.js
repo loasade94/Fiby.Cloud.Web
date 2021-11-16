@@ -6,6 +6,10 @@
             pagoempleadojs.buscarPago();
         });
 
+        $("#btnGenerarPDF").click(function () {
+            pagoempleadojs.DownloadDocument();
+        });
+
         $("#btnPagar").click(function () {
             pagoempleadojs.registrarPagoEmpleado();
         });
@@ -40,9 +44,12 @@
 
                             html += '<tr>';
                             html += '    <td style="text-align:center;">' + response[i].horas + '</td>';
-                            html += '    <td style="text-align:center;">' + response[i].pago + '</td>';
+                            html += '    <td style="text-align:center;"> S/. ' + response[i].pago + '</td>';
+                            html += '    <td style="text-align:center;">' + formatDateTime(response[i].fecha) + '</td>';
                             html += '    <td style="text-align:center;">' + response[i].descripcionEstado + '</td>';
                             html += '</tr>';
+
+                            
 
                         }
                         $('#tbPagosXEmpleado tbody').append(html);
@@ -51,9 +58,15 @@
 
                     if (response.length == 0) {
                         html += '<tr>';
-                        html += '    <td colspan="3" style="text-align:center;">NO PAGADO</td>';
+                        html += '    <td colspan="4" style="text-align:center;">NO PAGADO</td>';
                         html += '</tr>';
                         $('#tbPagosXEmpleado tbody').append(html);
+                        $('#btnPagar').removeClass("is-hidden");
+                        $('#btnGenerarPDF').addClass("is-hidden");
+
+                    } else {
+                        $('#btnPagar').addClass("is-hidden");
+                        $('#btnGenerarPDF').removeClass("is-hidden");
                     }
 
                 }
@@ -99,8 +112,9 @@
                                 html += '<tr>';
                                 html += '    <td colspan="5" style="text-align:center;">Totales</td>';
                                 html += '    <td style="text-align:center;">' + response[i].horas + '</td>';
-                                html += '    <td style="text-align:center;">' + response[i].pasaje + '</td>';
-                                html += '    <td style="text-align:center;">' + response[i].pago + '</td>';
+                                html += '    <td style="text-align:center;"> S/. ' + response[i].subTotal + '</td>';
+                                html += '    <td style="text-align:center;"> S/. ' + response[i].pasaje + '</td>';
+                                html += '    <td style="text-align:center;"> S/. ' + response[i].pago + '</td>';
                                 html += '</tr>';
                             } else {
                                 html += '<tr>';
@@ -115,8 +129,9 @@
                                 html += '    <td style="text-align:center;">' + response[i].horaInicio + '</td>';
                                 html += '    <td style="text-align:center;">' + response[i].horaFin + '</td>';
                                 html += '    <td style="text-align:center;">' + response[i].horas + '</td>';
-                                html += '    <td style="text-align:center;">' + response[i].pasaje + '</td>';
-                                html += '    <td style="text-align:center;">' + response[i].pago + '</td>';
+                                html += '    <td style="text-align:center;"> S/. ' + response[i].subTotal + '</td>';
+                                html += '    <td style="text-align:center;"> S/. ' + response[i].pasaje + '</td>';
+                                html += '    <td style="text-align:center;"> S/. ' + response[i].pago + '</td>';
                                 html += '</tr>';
                             }
 
@@ -192,7 +207,7 @@
 
     edit: function (idServicio, option) {
         pagoempleadojs.openModal(idServicio, option);
-        $('html, body').animate({ scrollTop: 0 }, 'slow');
+        /*$('html, body').animate({ scrollTop: 0 }, 'slow');*/
     },
 
     openModal: function (idServicio, option) {
@@ -259,6 +274,35 @@
         })
     },
 
+    DownloadDocument: function (en) {
+
+        var IdEmpleado = $('#cboEmpleado').val();
+        var IdSemana = $('#cboSemana').val();
+
+        var form = document.createElement("FORM");
+
+        var idEmpleadoValue = document.createElement("INPUT");
+        idEmpleadoValue.type = "text";
+        idEmpleadoValue.value = IdEmpleado;
+        idEmpleadoValue.name = "idEmpleado";
+        idEmpleadoValue.id = "idEmpleado";
+
+        var idSemanaValue = document.createElement("INPUT");
+        idSemanaValue.type = "text";
+        idSemanaValue.value = IdSemana;
+        idSemanaValue.name = "idSemana";
+        idSemanaValue.id = "idSemana";
+
+
+        form.style.display = "none";
+        form.appendChild(idEmpleadoValue);
+        form.appendChild(idSemanaValue);
+        form.action = "/Pagos/PagoEmpleado/GenerarBoletaPagoPDF";
+        form.method = 'POST';
+        document.body.appendChild(form);
+        form.submit();
+
+    },
 }
 
 $(function () {

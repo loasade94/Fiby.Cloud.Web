@@ -16,5 +16,11 @@ namespace Fiby.Cloud.Web.DTO.Modules.Pagos.Response
         public decimal Pago { get; set; }
         public string DescripcionEstado { get; set; }
         public decimal Pasaje { get; set; }
+        public decimal MontoPagoCliente { get; set; }
+        public decimal SubTotal { get; set; }
+        public DateTime? Fecha { get; set; }
+        public string Nombres { get; set; }
+        public string ApellidoPaterno { get; set; }
+        public string ApellidoMaterno { get; set; }
     }
 }

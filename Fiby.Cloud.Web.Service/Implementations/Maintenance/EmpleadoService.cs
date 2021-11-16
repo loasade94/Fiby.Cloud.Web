@@ -28,5 +28,10 @@ namespace Fiby.Cloud.Web.Service.Implementations
             var response = await _empleadoRepository.GetEmpleadoAll();
             return response;
         }
+        //public async Task<List<EmpleadoDTOResponse>> GetEmpleadoAll()
+        //{
+        //    var response = await _empleadoRepository.GetEmpleadoApellido;
+        //    return response;
+        //}
     }
 }

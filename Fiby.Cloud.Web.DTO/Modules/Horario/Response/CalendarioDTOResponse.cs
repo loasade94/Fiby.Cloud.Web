@@ -28,6 +28,7 @@ namespace Fiby.Cloud.Web.DTO.Modules.Horario.Response
         public string NombreDia { get; set; }
         public string NumeroDia { get; set; }
         public decimal Pasaje { get; set; }
+        public decimal MontoPagoCliente { get; set; }
 
     }
 }
