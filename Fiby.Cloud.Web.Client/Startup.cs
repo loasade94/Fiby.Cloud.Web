@@ -28,8 +28,14 @@ namespace Fiby.Cloud.Web.Client
             services.AddControllersWithViews();
             Register.IoCRegister.AddRegistration(services);
 
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
+
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-            .AddCookie(o =>
+            .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme,o =>
             {
                 o.Cookie.Name = "_auth";
                 o.LoginPath = new PathString("/Account/Login");
@@ -64,7 +70,46 @@ namespace Fiby.Cloud.Web.Client
                 }
             });
 
+            app.Use(async (context, next) =>
+            {
+                try
+                {
+                    context.Response.GetTypedHeaders().CacheControl =
+                     new Microsoft.Net.Http.Headers.CacheControlHeaderValue()
+                     {
+                         Public = true,
+                         MaxAge = TimeSpan.FromMinutes(60),
+                         NoStore = true
+                     };
+                    await next();
+                    //logger.LogInformation($"   context.Response.StatusCode: {context.Response.StatusCode} - context.Request.Host.Value {context.Request.Host.Value} - context.Request.Method: {context.Request.Method} - context.Request.Protocol: {context.Request.Protocol} - context.Request.Path.Value: {context.Request.Path.Value} - context.Request.RouteValues [action]: {context.Request.RouteValues["action"]} - context.Request.RouteValues [controller]: {context.Request.RouteValues["controller"]}");
+
+                    if (context.Response.StatusCode != 200)
+                    {
+                        if (context.Response.StatusCode == 404 || context.Response.StatusCode == 500)
+                        {
+                            context.Request.Path = "/Home/Error";
+
+                            //logger.LogInformation($"ERROR  context.Response.StatusCode: {context.Response.StatusCode} - context.Request.Host.Value {context.Request.Host.Value} - context.Request.Method: {context.Request.Method} - context.Request.Protocol: {context.Request.Protocol} - context.Request.Path.Value: {context.Request.Path.Value} - context.Request.RouteValues [action]: {context.Request.RouteValues["action"]} - context.Request.RouteValues [controller]: {context.Request.RouteValues["controller"]}");
+                            await next();
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    //logger.LogInformation($"   context: {ex.Message}");
+                }
+            });
+
+            app.UseStaticFiles();
             app.UseRouting();
+
+            app.UseCors
+           (builder =>
+           {
+               builder.SetIsOriginAllowed(_ => true)
+               .AllowAnyHeader().AllowAnyMethod().AllowCredentials();
+           });
 
             app.UseAuthorization();
             app.UseAuthentication();

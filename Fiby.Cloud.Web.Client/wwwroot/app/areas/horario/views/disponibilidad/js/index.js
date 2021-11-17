@@ -2,11 +2,64 @@
 
     initializeEvent: function () {
 
-        //$("#btnBuscar").click(function () {
-        //    calendariojs.buscarServicio();
-        //});
+        $('#cboSemana').change(function () {
+            disponibilidadjs.buscarCabeceras();
+        });
 
-        disponibilidadjs.buscarDisponibilidad();
+        disponibilidadjs.buscarCabeceras();
+    },
+
+    buscarCabeceras: function () {
+
+        var semanaDTORequest = {
+            IdSemana: $('#cboSemana').val()
+        };
+
+        $.ajax({
+            type: "POST",
+            data:
+            {
+                semanaDTORequest
+            },
+            url: '/Horario/Disponibilidad/GetListaDiasXSemana',
+            beforeSend: function () {
+                $('#loading').show();
+            },
+            success: function (response, textStatus, jqXhr) {
+
+                if (response != null) {
+                    $("#tbDisponibilidadSemana > thead").html("");
+
+                    if (response.length > 0) {
+
+                        var html = "";
+
+                        html += '<tr>';
+
+                        for (var i = 0; i < response.length; i++) {
+
+                            //html += '    <td style="text-align:center;"><b>' + response[i].horario + '</b></td>';
+                            html += '<th style="cursor:pointer;" onclick="disponibilidadjs.agregar_servicio(\'' + response[i].fecha + '\');" class="text-center"><b>' + response[i].dia + '</b></th>';
+                            
+                        }
+
+                        html += '</tr>';
+                        $('#tbDisponibilidadSemana thead').append(html);
+
+                    }
+
+                }
+            },
+            complete: function () {
+                disponibilidadjs.buscarDisponibilidad();
+            },
+            error: function (xhr, status, errorThrown) {
+                var err = "Status: " + status + " " + errorThrown;
+                console.log(err);
+                $('#loading').hide();
+            },
+            async: true,
+        })
     },
     
     buscarDisponibilidad: function () {
@@ -22,9 +75,9 @@
                 semanaDTORequest
             },
             url: '/Horario/Disponibilidad/GetDisponibilidadSemana',
-            beforeSend: function () {
-                $('#loading').show();
-            },
+            //beforeSend: function () {
+            //    $('#loading').show();
+            //},
             success: function (response, textStatus, jqXhr) {
 
                 if (response != null) {
@@ -37,48 +90,48 @@
                         for (var i = 0; i < response.length; i++) {
 
                             html += '<tr>';
-                            html += '    <td style="text-align:center;">' + response[i].horario + '</td>';
+                            html += '    <td style="text-align:center;"><b>' + response[i].horario + '</b></td>';
 
                             if (response[i].lunes == "0") {
                                 html += '<td style="background-color:red;color:white;text-align:center;">Ocupado</td>';
                             } else {
-                                html += '<td style="background-color:green;color:white;text-align:center;">' + response[i].lunes + '</td>';
+                                html += '<td style="background-color:white;text-align:center;">' + response[i].lunes + '</td>';
                             }
 
                             if (response[i].martes == "0") {
                                 html += '<td style="background-color:red;color:white;text-align:center;">Ocupado</td>';
                             } else {
-                                html += '<td style="background-color:green;color:white;text-align:center;">' + response[i].martes + '</td>';
+                                html += '<td style="background-color:white;text-align:center;">' + response[i].martes + '</td>';
                             }
 
                             if (response[i].miercoles == "0") {
                                 html += '<td style="background-color:red;color:white;text-align:center;">Ocupado</td>';
                             } else {
-                                html += '<td style="background-color:green;color:white;text-align:center;">' + response[i].miercoles + '</td>';
+                                html += '<td style="background-color:white;text-align:center;">' + response[i].miercoles + '</td>';
                             }
 
                             if (response[i].jueves == "0") {
                                 html += '<td style="background-color:red;color:white;text-align:center;">Ocupado</td>';
                             } else {
-                                html += '<td style="background-color:green;color:white;text-align:center;">' + response[i].jueves + '</td>';
+                                html += '<td style="background-color:white;text-align:center;">' + response[i].jueves + '</td>';
                             }
 
                             if (response[i].viernes == "0") {
                                 html += '<td style="background-color:red;color:white;text-align:center;">Ocupado</td>';
                             } else {
-                                html += '<td style="background-color:green;color:white;text-align:center;">' + response[i].viernes + '</td>';
+                                html += '<td style="background-color:white;text-align:center;">' + response[i].viernes + '</td>';
                             }
 
                             if (response[i].sabado == "0") {
                                 html += '<td style="background-color:red;color:white;text-align:center;">Ocupado</td>';
                             } else {
-                                html += '<td style="background-color:green;color:white;text-align:center;">' + response[i].sabado + '</td>';
+                                html += '<td style="background-color:white;text-align:center;">' + response[i].sabado + '</td>';
                             }
 
                             if (response[i].domingo == "0") {
                                 html += '<td style="background-color:red;color:white;text-align:center;">Ocupado</td>';
                             } else {
-                                html += '<td style="background-color:green;color:white;text-align:center;">' + response[i].domingo + '</td>';
+                                html += '<td style="background-color:white;text-align:center;">' + response[i].domingo + '</td>';
                             }
 
                             html += '</tr>';
@@ -100,6 +153,21 @@
             },
             async: true,
         })
+    },
+
+    agregar_servicio: function (fecha) {
+        disponibilidadjs.openModal(fecha);
+        //$('html, body').animate({ scrollTop: 0 }, 'slow');
+    },
+
+    openModal: function (fecha) {
+        var url = '/Horario/Disponibilidad/AgregarServicio';
+        $.get(url, {
+            fecha: fecha
+        }, function (data) {
+            createModal(data);
+            CreatePickaDate('txtFechaAdd');
+        });
     },
 
 }

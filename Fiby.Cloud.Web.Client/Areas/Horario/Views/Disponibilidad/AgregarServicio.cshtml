@@ -1,0 +1,78 @@
+﻿
+@{ Layout = null; }
+<div class="modal-content">
+    <div class="text-center">
+        <div class="modal-header center-block">
+            <h4 class="modal-title text-center" id="modal-step-title">
+                <strong>@ViewBag.titleModal</strong>
+            </h4>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="fiby-md-form">
+                    <select class="fiby-input-text" id="cboEmpleado">
+                        @foreach (var item in ViewBag.ListaEmpleados)
+                        {
+                            <option value="@item.Codigo">@item.Descripcion</option>
+                        }
+                    </select>
+                    <label for="cboEmpleado" class="fiby-label active">Empleado</label>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="fiby-md-form">
+                    <input readonly type="text" value="@ViewBag.Fecha" class="fiby-input-text form-control" id="txtFechaAdd" placeholder=" ">
+                    <label for="txtFechaAdd" class="fiby-label active">Día</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="fiby-md-form">
+                    <select class="fiby-input-text" id="cboHoraInicio">
+                        @foreach (var item in ViewBag.ListaHorario)
+                        {
+                            <option value="@item.Horario">@item.Horario</option>
+                        }
+                    </select>
+                    <label for="cboHoraInicio" class="fiby-label active">Hora Inicio</label>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="fiby-md-form">
+                    <select class="fiby-input-text" id="cboHoraFin">
+                        @foreach (var item in ViewBag.ListaHorario)
+                        {
+                            <option value="@item.Horario">@item.Horario</option>
+                        }
+                    </select>
+                    <label for="cboHoraFin" class="fiby-label active">Hora Fin</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="fiby-md-form">
+                    <input readonly type="text" class="fiby-input-text form-control" id="txtCliente" placeholder=" ">
+                    <label for="txtCliente" class="fiby-label active">Cliente</label>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="fiby-md-form">
+                    <input readonly type="text" class="fiby-input-text form-control" id="txtDetalle" placeholder=" ">
+                    <label for="txtDetalle" class="fiby-label active">Detalle</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="align-self-center d-flex modal-buttons-div">
+        <button type="button" class="btn btn-info btn modal-btn-save" id="btnActualizarPasaje" onclick="pagoclientejs.actualizarPagoCliente();">
+            REGISTRAR SERVICIO
+        </button>
+        <button type="button" class="btn btn-info btn" data-dismiss="modal">
+            CERRAR
+        </button>
+    </div>
+
+</div>

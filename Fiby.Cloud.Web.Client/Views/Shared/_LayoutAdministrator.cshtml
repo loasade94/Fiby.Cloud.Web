@@ -1,11 +1,11 @@
 ﻿@using Newtonsoft.Json;
 @using Fiby.Cloud.Web.DTO.Modules.User.Response;
 @using Fiby.Cloud.Web.Client.Extensions;
-@{
+@*@{
     var DataListOpcionAdmin = TempData.Count > 0 ?
         JsonConvert.DeserializeObject<UserDTOResponse>(TempData["UserOptions"].ToString()) :
         User.Identity.ListAplicationAdmin();
-}
+}*@
 
 <!DOCTYPE html>
 <html lang="en">
@@ -20,7 +20,7 @@
     <meta name="description"
           content="Matrix Admin Lite Free Version is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
     <meta name="robots" content="noindex,nofollow">
-    <title>Matrix Admin Lite Free Versions Template by WrapPixel</title>
+    <title>Sistema Fiby</title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="~/cssadmin/assets/images/favicon.png">
     <!-- Custom CSS -->
@@ -271,7 +271,7 @@
                                 <i class="mdi mdi-view-dashboard"></i><span class="hide-menu">Dashboard</span>
                             </a>
                         </li>
-                        @for (int i = 0; i < DataListOpcionAdmin.oListMenu.Count; i++)
+                        @*@for (int i = 0; i < DataListOpcionAdmin.oListMenu.Count; i++)
                         {
 
                             <li class="sidebar-item">
@@ -285,9 +285,7 @@
                                     {
                                         @if (DataListOpcionAdmin.oListSubMenu[j].IdMenu == DataListOpcionAdmin.oListMenu[i].MenuId)
                                         {
-                                            //var taskUrl = Url.Action(DataListOpcionAdmin.oListSubMenu[j].Action, DataListOpcionAdmin.oListSubMenu[j].Controlator, new { Area = DataListOpcionAdmin.oListSubMenu[j].Area });
                                             <li class="sidebar-item">
-                                                @*<input id="txtUrlWebActionLinkRender_@i" type="hidden" value="@taskUrl" />*@
                                                 <a href="@Url.Action(DataListOpcionAdmin.oListSubMenu[j].Action, DataListOpcionAdmin.oListSubMenu[j].Controlator, new { Area = DataListOpcionAdmin.oListSubMenu[j].Area })" class="sidebar-link">
                                                     <i class="mdi mdi-note-outline"></i><span class="hide-menu">
                                                         @DataListOpcionAdmin.oListSubMenu[j].Name
@@ -299,7 +297,7 @@
                                 </ul>
 
                             </li>
-                        }
+                        }*@
 
 
                     </ul>

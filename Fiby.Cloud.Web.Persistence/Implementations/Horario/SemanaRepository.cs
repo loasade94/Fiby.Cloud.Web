@@ -103,5 +103,82 @@ namespace Fiby.Cloud.Web.Persistence.Implementations.Horario
             }
             return listResponse;
         }
+
+        public async Task<List<SemanaDTOResponse>> GetListaDiasXSemana(SemanaDTORequest semanaDTORequest)
+        {
+            var listResponse = new List<SemanaDTOResponse>();
+            try
+            {
+                var parameters = new DynamicParameters();
+
+                parameters.Add("@pIdSemana", semanaDTORequest.IdSemana, direction: ParameterDirection.Input);
+
+                var cn = _connectionFactory.GetConnection();
+                var sp = "uspListarDiasPorSemana";
+
+                var result = await cn.ExecuteReaderAsync(
+                             sp,
+                             parameters,
+                             commandTimeout: 0,
+                             commandType: CommandType.StoredProcedure);
+
+                if (result.FieldCount > 0)
+                {
+                    while (result.Read())
+                    {
+                        listResponse.Add(new SemanaDTOResponse
+                        {
+                            Dia = DataUtility.ObjectToString(result["NombreDia"]),
+                            Fecha = DataUtility.ObjectToDateTime(result["Fecha"])
+                        });
+                    }
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                listResponse = null;
+            }
+            return listResponse;
+        }
+
+        public async Task<List<SemanaDTOResponse>> GetListaHorario()
+        {
+            var listResponse = new List<SemanaDTOResponse>();
+            try
+            {
+                var parameters = new DynamicParameters();
+
+                //parameters.Add("@pIdSemana", semanaDTORequest.IdSemana, direction: ParameterDirection.Input);
+
+                var cn = _connectionFactory.GetConnection();
+                var sp = "ListaHoras";
+
+                var result = await cn.ExecuteReaderAsync(
+                             sp,
+                             parameters,
+                             commandTimeout: 0,
+                             commandType: CommandType.StoredProcedure);
+
+                if (result.FieldCount > 0)
+                {
+                    while (result.Read())
+                    {
+                        listResponse.Add(new SemanaDTOResponse
+                        {
+                            Horario = DataUtility.ObjectToString(result["Hora"])
+                        });
+                    }
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                listResponse = null;
+            }
+            return listResponse;
+        }
     }
 }

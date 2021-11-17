@@ -16,5 +16,7 @@ namespace Fiby.Cloud.Web.DTO.Modules.Horario.Response
         public string Sabado { get; set; }
         public string Domingo { get; set; }
         public string NombreSemana { get; set; }
+        public string Dia { get; set; }
+        public DateTime? Fecha { get; set; }
     }
 }

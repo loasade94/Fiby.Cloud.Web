@@ -34,5 +34,17 @@ namespace Fiby.Cloud.Web.Service.Implementations.Horario
             var response = await _semanaRepository.GetListaSemana();
             return response;
         }
+
+        public async Task<List<SemanaDTOResponse>> GetListaDiasXSemana(SemanaDTORequest semanaDTORequest)
+        {
+            var response = await _semanaRepository.GetListaDiasXSemana(semanaDTORequest);
+            return response;
+        }
+
+        public async Task<List<SemanaDTOResponse>> GetListaHorario()
+        {
+            var response = await _semanaRepository.GetListaHorario();
+            return response;
+        }
     }
 }

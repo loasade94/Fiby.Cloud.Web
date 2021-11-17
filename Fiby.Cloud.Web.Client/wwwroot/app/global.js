@@ -249,3 +249,58 @@ function formatDateTime(dateStr) {
     var day = t[2];
     return (day + '/' + month + '/' + year);
 }
+
+
+var timeOut = 1440;
+var seconds = 0;
+var minute = timeOut;
+var zeromin = '';
+var zeroseg = '';
+var x;
+
+function start_cuntdown() {
+    seconds = 0;
+    minute = timeOut;
+    zeromin = '';
+    zeroseg = '';
+    clearInterval(x);
+    x = setInterval(function () {
+        start_from_Zero(minute, seconds);
+        seconds = seconds % 60;
+        //console.log(zeromin + minute + "m " + zeroseg + seconds + "s ");
+
+        if (minute === 0 && seconds === 0) {
+            console.log("Tiempo expirado");
+            window.location.href = '/Account/Logout';
+            clearTimeOut(x);
+        }
+        if (seconds == 0) {
+            minute--;
+            seconds += 60;
+        }
+        seconds--;
+
+    }, 1000);
+
+}
+
+function start_from_Zero(minute, seconds) {
+    if (minute < 10) {
+        zeromin = '0';
+
+    }
+    if (seconds < 10) {
+        zeroseg = '0';
+
+    } else {
+        zeroseg = '';
+    }
+    return zeroseg; return zeromin;
+}
+
+$(document).ready(function () {
+    start_cuntdown();
+    $('body').mousemove(function () {
+        start_cuntdown();
+    });
+});
