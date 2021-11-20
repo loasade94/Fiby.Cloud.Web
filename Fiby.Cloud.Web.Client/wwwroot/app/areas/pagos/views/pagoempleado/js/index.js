@@ -14,6 +14,11 @@
             pagoempleadojs.registrarPagoEmpleado();
         });
 
+        $('#cboEmpleado').change(function () {
+            pagoempleadojs.buscarPago();
+            //calendariojs.limpiar();
+        });
+
         
     },
 

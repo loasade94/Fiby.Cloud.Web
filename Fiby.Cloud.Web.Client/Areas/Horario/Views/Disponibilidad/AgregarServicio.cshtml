@@ -21,7 +21,7 @@
             </div>
             <div class="col-md-6">
                 <div class="fiby-md-form">
-                    <input readonly type="text" value="@ViewBag.Fecha" class="fiby-input-text form-control" id="txtFechaAdd" placeholder=" ">
+                    <input type="text" value="@ViewBag.Fecha" class="fiby-input-text form-control" id="txtFechaAdd" placeholder=" ">
                     <label for="txtFechaAdd" class="fiby-label active">Día</label>
                 </div>
             </div>
@@ -53,13 +53,13 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="fiby-md-form">
-                    <input readonly type="text" class="fiby-input-text form-control" id="txtCliente" placeholder=" ">
+                    <input type="text" class="fiby-input-text form-control" id="txtCliente" placeholder=" ">
                     <label for="txtCliente" class="fiby-label active">Cliente</label>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="fiby-md-form">
-                    <input readonly type="text" class="fiby-input-text form-control" id="txtDetalle" placeholder=" ">
+                    <input type="text" class="fiby-input-text form-control" id="txtDetalle" placeholder=" ">
                     <label for="txtDetalle" class="fiby-label active">Detalle</label>
                 </div>
             </div>
@@ -67,7 +67,7 @@
     </div>
 
     <div class="align-self-center d-flex modal-buttons-div">
-        <button type="button" class="btn btn-info btn modal-btn-save" id="btnActualizarPasaje" onclick="pagoclientejs.actualizarPagoCliente();">
+        <button type="button" class="btn btn-info btn modal-btn-save" id="btnActualizarPasaje" onclick="disponibilidadjs.registrarServicio();">
             REGISTRAR SERVICIO
         </button>
         <button type="button" class="btn btn-info btn" data-dismiss="modal">

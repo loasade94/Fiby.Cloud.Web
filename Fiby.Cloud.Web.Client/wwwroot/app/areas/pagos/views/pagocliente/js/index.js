@@ -6,6 +6,11 @@
             pagoclientejs.buscarDetallePagoCliente();
         });
 
+        $('#cboEmpleado').change(function () {
+            pagoclientejs.buscarDetallePagoCliente();
+            //calendariojs.limpiar();
+        });
+
     },
 
     buscarDetallePagoCliente: function () {

@@ -24,6 +24,11 @@
         CreatePickaTime('txtHoraInicio');
         CreatePickaTime('txtHoraFin');
 
+        $('#cboEmpleado').change(function () {
+            calendariojs.buscarServicio();
+            //calendariojs.limpiar();
+        });
+
     },
 
     edit: function (idServicio, option) {
@@ -48,7 +53,7 @@
         var cliente = $("#txtCliente").val();
 
         if (cliente == null || cliente == '') {
-            ModalAlert('Debe Ingresar un Cliente');
+            ModalAlertCancel('Debe Ingresar un Cliente');
             return;
         }
 
@@ -92,7 +97,7 @@
                 }
                 else
                 {
-                    ModalAlert('Error al registrar : ' + response);
+                    ModalAlertCancel('Error al registrar : ' + response);
                     calendariojs.buscarServicio();
                 }
 

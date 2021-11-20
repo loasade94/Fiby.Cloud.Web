@@ -39,7 +39,7 @@
                         for (var i = 0; i < response.length; i++) {
 
                             //html += '    <td style="text-align:center;"><b>' + response[i].horario + '</b></td>';
-                            html += '<th style="cursor:pointer;" onclick="disponibilidadjs.agregar_servicio(\'' + response[i].fecha + '\');" class="text-center"><b>' + response[i].dia + '</b></th>';
+                            html += '<th style="cursor:pointer;" onclick="disponibilidadjs.agregar_servicio(\'' + formatDateTime(response[i].fecha) + '\');" class="text-center"><b>' + response[i].dia + '</b></th>';
                             
                         }
 
@@ -168,6 +168,69 @@
             createModal(data);
             CreatePickaDate('txtFechaAdd');
         });
+    },
+
+    registrarServicio: function (obj) {
+        var cliente = $("#txtCliente").val();
+
+        if (cliente == null || cliente == '') {
+            ModalAlert('Debe Ingresar un Cliente');
+            return;
+        }
+
+
+        ModalConfirm('¿Seguro que desea registrar?', 'disponibilidadjs.registrarServicio_callback();');
+    },
+
+    registrarServicio_callback: function () {
+
+        var calendarioDTORequest = {
+            IdEmpleado: $("#cboEmpleado").val(),
+            ClienteOpcional: $("#txtCliente").val(),
+            Descripcion: $("#txtDetalle").val(),
+            FechaText: $("#txtFechaAdd").val(),
+            HoraInicio: $("#cboHoraInicio").val(),
+            HoraFin: $("#cboHoraFin").val()
+        };
+
+        /*        var html = "";*/
+
+        $.ajax({
+            type: "POST",
+            data:
+            {
+                calendarioDTORequest
+            },
+            url: '/Horario/Calendario/RegistrarServicio',
+            // dataType: "json",
+            beforeSend: function () {
+                $('#loading').show();
+            },
+            //complete: function () {
+            //    $('#loading').hide();
+            //},
+            success: function (response, textStatus, jqXhr) {
+
+                if (response == "OK") {
+                    ModalAlert('Registrado Correctamente');
+                    $('#modal-register').modal('hide');
+                    disponibilidadjs.buscarCabeceras();
+                }
+                else {
+                    ModalAlert('Error al registrar : ' + response);
+                    $('#modal-register').modal('hide');
+                    disponibilidadjs.buscarCabeceras();
+                }
+
+                /*                calendariojs.buscarServicio();*/
+            },
+            error: function (xhr, status, errorThrown) {
+                var err = "Status: " + status + " " + errorThrown;
+                console.log(err);
+                $('#loading').hide();
+            },
+            async: true,
+        })
     },
 
 }

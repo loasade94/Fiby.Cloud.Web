@@ -1,0 +1,63 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutAdministrator.cshtml";
+}
+<link href="~/app/areas/horario/views/disponibilidad/css/index.css" rel="stylesheet">
+
+<div class="card">
+    <div class="card-body wizard-content">
+        <h4 class="card-title">Disponibilidad de Empleados</h4>
+        <h6 class="card-subtitle"></h6>
+        <form id="example-form" action="#" class="mt-5" novalidate="novalidate">
+            <div role="application" class="wizard clearfix" id="steps-uid-0">
+                <div class="content clearfix">
+                    <div id="steps-uid-0-p-0" role="tabpanel" class="body" aria-labelledby="steps-uid-0-h-0" aria-hidden="false">
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Filtros</h5>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="fiby-md-form">
+                                                    <input readonly type="text" class="fiby-input-text form-control" id="txtApellidoPaterno" placeholder=" ">
+                                                    <label for="txtApellidoPaterno" class="fiby-label active">Apellido Paterno</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="table-responsive">
+                                                    <table id="tbDisponibilidadSemana" class="table table-bordered">
+                                                        <thead id="thDisponibilidadSemana">
+                                                            @*<tr>
+                                                                    <th class="text-center"><b>Hora</b></th>
+                                                                    <th class="text-center"><b>Lunes</b></th>
+                                                                    <th class="text-center"><b>Martes</b></th>
+                                                                    <th class="text-center"><b>Miercoles</b></th>
+                                                                    <th class="text-center"><b>Jueves</b></th>
+                                                                    <th class="text-center"><b>Viernes</b></th>
+                                                                    <th class="text-center"><b>Sabado</b></th>
+                                                                    <th class="text-center"><b>Domingo</b></th>
+                                                                </tr>*@
+                                                        </thead>
+                                                        <tbody id="tbDisponibilidadSemana">
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@*<script type="text/javascript" src="@Url.Content("~/app/areas/horario/views/disponibilidad/js/index.js")" asp-append-version="true"></script>*@

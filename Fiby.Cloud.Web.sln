@@ -25,7 +25,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fiby.Cloud.Web.Util", "Fiby
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03-persistence", "03-persistence", "{80AF12EB-1882-4BBF-B61B-09E4F1A447CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fiby.Cloud.Web.Persistence", "Fiby.Cloud.Web.Persistence\Fiby.Cloud.Web.Persistence.csproj", "{EBD0748F-7C43-405C-8E09-556285939363}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fiby.Cloud.Web.Persistence", "Fiby.Cloud.Web.Persistence\Fiby.Cloud.Web.Persistence.csproj", "{EBD0748F-7C43-405C-8E09-556285939363}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "06-Sunat", "06-Sunat", "{EAC68183-8E03-4F47-8A3B-87F4317AC5BE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

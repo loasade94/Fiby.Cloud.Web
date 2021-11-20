@@ -30,6 +30,38 @@
 
 };
 
+function ModalAlertCancel(message) {
+    var html = '';
+
+    $("#modalAlert").remove();
+
+    html += '<div class="modal fade" id="modalAlert" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">';
+    html += '<div class="modal-dialog" role="document">';
+    html += '<div class="modal-content">';
+    html += '<div class="text-center">';
+    html += '<img src="../img/cancel.png" style="width: 100px;" />';
+    html += '<h4 style="margin-top: 20px; font-weight: 600;">';
+    html += message;
+    html += '</h4>';
+    html += '</div>';
+    html += '<div class="modal-footer" style="align-self: center;">';
+    html += '<button type="button" id="btnModalAlertClose" class="btn btn-primary btn2" data-dismiss="modal">';
+    html += 'OK';
+    html += '</button>';
+    html += '</div>';
+    html += '</div>';
+    html += '</div>';
+    html += '</div>';
+
+    $("#divSection").append(html);
+    $("#modalAlert").modal('show');
+
+    $("#btnModalAlertClose").click(function () {
+        document.getElementsByClassName('modal-backdrop fade show')[0].remove();
+    });
+
+};
+
 function ModalConfirm(message, xfunction) {
     var html = '';
     var route = '';

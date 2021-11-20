@@ -6,6 +6,11 @@
             reportesemanajs.buscarRentabilidad();
         });
 
+        $('#cboSemana').change(function () {
+            reportesemanajs.buscarRentabilidad();
+            //calendariojs.limpiar();
+        });
+
         //reportesemanajs.buscarRentabilidad();
 
         //$("#btnGenerarPDF").click(function () {
