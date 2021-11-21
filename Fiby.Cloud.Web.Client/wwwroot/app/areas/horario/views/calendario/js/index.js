@@ -33,7 +33,7 @@
 
     edit: function (idServicio, option) {
         calendariojs.openModal(idServicio, option);
-        $('html, body').animate({ scrollTop: 0 }, 'slow');
+        //$('html, body').animate({ scrollTop: 0 }, 'slow');
     },
 
     openModal: function (idServicio, option) {

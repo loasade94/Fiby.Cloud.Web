@@ -9,10 +9,12 @@ using Fiby.Cloud.Web.DTO.Modules.Pagos.Request;
 using Fiby.Cloud.Web.Service.Interfaces;
 using Fiby.Cloud.Web.Service.Interfaces.Horario;
 using Fiby.Cloud.Web.Service.Interfaces.Pagos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Fiby.Cloud.Web.Client.Areas.Pagos.Controllers
 {
+    [Authorize]
     [Area("Pagos")]
     public class PagoClienteController : Controller
     {

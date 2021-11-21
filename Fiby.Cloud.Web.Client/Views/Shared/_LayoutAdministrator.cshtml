@@ -6,6 +6,8 @@
     //    JsonConvert.DeserializeObject<UserDTOResponse>(TempData["UserOptions"].ToString()) :
     //    User.Identity.ListAplicationAdmin();
     //var DataListOpcionAdmin = User.Identity.ListAplicationAdmin();
+
+
 }
 
 <!DOCTYPE html>
@@ -273,32 +275,32 @@
                             </a>
                         </li>
                         @*@for (int i = 0; i < DataListOpcionAdmin.oListMenu.Count; i++)
-                        {
+                            {
 
-                            <li class="sidebar-item">
-                                <a class="sidebar-link has-arrow waves-effect waves-dark"
-                                   href="javascript:void(0)" aria-expanded="false">
-                                    <i class="mdi mdi-receipt"></i><span class="hide-menu">@DataListOpcionAdmin.oListMenu[i].Name</span>
-                                </a>
-                                <ul aria-expanded="false" class="collapse  first-level">
+                                <li class="sidebar-item">
+                                    <a class="sidebar-link has-arrow waves-effect waves-dark"
+                                       href="javascript:void(0)" aria-expanded="false">
+                                        <i class="mdi mdi-receipt"></i><span class="hide-menu">@DataListOpcionAdmin.oListMenu[i].Name</span>
+                                    </a>
+                                    <ul aria-expanded="false" class="collapse  first-level">
 
-                                    @for (int j = 0; j < DataListOpcionAdmin.oListSubMenu.Count; j++)
-                                    {
-                                        @if (DataListOpcionAdmin.oListSubMenu[j].IdMenu == DataListOpcionAdmin.oListMenu[i].MenuId)
+                                        @for (int j = 0; j < DataListOpcionAdmin.oListSubMenu.Count; j++)
                                         {
-                                            <li class="sidebar-item">
-                                                <a href="@Url.Action(DataListOpcionAdmin.oListSubMenu[j].Action, DataListOpcionAdmin.oListSubMenu[j].Controlator, new { Area = DataListOpcionAdmin.oListSubMenu[j].Area })" class="sidebar-link">
-                                                    <i class="mdi mdi-note-outline"></i><span class="hide-menu">
-                                                        @DataListOpcionAdmin.oListSubMenu[j].Name
-                                                    </span>
-                                                </a>
-                                            </li>
+                                            @if (DataListOpcionAdmin.oListSubMenu[j].IdMenu == DataListOpcionAdmin.oListMenu[i].MenuId)
+                                            {
+                                                <li class="sidebar-item">
+                                                    <a href="@Url.Action(DataListOpcionAdmin.oListSubMenu[j].Action, DataListOpcionAdmin.oListSubMenu[j].Controlator, new { Area = DataListOpcionAdmin.oListSubMenu[j].Area })" class="sidebar-link">
+                                                        <i class="mdi mdi-note-outline"></i><span class="hide-menu">
+                                                            @DataListOpcionAdmin.oListSubMenu[j].Name
+                                                        </span>
+                                                    </a>
+                                                </li>
+                                            }
                                         }
-                                    }
-                                </ul>
+                                    </ul>
 
-                            </li>
-                        }*@
+                                </li>
+                            }*@
 
 
                     </ul>

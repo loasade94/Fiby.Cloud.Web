@@ -26,7 +26,7 @@ namespace Fiby.Cloud.Web.Client
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            Register.IoCRegister.AddRegistration(services);
+            
 
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -44,6 +44,15 @@ namespace Fiby.Cloud.Web.Client
                 o.ExpireTimeSpan = TimeSpan.FromDays(1);
                 o.AccessDeniedPath = new PathString("/Account/Login");
             });
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("Admin", policy => policy.RequireClaim("Profile", "Admin"));
+                //options.AddPolicy("Supervisor", policy => policy.RequireClaim("Profile", "Supervisor"));
+                //options.AddPolicy("Worker", policy => policy.RequireClaim("Profile", "Worker"));
+            });
+
+            Register.IoCRegister.AddRegistration(services);
 
         }
 
@@ -110,9 +119,9 @@ namespace Fiby.Cloud.Web.Client
                builder.SetIsOriginAllowed(_ => true)
                .AllowAnyHeader().AllowAnyMethod().AllowCredentials();
            });
-
-            app.UseAuthorization();
             app.UseAuthentication();
+            app.UseAuthorization();
+           
 
             app.UseEndpoints(endpoints =>
             {

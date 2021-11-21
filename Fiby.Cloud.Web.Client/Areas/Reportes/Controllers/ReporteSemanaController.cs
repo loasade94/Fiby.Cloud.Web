@@ -5,10 +5,12 @@ using System.Threading.Tasks;
 using Fiby.Cloud.Web.DTO.Modules.Reportes.Request;
 using Fiby.Cloud.Web.Service.Interfaces.Horario;
 using Fiby.Cloud.Web.Service.Interfaces.Reportes;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Fiby.Cloud.Web.Client.Areas.Reportes.Controllers
 {
+    [Authorize]
     [Area("Reportes")]
     public class ReporteSemanaController : Controller
     {

@@ -27,13 +27,20 @@ namespace Fiby.Cloud.Web.Service.Modules.Data.Implementations
             _mapper = mapper;
         }
 
-        public async Task<List<PleDTOResponse>> GetPleAll(PleDTORequest pleDTORequest)
+        //public async Task<List<PleDTOResponse>> GetPleAll(PleDTORequest pleDTORequest)
+        //{
+        //    string uri = "http://localhost:58683/api/Usuario";
+        //    //string uri = ApiPaths.Personal.GetTableDetailAll(_isLocal, tableCode);
+        //    var result = await _httpClient.GetStringAsync(uri, pleDTORequest);
+        //    var response = JsonConvert.DeserializeObject<ResponseObject<List<PleDTOResponse>>>(result);
+        //    return response.Data;
+        //}
+
+        public async Task<string> GetPleAll(PleDTORequest pleDTORequest)
         {
-            string uri = "http://loasadetestapi-001-site1.ftempurl.com/api/Ple/GetPleAll";
-            //string uri = ApiPaths.Personal.GetTableDetailAll(_isLocal, tableCode);
+            string uri = "http://localhost:58683/api/Usuario";
             var result = await _httpClient.GetStringAsync(uri, pleDTORequest);
-            var response = JsonConvert.DeserializeObject<ResponseObject<List<PleDTOResponse>>>(result);
-            return response.Data;
+            return result;
         }
 
         public async Task<List<PleDTOResponse>> GetPleAllNew(PLE14100DTORequest pLE14100DTORequest)

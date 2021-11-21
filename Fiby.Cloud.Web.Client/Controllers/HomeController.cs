@@ -1,6 +1,8 @@
-﻿using Fiby.Cloud.Web.Client.Models;
+﻿using Fiby.Cloud.Web.Client.Extensions;
+using Fiby.Cloud.Web.Client.Models;
 using Fiby.Cloud.Web.DTO.Modules.User.Request;
 using Fiby.Cloud.Web.Service.Modules.Data.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -11,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace Fiby.Cloud.Web.Client.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -43,7 +46,7 @@ namespace Fiby.Cloud.Web.Client.Controllers
 
             //    ViewData["UserOptions"] = listDataUser;
             //}
-
+            ViewBag.NombreSesion = User.Identity.GetNombre();
             return View();
         }
     }

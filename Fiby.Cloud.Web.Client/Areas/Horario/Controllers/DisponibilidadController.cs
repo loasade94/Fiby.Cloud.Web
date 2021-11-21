@@ -5,10 +5,12 @@ using System.Threading.Tasks;
 using Fiby.Cloud.Web.DTO.Modules.Horario.Request;
 using Fiby.Cloud.Web.Service.Interfaces;
 using Fiby.Cloud.Web.Service.Interfaces.Horario;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Fiby.Cloud.Web.Client.Areas.Horario.Controllers
 {
+    [Authorize]
     [Area("Horario")]
     public class DisponibilidadController : Controller
     {

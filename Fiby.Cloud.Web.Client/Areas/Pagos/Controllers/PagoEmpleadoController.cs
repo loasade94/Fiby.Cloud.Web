@@ -13,11 +13,13 @@ using Fiby.Cloud.Web.Service.Interfaces.Horario;
 using Fiby.Cloud.Web.Service.Interfaces.Pagos;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Fiby.Cloud.Web.Client.Areas.Pagos.Controllers
 {
+    [Authorize]
     [Area("Pagos")]
     public class PagoEmpleadoController : Controller
     {

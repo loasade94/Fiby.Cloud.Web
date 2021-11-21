@@ -123,517 +123,177 @@ namespace Fiby.Cloud.Web.Client.Areas.Sale.Controllers
         public async Task<string> GenerarXML()
         {
             string resultado = string.Empty;
-
-            InvoiceType Factura = new InvoiceType();
-
-            //CABECERA XML
-            Factura.Cac = "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2";
-            Factura.Cbc = "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2";
-            Factura.Ccts = "urn:un:unece:uncefact:documentation:2";
-            Factura.Ds = "http://www.w3.org/2000/09/xmldsig#";
-            Factura.Ext = "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2";
-            Factura.Qdt = "urn:oasis:names:specification:ubl:schema:xsd:QualifiedDatatypes-2";
-            Factura.Udt = "urn:un:unece:uncefact:data:specification:UnqualifiedDataTypesSchemaModule:2";
-            UBLExtensionType[] uBLExtensions = new UBLExtensionType[11];
-            UBLExtensionType uBLExtension = new UBLExtensionType();
-            uBLExtensions[0] = uBLExtension;
-            Factura.UBLExtensions = uBLExtensions;
-
-
-            //VERSIONES UBL
-            Factura.UBLVersionID = new UBLVersionIDType();
-            Factura.UBLVersionID.Value = "2.1";//TRAER DE LA DB EMPRESA
-            Factura.CustomizationID = new CustomizationIDType();
-            Factura.CustomizationID.Value = "2.0"; //TRAER DE LA DB EMPRESA
-
-
-            //SERIE Y NUMERO
-            Factura.ID = new IDType();
-            Factura.ID.Value = "F001" + "-" + "00000100"; //TRAER DE BD 
-
-            //Fecha de Emision
-            Factura.IssueDate = new IssueDateType();
-            Factura.IssueDate.Value = DateTime.Now;
-
-            Factura.IssueTime = new IssueTimeType();
-            string hora = Convert.ToDateTime(DateTime.Now).ToString("HH:mm:ss");
-            Factura.IssueTime.Value = Convert.ToDateTime(hora);
-
-            //Fecha de Vencimiento
-            Factura.DueDate = new DueDateType();
-            Factura.DueDate.Value = DateTime.Now;
-
-            //TIPO DE FACTURA
-            InvoiceTypeCodeType invoiceTypeCodeType = new InvoiceTypeCodeType();
-            invoiceTypeCodeType.listID = "0101"; //FACTURA VENTA INTERNA
-            invoiceTypeCodeType.listAgencyName = "PE:SUNAT";
-            invoiceTypeCodeType.listName = "Tipo de Documento";
-            invoiceTypeCodeType.name = "Tipo de Operacion";
-            invoiceTypeCodeType.listURI = "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo01";
-            invoiceTypeCodeType.listSchemeURI = "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo51";
-            invoiceTypeCodeType.Value = "01"; //TRAER DE DB TIPO COMPROBANTE 
-            Factura.InvoiceTypeCode = invoiceTypeCodeType;
-
-            //LEYENDA
-            NoteType leyenda = new NoteType();
-            leyenda.languageLocaleID = "1000"; //TABLA 52
-            leyenda.Value = "MONTO EN SOLES";
-            List<NoteType> notas = new List<NoteType>();
-            notas.Add(leyenda);
-            Factura.Note = notas.ToArray();
-
-            //TIPO DE MONEDA
-            DocumentCurrencyCodeType moneda = new DocumentCurrencyCodeType() {
-                listID = "ISO 4217 Alpha",
-                listName = "Currency",
-                listAgencyName = "United Nations Economic Commission for Europe",
-                Value = "PEN"
-            };
-
-            Factura.DocumentCurrencyCode = moneda;
-
-            //CANTIDAD DE PRODUCTOS
-            LineCountNumericType numeroProductos = new LineCountNumericType();
-            numeroProductos.Value = 1;
-            Factura.LineCountNumeric = numeroProductos;
-
-            //DATOS DE LA EMPRESA EMISORA
-            SignatureType Firma = new SignatureType();
-            SignatureType[] Firmas = new SignatureType[2];
-            PartyType partySign = new PartyType();
-            PartyIdentificationType partyIdentification = new PartyIdentificationType();
-            PartyIdentificationType[] partyIdentifications = new PartyIdentificationType[2];
-            IDType idFirma = new IDType();
-            idFirma.Value = "20606961805"; //RUC DE EMISOR
-            Firma.ID = idFirma;
-
-            partyIdentification.ID = idFirma;
-            partyIdentifications[0] = partyIdentification;
-            partySign.PartyIdentification = partyIdentifications;
-            Firma.SignatoryParty = partySign;
-
-            NoteType Nota = new NoteType();
-            NoteType[] Notas = new NoteType[2];
-            Nota.Value = "Elaborado por Sistema Fiby Web";
-            Notas[0] = Nota;
-            Firma.Note = Notas;
-
-            //RAZON SOCIAL
-            PartyNameType partyName = new PartyNameType();
-            PartyNameType[] partyNames = new PartyNameType[2];
-            NameType1 RazonSocialFirma = new NameType1();
-            RazonSocialFirma.Value = "FIBY OS SERVICE E.I.R.L.";
-            partyName.Name = RazonSocialFirma;
-            partyNames[0] = partyName;
-            partySign.PartyName = partyNames;
-
-            //CODIGO DE DOCUMENTO IDENTIDAD EMISOR
-            SupplierPartyType empresa = new SupplierPartyType();
-            PartyType party = new PartyType();
-            List<PartyIdentificationType> partyidentifications = new List<PartyIdentificationType>();
-            PartyIdentificationType partyidentification = new PartyIdentificationType();
-            IDType idEmpresa = new IDType();
-            idEmpresa.schemeID = "6";
-            idEmpresa.schemeName = "Documento de Identidad";
-            idEmpresa.schemeAgencyName = "PE:SUNAT";
-            idEmpresa.schemeURI = "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo06";
-            idEmpresa.Value = "20606961805";
-            partyidentification.ID = idEmpresa;
-            partyidentifications.Add(partyidentification);
-            party.PartyIdentification = partyidentifications.ToArray();
-
-            PartyNameType partyname = new PartyNameType();
-            List<PartyNameType> partynames = new List<PartyNameType>();
-            NameType1 nameEmisor = new NameType1();
-            nameEmisor.Value = "FIBY";
-            partyname.Name = nameEmisor;
-            partynames.Add(partyname);
-            party.PartyName = partynames.ToArray();
-
-            //ESTABLECIMIENTOS ANEXOS
-            List<PartyLegalEntityType> partylegals = new List<PartyLegalEntityType>();
-            PartyLegalEntityType partylegal = new PartyLegalEntityType();
-            RegistrationNameType registronombre = new RegistrationNameType();
-            registronombre.Value = "FIBY OS SERVICE E.I.R.L.";
-            partylegal.RegistrationName = registronombre;
-
-            //UBIGEO
-            AddressType direccion = new AddressType();
-            IDType iddireccion = new IDType();
-            iddireccion.schemeAgencyName = "PE:INEI";
-            iddireccion.schemeName = "Ubigeos";
-            iddireccion.Value = "110102"; //UBIGEO DE LA EMPRESA EMISORA
-            direccion.ID = iddireccion;
-            AddressTypeCodeType anexo = new AddressTypeCodeType();
-            anexo.listAgencyName = "PE:SUNAT";
-            anexo.listName = "Establecimientos anexos";
-            anexo.Value = "0000";
-            direccion.AddressTypeCode = anexo;
-
-            //DIRECCION FISCAL EMPRESA EMISORA
-            CityNameType Departamento = new CityNameType();
-            Departamento.Value = "ICA";// BASE DE DATOS
-            direccion.CityName = Departamento;
-
-            CountrySubentityType provincia = new CountrySubentityType();
-            provincia.Value = "ICA";
-            direccion.CountrySubentity = provincia;
-
-            DistrictType distrito = new DistrictType();
-            distrito.Value = "LA TINGUIÑA";
-            direccion.District = distrito;
-
-            List<AddressLineType> direcciones = new List<AddressLineType>();
-            AddressLineType direccionEmisor = new AddressLineType();
-            LineType datalocal = new LineType();
-            datalocal.Value = "AV. RIO DE JANERIO A.H. EL MANTARO MZA. H LOTE. 1 DPTO. B CRUCE CON AV MANTARO";
-            direccionEmisor.Line = datalocal;
-            direcciones.Add(direccionEmisor);
-            direccion.AddressLine = direcciones.ToArray();
-            CountryType pais = new CountryType();
-            IdentificationCodeType codigoPais = new IdentificationCodeType();
-            codigoPais.listName = "Country";
-            codigoPais.listAgencyName = "United Nations Economic Commission for Europe";
-            codigoPais.listID = "ISO 3166-1";
-            codigoPais.Value = "PE";
-            pais.IdentificationCode = codigoPais;
-            direccion.Country = pais;
-            partylegal.RegistrationAddress = direccion;
-            partylegals.Add(partylegal);
-            //party.PartyIdentification = partyIdentifications;
-            party.PartyName = partynames.ToArray();
-            party.PartyLegalEntity = partylegals.ToArray();
-            empresa.Party = party;
-            Factura.AccountingSupplierParty = empresa;
-
-            //Empresa receptora (Cliente)
-            CustomerPartyType cliente = new CustomerPartyType();
-            PartyType partyCliente = new PartyType();
-            List<PartyIdentificationType> partyIdentificationClientes = new List<PartyIdentificationType>();
-            PartyIdentificationType partyIdentificationCliente = new PartyIdentificationType();
-            IDType idtipoCliente = new IDType();
-            idtipoCliente.schemeID = "6";
-            idtipoCliente.schemeName = "Documento de Identidad";
-            idtipoCliente.schemeAgencyName = "PE:SUNAT";
-            idtipoCliente.schemeURI = "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo06";
-            idtipoCliente.Value = "20112302370"; //RUC DEL CLIENTE
-            partyIdentificationCliente.ID = idtipoCliente;
-            partyIdentificationClientes.Add(partyIdentificationCliente);
-            partyCliente.PartyIdentification = partyIdentificationClientes.ToArray();
-
-            ////Razon social cliente
-            List<PartyLegalEntityType> partylegalClientes = new List<PartyLegalEntityType>();
-            PartyLegalEntityType partylegalCliente = new PartyLegalEntityType();
-            RegistrationNameType razonsocialcliente = new RegistrationNameType();
-            razonsocialcliente.Value = "NOVOLIZ S.A."; // RAZON SOCIAL CLIENTE
-            partylegalCliente.RegistrationName = razonsocialcliente;
-
-            ////Direccion del cliente (OPCIONAL)
-            AddressType direccionclienteType = new AddressType();
-            List<AddressLineType> direccionclientes = new List<AddressLineType>();
-            AddressLineType direccioncliente = new AddressLineType();
-            List<LineType> lineas = new List<LineType>();
-            LineType linea = new LineType();
-            linea.Value = "JR. LOS FORESTALES 444 URB. LAS ACACIAS ALT CDRA 05 LOS CONSTRUCTORES LIMA-LIMA-LA MOLINA";
-            direccioncliente.Line = linea;
-            direccionclientes.Add(direccioncliente);
-            direccionclienteType.AddressLine = direccionclientes.ToArray();
-            partylegalCliente.RegistrationAddress = direccionclienteType; //AGREGADO
-            partylegalClientes.Add(partylegalCliente);
-            partyCliente.PartyLegalEntity = partylegalClientes.ToArray();
-            cliente.Party = partyCliente;
-            Factura.AccountingCustomerParty = cliente;
-
-            #region <cac:PaymentTerms> Forma de pago
-            PaymentTermsType tipopago = new PaymentTermsType();
-            PaymentTermsType[] tipopagos = new PaymentTermsType[2];
-            IDType idpago = new IDType();
-            idpago.Value = "FormaPago";
-            tipopago.ID = idpago;
-
-            PaymentMeansIDType formapago = new PaymentMeansIDType();
-            PaymentMeansIDType[] formapagos = new PaymentMeansIDType[1];
-            formapago.Value = "Contado";
-            formapagos[0] = formapago;
-            tipopago.PaymentMeansID = formapagos;
-
-            tipopagos[0] = tipopago;
-            Factura.PaymentTerms = tipopagos;
-            #endregion
-
-            #region <cac:TaxTotal> IMPUESTOS AL TOTAL
-            //<cac:TaxTotal>
-            ////<cbc:TaxAmount
-            TaxTotalType TotalImptos = new TaxTotalType();
-            List<TaxTotalType> TotalImptosLista = new List<TaxTotalType>();
-
-            TaxAmountType taxAmountImpto = new TaxAmountType();
-            taxAmountImpto.currencyID = "PEN";
-            taxAmountImpto.Value = decimal.Parse("10,53");  //IGV
-            TotalImptos.TaxAmount = taxAmountImpto;
-            ////</cbc:TaxAmount>
-
-            ////<cac:TaxSubtotal>
-            List<TaxSubtotalType> subtotales = new List<TaxSubtotalType>();
-            TaxSubtotalType subtotal = new TaxSubtotalType();
-
-            //////<cbc:TaxableAmount
-            TaxableAmountType taxsubtotal = new TaxableAmountType();
-            taxsubtotal.currencyID = "PEN";
-            taxsubtotal.Value = decimal.Parse("58,48"); //SUBTOTAL
-            subtotal.TaxableAmount = taxsubtotal;
-            //////</cbc:TaxableAmount>
-
-            //////<cbc:TaxAmount
-            TaxAmountType TotalTaxAmountTotal = new TaxAmountType();
-            TotalTaxAmountTotal.currencyID = "PEN";
-            TotalTaxAmountTotal.Value = decimal.Parse("10,53");  //IGV
-            subtotal.TaxAmount = TotalTaxAmountTotal;
-            subtotales.Add(subtotal);
-            TotalImptos.TaxSubtotal = subtotales.ToArray();
-            //////</cbc:TaxAmount>
-
-            //////<cac:TaxCategory>
-            TaxCategoryType taxcategoryTotal = new TaxCategoryType();
-            ////////<cac:TaxScheme>
-            TaxSchemeType taxScheme = new TaxSchemeType();
-            //////////<cbc:ID
-            IDType idtotal = new IDType();
-            idtotal.schemeName = "Codigo de tributos";
-            idtotal.schemeAgencyName = "PE:SUNAT";
-            idtotal.schemeURI = "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo05";
-            idtotal.Value = "1000";
-            taxScheme.ID = idtotal;
-            //////////</cbc:ID>
-            //////////<cbc:Name>
-            NameType1 nombreImpuesto = new NameType1();
-            nombreImpuesto.Value = "IGV";
-            taxScheme.Name = nombreImpuesto;
-            //////////</cbc:Name>
-            //////////<cbc:TaxTypeCode>
-            TaxTypeCodeType taxtypecodeImpto = new TaxTypeCodeType();
-            taxtypecodeImpto.Value = "VAT";
-            taxScheme.TaxTypeCode = taxtypecodeImpto;
-            //////////<cbc:TaxTypeCode>
-            ////////</cac:TaxScheme>
-            taxcategoryTotal.TaxScheme = taxScheme;
-            //////</cac:TaxCategory>
-            subtotal.TaxCategory = taxcategoryTotal;
-            ////</cac:TaxSubtotal>
-            //subtotales.Add(subtotal);
-            //TotalImptos.TaxSubtotal = subtotales.ToArray();
-            TotalImptosLista.Add(TotalImptos);
-            Factura.TaxTotal = TotalImptosLista.ToArray();
-            //</cac:TaxTotal>
-            #endregion
-
-            #region <cac:LegalMonetaryTotal> TOTALES
-            MonetaryTotalType TotalValorVenta = new MonetaryTotalType();
-            LineExtensionAmountType lineExtensionAmount = new LineExtensionAmountType();
-            lineExtensionAmount.currencyID = "PEN";
-            lineExtensionAmount.Value = 58.48m; //SUBTOTAL
-            TotalValorVenta.LineExtensionAmount = lineExtensionAmount;
-
-            TaxInclusiveAmountType taxInclusiveAmount = new TaxInclusiveAmountType();
-            taxInclusiveAmount.currencyID = "PEN";
-            taxInclusiveAmount.Value = 69; //TOTAL
-            TotalValorVenta.TaxInclusiveAmount = taxInclusiveAmount;
-
-            AllowanceTotalAmountType allowanceTotalAmount = new AllowanceTotalAmountType();
-            allowanceTotalAmount.currencyID = "PEN";
-            allowanceTotalAmount.Value = 0.00m;
-            TotalValorVenta.AllowanceTotalAmount = allowanceTotalAmount;
-
-            PrepaidAmountType prepaidAmount = new PrepaidAmountType();
-            prepaidAmount.currencyID = "PEN";
-            prepaidAmount.Value = 0.00m;
-            TotalValorVenta.PrepaidAmount = prepaidAmount;
-
-            ChargeTotalAmountType chargeTotalAmount = new ChargeTotalAmountType();
-            chargeTotalAmount.currencyID = "PEN";
-            chargeTotalAmount.Value = 0.00m;
-            TotalValorVenta.ChargeTotalAmount = chargeTotalAmount;
-
-
-
-            PayableAmountType payableAmount = new PayableAmountType();
-            payableAmount.currencyID = "PEN";
-            payableAmount.Value = 69; //TOTAL
-            TotalValorVenta.PayableAmount = payableAmount;
-            Factura.LegalMonetaryTotal = TotalValorVenta;
-
-            #endregion
-
-            #region <cac:InvoiceLine> PRODUCTOS DE LA FACTURA
-            List<InvoiceLineType> items = new List<InvoiceLineType>();
-            int idtem = 1;
-            //foreach (LdetalleVenta detalle in parametros.Detalles)
-            //{
-                InvoiceLineType item = new InvoiceLineType();
-                IDType numeroItem = new IDType();
-                numeroItem.Value = idtem.ToString();
-                item.ID = numeroItem;
-
-                InvoicedQuantityType cantidad = new InvoicedQuantityType();
-                cantidad.unitCode = "ZZ";//detalle.Unidad_de_medida;
-                cantidad.unitCodeListID = "UN/ECE rec 20";
-                cantidad.unitCodeListAgencyName = "United Nations Economic Commission for Europe";
-                cantidad.Value = 1;//detalle.cantidad;
-                item.InvoicedQuantity = cantidad;
-
-                LineExtensionAmountType ValorVenta = new LineExtensionAmountType();
-                ValorVenta.currencyID = "PEN";
-                ValorVenta.Value = 58.47m; // detalle.Total_a_pagar / (1 + 0.18m); SUBTOTAL DEL PRODUCTO  REAL CON TODO Y DECIMALES
-                item.LineExtensionAmount = ValorVenta;
-
-                PricingReferenceType ValorReferenUnitario = new PricingReferenceType();
-
-                List<PriceType> TipoPrecios = new List<PriceType>();
-                PriceType TipoPrecio = new PriceType();
-                PriceAmountType PrecioMonto = new PriceAmountType();
-                PrecioMonto.currencyID = "PEN";
-                PrecioMonto.Value = 69.00m; //detalle.preciounitario; PRECIO FINAL DEL PRODUCTO  CON TODO Y DECIMALES 
-                TipoPrecio.PriceAmount = PrecioMonto;
-
-                PriceTypeCodeType TipoPrecioCode = new PriceTypeCodeType();
-                TipoPrecioCode.listName = "Tipo de Precio";
-                TipoPrecioCode.listAgencyName = "PE:SUNAT";
-                TipoPrecioCode.listURI = "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo16";
-                TipoPrecioCode.Value = "01";
-                TipoPrecio.PriceTypeCode = TipoPrecioCode;
-
-                TipoPrecios.Add(TipoPrecio);
-
-                ValorReferenUnitario.AlternativeConditionPrice = TipoPrecios.ToArray();
-                item.PricingReference = ValorReferenUnitario;
-
-                List<TaxTotalType> Totales_Items = new List<TaxTotalType>();
-                TaxTotalType Totales_Item = new TaxTotalType();
-                TaxAmountType Total_Item = new TaxAmountType();
-                Total_Item.currencyID = "PEN";
-                Total_Item.Value = 10.53m; // detalle.mtoValorVentaItem - (detalle.mtoValorVentaItem / (1.18m)); IGV DEL PRODUCTO CON TODO Y DECIMALES
-                Totales_Item.TaxAmount = Total_Item;
-
-                List<TaxSubtotalType> subtotal_Items = new List<TaxSubtotalType>();
-                TaxSubtotalType subtotal_Item = new TaxSubtotalType();
-                TaxableAmountType taxsubtotal_IGVItem = new TaxableAmountType();
-                taxsubtotal_IGVItem.currencyID = "PEN";
-                taxsubtotal_IGVItem.Value = 58.47m;// detalle.mtoValorVentaItem / 1.18m; SUBTOTAL DEL PRODUCTO  REAL CON TODO Y DECIMALES
-                subtotal_Item.TaxableAmount = taxsubtotal_IGVItem;
-
-                TaxAmountType TotalTaxAmount_IGVItem = new TaxAmountType();
-                TotalTaxAmount_IGVItem.currencyID = "PEN";
-                TotalTaxAmount_IGVItem.Value = 10.53m;// detalle.mtoValorVentaItem - detalle.mtoValorVentaItem / 1.18m; IGV DEL PRODUCTO CON TODO Y DECIMALES
-                subtotal_Item.TaxAmount = TotalTaxAmount_IGVItem;
-                subtotal_Items.Add(subtotal_Item);
-
-                TaxCategoryType taxcategory_IGVItem = new TaxCategoryType();
-                PercentType1 porcentaje = new PercentType1();
-                porcentaje.Value = 18.00m;//detalle.porIgvItem * 100; PORCENTAJE DE IGV
-                taxcategory_IGVItem.Percent = porcentaje;
-                subtotal_Item.TaxCategory = taxcategory_IGVItem;
-
-                TaxExemptionReasonCodeType ReasonCode = new TaxExemptionReasonCodeType();
-                ReasonCode.listAgencyName = "PE:SUNAT";
-                ReasonCode.listName = "Afectacion del IGV";
-                ReasonCode.listURI = "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo07";
-                ReasonCode.Value = "10";
-                taxcategory_IGVItem.TaxExemptionReasonCode = ReasonCode;
-
-                TaxSchemeType taxscheme_IGVItem = new TaxSchemeType();
-                IDType id2_IGVItem = new IDType();
-                id2_IGVItem.schemeName = "Codigo de tributos";
-                id2_IGVItem.schemeAgencyName = "PE:SUNAT";
-                id2_IGVItem.schemeURI = "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo05";
-                id2_IGVItem.Value = "1000";
-                taxscheme_IGVItem.ID = id2_IGVItem;
-
-                NameType1 nombreImpto_IGVItem = new NameType1();
-                nombreImpto_IGVItem.Value = "IGV";
-                taxscheme_IGVItem.Name = nombreImpto_IGVItem;
-
-                TaxTypeCodeType nombreImpto_IGVItemInter = new TaxTypeCodeType();
-                nombreImpto_IGVItemInter.Value = "VAT";
-                taxscheme_IGVItem.TaxTypeCode = nombreImpto_IGVItemInter;
-
-                taxcategory_IGVItem.TaxScheme = taxscheme_IGVItem;
-
-                Totales_Item.TaxSubtotal = subtotal_Items.ToArray();
-                Totales_Items.Add(Totales_Item);
-                item.TaxTotal = Totales_Items.ToArray();
-
-
-                ItemType itemTipo = new ItemType();
-                DescriptionType description = new DescriptionType();
-                List<DescriptionType> descriptions = new List<DescriptionType>();
-                description.Value = "SERVICIO DE LIMPIEZA 5 HORAS"; //DESCRIPCION DEL SERVICIO
-                descriptions.Add(description);
-
-                ItemIdentificationType codigoProd = new ItemIdentificationType();
-                IDType id = new IDType();
-                id.Value = "";//detalle.Codigo; CODIGO Q SIEMPRE DEJO VACIO
-                codigoProd.ID = id;
-                itemTipo.Description = descriptions.ToArray();
-                itemTipo.SellersItemIdentification = codigoProd;
-
-                //List<CommodityClassificationType> codSunats = new List<CommodityClassificationType>();
-                //CommodityClassificationType codSunat = new CommodityClassificationType();
-                //ItemClassificationCodeType codClas = new ItemClassificationCodeType();
-                //codClas.listID = "UNSPSC";
-                //codClas.listAgencyName = "GS1 US";
-                //codClas.listName = "Item Classification";
-                //codClas.Value = "25172405";
-                //codSunat.ItemClassificationCode = codClas;
-                //codSunats.Add(codSunat);
-                //itemTipo.CommodityClassification = codSunats.ToArray();
-
-
-                PriceType PrecioProducto = new PriceType();
-                PriceAmountType PrecioMontoTipo = new PriceAmountType();
-                PrecioMontoTipo.currencyID = "PEN";
-                PrecioMontoTipo.Value = 58.47m;//detalle.preciounitario / (detalle.porIgvItem + 1); SUBTOTAL
-                PrecioProducto.PriceAmount = PrecioMontoTipo;
-
-
-                item.Item = itemTipo;
-                item.Price = PrecioProducto;
-                items.Add(item);
-                idtem += 1;
-            //}
-            Factura.InvoiceLine = items.ToArray();
-
-            #endregion
-
-
-            //AddressType direccionCliente = new AddressType();
-            //IDType iddireccionCliente = new IDType();
-            //iddireccionCliente.schemeAgencyName = "PE:INEI";
-            //iddireccionCliente.schemeName = "Ubigeos";
-            //iddireccionCliente.Value = "150114"; //UBIGEO DE LA EMPRESA EMISORA
-            //direccionCliente.ID = iddireccionCliente;
-            //AddressTypeCodeType anexoCliente = new AddressTypeCodeType();
-            //anexoCliente.listAgencyName = "PE:SUNAT";
-            //anexoCliente.listName = "Establecimientos anexos";
-            //anexoCliente.Value = "0000";
-            //direccionCliente.AddressTypeCode = anexoCliente;
-
-            //CityNameType DepartamentoCliente = new CityNameType();
-            //DepartamentoCliente.Value = "LIMA";// BASE DE DATOS
-            //direccionCliente.CityName = DepartamentoCliente;
-
-            //CountrySubentityType provinciaCliente = new CountrySubentityType();
-            //provinciaCliente.Value = "LIMA";
-            //direccionCliente.CountrySubentity = provinciaCliente;
-
-            //DistrictType distritoCliente = new DistrictType();
-            //distritoCliente.Value = "LA MOLINA";
-            //direccionCliente.District = distritoCliente;
-
-            //List<AddressLineType> direccionesCliente = new List<AddressLineType>();
-            //AddressLineType direccionReceptor = new AddressLineType();
-            //LineType datalocalCliente = new LineType();
-            //datalocalCliente.Value = "JR. LOS FORESTALES 444 URB. LAS ACACIAS ALT CDRA 05 LOS CONSTRUCTORES";
-            //direccionReceptor.Line = datalocalCliente;
+            PleDTORequest pleDTORequest = new PleDTORequest();
+            resultado = await _pleService.GetPleAll(pleDTORequest);
+
+            #region TODO
+
+            
+
+            //InvoiceType Factura = new InvoiceType();
+
+            ////CABECERA XML
+            //Factura.Cac = "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2";
+            //Factura.Cbc = "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2";
+            //Factura.Ccts = "urn:un:unece:uncefact:documentation:2";
+            //Factura.Ds = "http://www.w3.org/2000/09/xmldsig#";
+            //Factura.Ext = "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2";
+            //Factura.Qdt = "urn:oasis:names:specification:ubl:schema:xsd:QualifiedDatatypes-2";
+            //Factura.Udt = "urn:un:unece:uncefact:data:specification:UnqualifiedDataTypesSchemaModule:2";
+            //UBLExtensionType[] uBLExtensions = new UBLExtensionType[11];
+            //UBLExtensionType uBLExtension = new UBLExtensionType();
+            //uBLExtensions[0] = uBLExtension;
+            //Factura.UBLExtensions = uBLExtensions;
+
+
+            ////VERSIONES UBL
+            //Factura.UBLVersionID = new UBLVersionIDType();
+            //Factura.UBLVersionID.Value = "2.1";//TRAER DE LA DB EMPRESA
+            //Factura.CustomizationID = new CustomizationIDType();
+            //Factura.CustomizationID.Value = "2.0"; //TRAER DE LA DB EMPRESA
+
+
+            ////SERIE Y NUMERO
+            //Factura.ID = new IDType();
+            //Factura.ID.Value = "F001" + "-" + "00000100"; //TRAER DE BD 
+
+            ////Fecha de Emision
+            //Factura.IssueDate = new IssueDateType();
+            //Factura.IssueDate.Value = DateTime.Now;
+
+            //Factura.IssueTime = new IssueTimeType();
+            //string hora = Convert.ToDateTime(DateTime.Now).ToString("HH:mm:ss");
+            //Factura.IssueTime.Value = Convert.ToDateTime(hora);
+
+            ////Fecha de Vencimiento
+            //Factura.DueDate = new DueDateType();
+            //Factura.DueDate.Value = DateTime.Now;
+
+            ////TIPO DE FACTURA
+            //InvoiceTypeCodeType invoiceTypeCodeType = new InvoiceTypeCodeType();
+            //invoiceTypeCodeType.listID = "0101"; //FACTURA VENTA INTERNA
+            //invoiceTypeCodeType.listAgencyName = "PE:SUNAT";
+            //invoiceTypeCodeType.listName = "Tipo de Documento";
+            //invoiceTypeCodeType.name = "Tipo de Operacion";
+            //invoiceTypeCodeType.listURI = "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo01";
+            //invoiceTypeCodeType.listSchemeURI = "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo51";
+            //invoiceTypeCodeType.Value = "01"; //TRAER DE DB TIPO COMPROBANTE 
+            //Factura.InvoiceTypeCode = invoiceTypeCodeType;
+
+            ////LEYENDA
+            //NoteType leyenda = new NoteType();
+            //leyenda.languageLocaleID = "1000"; //TABLA 52
+            //leyenda.Value = "MONTO EN SOLES";
+            //List<NoteType> notas = new List<NoteType>();
+            //notas.Add(leyenda);
+            //Factura.Note = notas.ToArray();
+
+            ////TIPO DE MONEDA
+            //DocumentCurrencyCodeType moneda = new DocumentCurrencyCodeType() {
+            //    listID = "ISO 4217 Alpha",
+            //    listName = "Currency",
+            //    listAgencyName = "United Nations Economic Commission for Europe",
+            //    Value = "PEN"
+            //};
+
+            //Factura.DocumentCurrencyCode = moneda;
+
+            ////CANTIDAD DE PRODUCTOS
+            //LineCountNumericType numeroProductos = new LineCountNumericType();
+            //numeroProductos.Value = 1;
+            //Factura.LineCountNumeric = numeroProductos;
+
+            ////DATOS DE LA EMPRESA EMISORA
+            //SignatureType Firma = new SignatureType();
+            //SignatureType[] Firmas = new SignatureType[2];
+            //PartyType partySign = new PartyType();
+            //PartyIdentificationType partyIdentification = new PartyIdentificationType();
+            //PartyIdentificationType[] partyIdentifications = new PartyIdentificationType[2];
+            //IDType idFirma = new IDType();
+            //idFirma.Value = "20606961805"; //RUC DE EMISOR
+            //Firma.ID = idFirma;
+
+            //partyIdentification.ID = idFirma;
+            //partyIdentifications[0] = partyIdentification;
+            //partySign.PartyIdentification = partyIdentifications;
+            //Firma.SignatoryParty = partySign;
+
+            //NoteType Nota = new NoteType();
+            //NoteType[] Notas = new NoteType[2];
+            //Nota.Value = "Elaborado por Sistema Fiby Web";
+            //Notas[0] = Nota;
+            //Firma.Note = Notas;
+
+            ////RAZON SOCIAL
+            //PartyNameType partyName = new PartyNameType();
+            //PartyNameType[] partyNames = new PartyNameType[2];
+            //NameType1 RazonSocialFirma = new NameType1();
+            //RazonSocialFirma.Value = "FIBY OS SERVICE E.I.R.L.";
+            //partyName.Name = RazonSocialFirma;
+            //partyNames[0] = partyName;
+            //partySign.PartyName = partyNames;
+
+            ////CODIGO DE DOCUMENTO IDENTIDAD EMISOR
+            //SupplierPartyType empresa = new SupplierPartyType();
+            //PartyType party = new PartyType();
+            //List<PartyIdentificationType> partyidentifications = new List<PartyIdentificationType>();
+            //PartyIdentificationType partyidentification = new PartyIdentificationType();
+            //IDType idEmpresa = new IDType();
+            //idEmpresa.schemeID = "6";
+            //idEmpresa.schemeName = "Documento de Identidad";
+            //idEmpresa.schemeAgencyName = "PE:SUNAT";
+            //idEmpresa.schemeURI = "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo06";
+            //idEmpresa.Value = "20606961805";
+            //partyidentification.ID = idEmpresa;
+            //partyidentifications.Add(partyidentification);
+            //party.PartyIdentification = partyidentifications.ToArray();
+
+            //PartyNameType partyname = new PartyNameType();
+            //List<PartyNameType> partynames = new List<PartyNameType>();
+            //NameType1 nameEmisor = new NameType1();
+            //nameEmisor.Value = "FIBY";
+            //partyname.Name = nameEmisor;
+            //partynames.Add(partyname);
+            //party.PartyName = partynames.ToArray();
+
+            ////ESTABLECIMIENTOS ANEXOS
+            //List<PartyLegalEntityType> partylegals = new List<PartyLegalEntityType>();
+            //PartyLegalEntityType partylegal = new PartyLegalEntityType();
+            //RegistrationNameType registronombre = new RegistrationNameType();
+            //registronombre.Value = "FIBY OS SERVICE E.I.R.L.";
+            //partylegal.RegistrationName = registronombre;
+
+            ////UBIGEO
+            //AddressType direccion = new AddressType();
+            //IDType iddireccion = new IDType();
+            //iddireccion.schemeAgencyName = "PE:INEI";
+            //iddireccion.schemeName = "Ubigeos";
+            //iddireccion.Value = "110102"; //UBIGEO DE LA EMPRESA EMISORA
+            //direccion.ID = iddireccion;
+            //AddressTypeCodeType anexo = new AddressTypeCodeType();
+            //anexo.listAgencyName = "PE:SUNAT";
+            //anexo.listName = "Establecimientos anexos";
+            //anexo.Value = "0000";
+            //direccion.AddressTypeCode = anexo;
+
+            ////DIRECCION FISCAL EMPRESA EMISORA
+            //CityNameType Departamento = new CityNameType();
+            //Departamento.Value = "ICA";// BASE DE DATOS
+            //direccion.CityName = Departamento;
+
+            //CountrySubentityType provincia = new CountrySubentityType();
+            //provincia.Value = "ICA";
+            //direccion.CountrySubentity = provincia;
+
+            //DistrictType distrito = new DistrictType();
+            //distrito.Value = "LA TINGUIÑA";
+            //direccion.District = distrito;
+
+            //List<AddressLineType> direcciones = new List<AddressLineType>();
+            //AddressLineType direccionEmisor = new AddressLineType();
+            //LineType datalocal = new LineType();
+            //datalocal.Value = "AV. RIO DE JANERIO A.H. EL MANTARO MZA. H LOTE. 1 DPTO. B CRUCE CON AV MANTARO";
+            //direccionEmisor.Line = datalocal;
             //direcciones.Add(direccionEmisor);
             //direccion.AddressLine = direcciones.ToArray();
             //CountryType pais = new CountryType();
@@ -646,36 +306,384 @@ namespace Fiby.Cloud.Web.Client.Areas.Sale.Controllers
             //direccion.Country = pais;
             //partylegal.RegistrationAddress = direccion;
             //partylegals.Add(partylegal);
-            //party.PartyIdentification = partyIdentifications;
+            ////party.PartyIdentification = partyIdentifications;
             //party.PartyName = partynames.ToArray();
             //party.PartyLegalEntity = partylegals.ToArray();
             //empresa.Party = party;
             //Factura.AccountingSupplierParty = empresa;
 
+            ////Empresa receptora (Cliente)
+            //CustomerPartyType cliente = new CustomerPartyType();
+            //PartyType partyCliente = new PartyType();
+            //List<PartyIdentificationType> partyIdentificationClientes = new List<PartyIdentificationType>();
+            //PartyIdentificationType partyIdentificationCliente = new PartyIdentificationType();
+            //IDType idtipoCliente = new IDType();
+            //idtipoCliente.schemeID = "6";
+            //idtipoCliente.schemeName = "Documento de Identidad";
+            //idtipoCliente.schemeAgencyName = "PE:SUNAT";
+            //idtipoCliente.schemeURI = "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo06";
+            //idtipoCliente.Value = "20112302370"; //RUC DEL CLIENTE
+            //partyIdentificationCliente.ID = idtipoCliente;
+            //partyIdentificationClientes.Add(partyIdentificationCliente);
+            //partyCliente.PartyIdentification = partyIdentificationClientes.ToArray();
+
+            //////Razon social cliente
+            //List<PartyLegalEntityType> partylegalClientes = new List<PartyLegalEntityType>();
+            //PartyLegalEntityType partylegalCliente = new PartyLegalEntityType();
+            //RegistrationNameType razonsocialcliente = new RegistrationNameType();
+            //razonsocialcliente.Value = "NOVOLIZ S.A."; // RAZON SOCIAL CLIENTE
+            //partylegalCliente.RegistrationName = razonsocialcliente;
+
+            //////Direccion del cliente (OPCIONAL)
+            //AddressType direccionclienteType = new AddressType();
+            //List<AddressLineType> direccionclientes = new List<AddressLineType>();
+            //AddressLineType direccioncliente = new AddressLineType();
+            //List<LineType> lineas = new List<LineType>();
+            //LineType linea = new LineType();
+            //linea.Value = "JR. LOS FORESTALES 444 URB. LAS ACACIAS ALT CDRA 05 LOS CONSTRUCTORES LIMA-LIMA-LA MOLINA";
+            //direccioncliente.Line = linea;
+            //direccionclientes.Add(direccioncliente);
+            //direccionclienteType.AddressLine = direccionclientes.ToArray();
+            //partylegalCliente.RegistrationAddress = direccionclienteType; //AGREGADO
+            //partylegalClientes.Add(partylegalCliente);
+            //partyCliente.PartyLegalEntity = partylegalClientes.ToArray();
+            //cliente.Party = partyCliente;
+            //Factura.AccountingCustomerParty = cliente;
+
+            //#region <cac:PaymentTerms> Forma de pago
+            //PaymentTermsType tipopago = new PaymentTermsType();
+            //PaymentTermsType[] tipopagos = new PaymentTermsType[2];
+            //IDType idpago = new IDType();
+            //idpago.Value = "FormaPago";
+            //tipopago.ID = idpago;
+
+            //PaymentMeansIDType formapago = new PaymentMeansIDType();
+            //PaymentMeansIDType[] formapagos = new PaymentMeansIDType[1];
+            //formapago.Value = "Contado";
+            //formapagos[0] = formapago;
+            //tipopago.PaymentMeansID = formapagos;
+
+            //tipopagos[0] = tipopago;
+            //Factura.PaymentTerms = tipopagos;
+            //#endregion
+
+            //#region <cac:TaxTotal> IMPUESTOS AL TOTAL
+            ////<cac:TaxTotal>
+            //////<cbc:TaxAmount
+            //TaxTotalType TotalImptos = new TaxTotalType();
+            //List<TaxTotalType> TotalImptosLista = new List<TaxTotalType>();
+
+            //TaxAmountType taxAmountImpto = new TaxAmountType();
+            //taxAmountImpto.currencyID = "PEN";
+            //taxAmountImpto.Value = decimal.Parse("10,53");  //IGV
+            //TotalImptos.TaxAmount = taxAmountImpto;
+            //////</cbc:TaxAmount>
+
+            //////<cac:TaxSubtotal>
+            //List<TaxSubtotalType> subtotales = new List<TaxSubtotalType>();
+            //TaxSubtotalType subtotal = new TaxSubtotalType();
+
+            ////////<cbc:TaxableAmount
+            //TaxableAmountType taxsubtotal = new TaxableAmountType();
+            //taxsubtotal.currencyID = "PEN";
+            //taxsubtotal.Value = decimal.Parse("58,48"); //SUBTOTAL
+            //subtotal.TaxableAmount = taxsubtotal;
+            ////////</cbc:TaxableAmount>
+
+            ////////<cbc:TaxAmount
+            //TaxAmountType TotalTaxAmountTotal = new TaxAmountType();
+            //TotalTaxAmountTotal.currencyID = "PEN";
+            //TotalTaxAmountTotal.Value = decimal.Parse("10,53");  //IGV
+            //subtotal.TaxAmount = TotalTaxAmountTotal;
+            //subtotales.Add(subtotal);
+            //TotalImptos.TaxSubtotal = subtotales.ToArray();
+            ////////</cbc:TaxAmount>
+
+            ////////<cac:TaxCategory>
+            //TaxCategoryType taxcategoryTotal = new TaxCategoryType();
+            //////////<cac:TaxScheme>
+            //TaxSchemeType taxScheme = new TaxSchemeType();
+            ////////////<cbc:ID
+            //IDType idtotal = new IDType();
+            //idtotal.schemeName = "Codigo de tributos";
+            //idtotal.schemeAgencyName = "PE:SUNAT";
+            //idtotal.schemeURI = "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo05";
+            //idtotal.Value = "1000";
+            //taxScheme.ID = idtotal;
+            ////////////</cbc:ID>
+            ////////////<cbc:Name>
+            //NameType1 nombreImpuesto = new NameType1();
+            //nombreImpuesto.Value = "IGV";
+            //taxScheme.Name = nombreImpuesto;
+            ////////////</cbc:Name>
+            ////////////<cbc:TaxTypeCode>
+            //TaxTypeCodeType taxtypecodeImpto = new TaxTypeCodeType();
+            //taxtypecodeImpto.Value = "VAT";
+            //taxScheme.TaxTypeCode = taxtypecodeImpto;
+            ////////////<cbc:TaxTypeCode>
+            //////////</cac:TaxScheme>
+            //taxcategoryTotal.TaxScheme = taxScheme;
+            ////////</cac:TaxCategory>
+            //subtotal.TaxCategory = taxcategoryTotal;
+            //////</cac:TaxSubtotal>
+            ////subtotales.Add(subtotal);
+            ////TotalImptos.TaxSubtotal = subtotales.ToArray();
+            //TotalImptosLista.Add(TotalImptos);
+            //Factura.TaxTotal = TotalImptosLista.ToArray();
+            ////</cac:TaxTotal>
+            //#endregion
+
+            //#region <cac:LegalMonetaryTotal> TOTALES
+            //MonetaryTotalType TotalValorVenta = new MonetaryTotalType();
+            //LineExtensionAmountType lineExtensionAmount = new LineExtensionAmountType();
+            //lineExtensionAmount.currencyID = "PEN";
+            //lineExtensionAmount.Value = 58.48m; //SUBTOTAL
+            //TotalValorVenta.LineExtensionAmount = lineExtensionAmount;
+
+            //TaxInclusiveAmountType taxInclusiveAmount = new TaxInclusiveAmountType();
+            //taxInclusiveAmount.currencyID = "PEN";
+            //taxInclusiveAmount.Value = 69; //TOTAL
+            //TotalValorVenta.TaxInclusiveAmount = taxInclusiveAmount;
+
+            //AllowanceTotalAmountType allowanceTotalAmount = new AllowanceTotalAmountType();
+            //allowanceTotalAmount.currencyID = "PEN";
+            //allowanceTotalAmount.Value = 0.00m;
+            //TotalValorVenta.AllowanceTotalAmount = allowanceTotalAmount;
+
+            //PrepaidAmountType prepaidAmount = new PrepaidAmountType();
+            //prepaidAmount.currencyID = "PEN";
+            //prepaidAmount.Value = 0.00m;
+            //TotalValorVenta.PrepaidAmount = prepaidAmount;
+
+            //ChargeTotalAmountType chargeTotalAmount = new ChargeTotalAmountType();
+            //chargeTotalAmount.currencyID = "PEN";
+            //chargeTotalAmount.Value = 0.00m;
+            //TotalValorVenta.ChargeTotalAmount = chargeTotalAmount;
 
 
-            XmlWriterSettings propiedades = new XmlWriterSettings();
-            propiedades.Indent = true;
-            propiedades.IndentChars = "\t";
-            string rutaxml = @"D:\20606961805-01-F001-00000100.xml";
-            string rutaMover = @"D:\TEST\20606961805-01-F001-00000100.xml";
-            string rutaTEST = @"D:\TEST";
-            string rutaZip = @"D:\20606961805-01-F001-00000100.zip";
-            string rutaCertificado = @"D:\LLAMA-PE-CERTIFICADO-DEMO-20606961805.pfx";
-            string clave = "123456";
-            using (XmlWriter escribir = XmlWriter.Create(rutaxml,propiedades))
-            {
-                Type serializacion = typeof(InvoiceType);
-                XmlSerializer crearxml = new XmlSerializer(serializacion);
-                crearxml.Serialize(escribir, Factura);
 
-            }
+            //PayableAmountType payableAmount = new PayableAmountType();
+            //payableAmount.currencyID = "PEN";
+            //payableAmount.Value = 69; //TOTAL
+            //TotalValorVenta.PayableAmount = payableAmount;
+            //Factura.LegalMonetaryTotal = TotalValorVenta;
 
-            FirmarXML(rutaxml, rutaCertificado, clave);
-            System.IO.File.Move(rutaxml, rutaMover);
+            //#endregion
+
+            //#region <cac:InvoiceLine> PRODUCTOS DE LA FACTURA
+            //List<InvoiceLineType> items = new List<InvoiceLineType>();
+            //int idtem = 1;
+            ////foreach (LdetalleVenta detalle in parametros.Detalles)
+            ////{
+            //    InvoiceLineType item = new InvoiceLineType();
+            //    IDType numeroItem = new IDType();
+            //    numeroItem.Value = idtem.ToString();
+            //    item.ID = numeroItem;
+
+            //    InvoicedQuantityType cantidad = new InvoicedQuantityType();
+            //    cantidad.unitCode = "ZZ";//detalle.Unidad_de_medida;
+            //    cantidad.unitCodeListID = "UN/ECE rec 20";
+            //    cantidad.unitCodeListAgencyName = "United Nations Economic Commission for Europe";
+            //    cantidad.Value = 1;//detalle.cantidad;
+            //    item.InvoicedQuantity = cantidad;
+
+            //    LineExtensionAmountType ValorVenta = new LineExtensionAmountType();
+            //    ValorVenta.currencyID = "PEN";
+            //    ValorVenta.Value = 58.47m; // detalle.Total_a_pagar / (1 + 0.18m); SUBTOTAL DEL PRODUCTO  REAL CON TODO Y DECIMALES
+            //    item.LineExtensionAmount = ValorVenta;
+
+            //    PricingReferenceType ValorReferenUnitario = new PricingReferenceType();
+
+            //    List<PriceType> TipoPrecios = new List<PriceType>();
+            //    PriceType TipoPrecio = new PriceType();
+            //    PriceAmountType PrecioMonto = new PriceAmountType();
+            //    PrecioMonto.currencyID = "PEN";
+            //    PrecioMonto.Value = 69.00m; //detalle.preciounitario; PRECIO FINAL DEL PRODUCTO  CON TODO Y DECIMALES 
+            //    TipoPrecio.PriceAmount = PrecioMonto;
+
+            //    PriceTypeCodeType TipoPrecioCode = new PriceTypeCodeType();
+            //    TipoPrecioCode.listName = "Tipo de Precio";
+            //    TipoPrecioCode.listAgencyName = "PE:SUNAT";
+            //    TipoPrecioCode.listURI = "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo16";
+            //    TipoPrecioCode.Value = "01";
+            //    TipoPrecio.PriceTypeCode = TipoPrecioCode;
+
+            //    TipoPrecios.Add(TipoPrecio);
+
+            //    ValorReferenUnitario.AlternativeConditionPrice = TipoPrecios.ToArray();
+            //    item.PricingReference = ValorReferenUnitario;
+
+            //    List<TaxTotalType> Totales_Items = new List<TaxTotalType>();
+            //    TaxTotalType Totales_Item = new TaxTotalType();
+            //    TaxAmountType Total_Item = new TaxAmountType();
+            //    Total_Item.currencyID = "PEN";
+            //    Total_Item.Value = 10.53m; // detalle.mtoValorVentaItem - (detalle.mtoValorVentaItem / (1.18m)); IGV DEL PRODUCTO CON TODO Y DECIMALES
+            //    Totales_Item.TaxAmount = Total_Item;
+
+            //    List<TaxSubtotalType> subtotal_Items = new List<TaxSubtotalType>();
+            //    TaxSubtotalType subtotal_Item = new TaxSubtotalType();
+            //    TaxableAmountType taxsubtotal_IGVItem = new TaxableAmountType();
+            //    taxsubtotal_IGVItem.currencyID = "PEN";
+            //    taxsubtotal_IGVItem.Value = 58.47m;// detalle.mtoValorVentaItem / 1.18m; SUBTOTAL DEL PRODUCTO  REAL CON TODO Y DECIMALES
+            //    subtotal_Item.TaxableAmount = taxsubtotal_IGVItem;
+
+            //    TaxAmountType TotalTaxAmount_IGVItem = new TaxAmountType();
+            //    TotalTaxAmount_IGVItem.currencyID = "PEN";
+            //    TotalTaxAmount_IGVItem.Value = 10.53m;// detalle.mtoValorVentaItem - detalle.mtoValorVentaItem / 1.18m; IGV DEL PRODUCTO CON TODO Y DECIMALES
+            //    subtotal_Item.TaxAmount = TotalTaxAmount_IGVItem;
+            //    subtotal_Items.Add(subtotal_Item);
+
+            //    TaxCategoryType taxcategory_IGVItem = new TaxCategoryType();
+            //    PercentType1 porcentaje = new PercentType1();
+            //    porcentaje.Value = 18.00m;//detalle.porIgvItem * 100; PORCENTAJE DE IGV
+            //    taxcategory_IGVItem.Percent = porcentaje;
+            //    subtotal_Item.TaxCategory = taxcategory_IGVItem;
+
+            //    TaxExemptionReasonCodeType ReasonCode = new TaxExemptionReasonCodeType();
+            //    ReasonCode.listAgencyName = "PE:SUNAT";
+            //    ReasonCode.listName = "Afectacion del IGV";
+            //    ReasonCode.listURI = "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo07";
+            //    ReasonCode.Value = "10";
+            //    taxcategory_IGVItem.TaxExemptionReasonCode = ReasonCode;
+
+            //    TaxSchemeType taxscheme_IGVItem = new TaxSchemeType();
+            //    IDType id2_IGVItem = new IDType();
+            //    id2_IGVItem.schemeName = "Codigo de tributos";
+            //    id2_IGVItem.schemeAgencyName = "PE:SUNAT";
+            //    id2_IGVItem.schemeURI = "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo05";
+            //    id2_IGVItem.Value = "1000";
+            //    taxscheme_IGVItem.ID = id2_IGVItem;
+
+            //    NameType1 nombreImpto_IGVItem = new NameType1();
+            //    nombreImpto_IGVItem.Value = "IGV";
+            //    taxscheme_IGVItem.Name = nombreImpto_IGVItem;
+
+            //    TaxTypeCodeType nombreImpto_IGVItemInter = new TaxTypeCodeType();
+            //    nombreImpto_IGVItemInter.Value = "VAT";
+            //    taxscheme_IGVItem.TaxTypeCode = nombreImpto_IGVItemInter;
+
+            //    taxcategory_IGVItem.TaxScheme = taxscheme_IGVItem;
+
+            //    Totales_Item.TaxSubtotal = subtotal_Items.ToArray();
+            //    Totales_Items.Add(Totales_Item);
+            //    item.TaxTotal = Totales_Items.ToArray();
+
+
+            //    ItemType itemTipo = new ItemType();
+            //    DescriptionType description = new DescriptionType();
+            //    List<DescriptionType> descriptions = new List<DescriptionType>();
+            //    description.Value = "SERVICIO DE LIMPIEZA 5 HORAS"; //DESCRIPCION DEL SERVICIO
+            //    descriptions.Add(description);
+
+            //    ItemIdentificationType codigoProd = new ItemIdentificationType();
+            //    IDType id = new IDType();
+            //    id.Value = "";//detalle.Codigo; CODIGO Q SIEMPRE DEJO VACIO
+            //    codigoProd.ID = id;
+            //    itemTipo.Description = descriptions.ToArray();
+            //    itemTipo.SellersItemIdentification = codigoProd;
+
+            //    //List<CommodityClassificationType> codSunats = new List<CommodityClassificationType>();
+            //    //CommodityClassificationType codSunat = new CommodityClassificationType();
+            //    //ItemClassificationCodeType codClas = new ItemClassificationCodeType();
+            //    //codClas.listID = "UNSPSC";
+            //    //codClas.listAgencyName = "GS1 US";
+            //    //codClas.listName = "Item Classification";
+            //    //codClas.Value = "25172405";
+            //    //codSunat.ItemClassificationCode = codClas;
+            //    //codSunats.Add(codSunat);
+            //    //itemTipo.CommodityClassification = codSunats.ToArray();
+
+
+            //    PriceType PrecioProducto = new PriceType();
+            //    PriceAmountType PrecioMontoTipo = new PriceAmountType();
+            //    PrecioMontoTipo.currencyID = "PEN";
+            //    PrecioMontoTipo.Value = 58.47m;//detalle.preciounitario / (detalle.porIgvItem + 1); SUBTOTAL
+            //    PrecioProducto.PriceAmount = PrecioMontoTipo;
+
+
+            //    item.Item = itemTipo;
+            //    item.Price = PrecioProducto;
+            //    items.Add(item);
+            //    idtem += 1;
+            ////}
+            //Factura.InvoiceLine = items.ToArray();
+
+            //#endregion
+
+
+            ////AddressType direccionCliente = new AddressType();
+            ////IDType iddireccionCliente = new IDType();
+            ////iddireccionCliente.schemeAgencyName = "PE:INEI";
+            ////iddireccionCliente.schemeName = "Ubigeos";
+            ////iddireccionCliente.Value = "150114"; //UBIGEO DE LA EMPRESA EMISORA
+            ////direccionCliente.ID = iddireccionCliente;
+            ////AddressTypeCodeType anexoCliente = new AddressTypeCodeType();
+            ////anexoCliente.listAgencyName = "PE:SUNAT";
+            ////anexoCliente.listName = "Establecimientos anexos";
+            ////anexoCliente.Value = "0000";
+            ////direccionCliente.AddressTypeCode = anexoCliente;
+
+            ////CityNameType DepartamentoCliente = new CityNameType();
+            ////DepartamentoCliente.Value = "LIMA";// BASE DE DATOS
+            ////direccionCliente.CityName = DepartamentoCliente;
+
+            ////CountrySubentityType provinciaCliente = new CountrySubentityType();
+            ////provinciaCliente.Value = "LIMA";
+            ////direccionCliente.CountrySubentity = provinciaCliente;
+
+            ////DistrictType distritoCliente = new DistrictType();
+            ////distritoCliente.Value = "LA MOLINA";
+            ////direccionCliente.District = distritoCliente;
+
+            ////List<AddressLineType> direccionesCliente = new List<AddressLineType>();
+            ////AddressLineType direccionReceptor = new AddressLineType();
+            ////LineType datalocalCliente = new LineType();
+            ////datalocalCliente.Value = "JR. LOS FORESTALES 444 URB. LAS ACACIAS ALT CDRA 05 LOS CONSTRUCTORES";
+            ////direccionReceptor.Line = datalocalCliente;
+            ////direcciones.Add(direccionEmisor);
+            ////direccion.AddressLine = direcciones.ToArray();
+            ////CountryType pais = new CountryType();
+            ////IdentificationCodeType codigoPais = new IdentificationCodeType();
+            ////codigoPais.listName = "Country";
+            ////codigoPais.listAgencyName = "United Nations Economic Commission for Europe";
+            ////codigoPais.listID = "ISO 3166-1";
+            ////codigoPais.Value = "PE";
+            ////pais.IdentificationCode = codigoPais;
+            ////direccion.Country = pais;
+            ////partylegal.RegistrationAddress = direccion;
+            ////partylegals.Add(partylegal);
+            ////party.PartyIdentification = partyIdentifications;
+            ////party.PartyName = partynames.ToArray();
+            ////party.PartyLegalEntity = partylegals.ToArray();
+            ////empresa.Party = party;
+            ////Factura.AccountingSupplierParty = empresa;
+
+
+
+            //XmlWriterSettings propiedades = new XmlWriterSettings();
+            //propiedades.Indent = true;
+            //propiedades.IndentChars = "\t";
+            //string rutaxml = @"D:\20606961805-01-F001-00000100.xml";
+            //string rutaMover = @"D:\TEST\20606961805-01-F001-00000100.xml";
+            //string rutaTEST = @"D:\TEST";
+            //string rutaZip = @"D:\20606961805-01-F001-00000100.zip";
+            //string rutaCertificado = @"D:\LLAMA-PE-CERTIFICADO-DEMO-20606961805.pfx";
+            //string clave = "123456";
+            //using (XmlWriter escribir = XmlWriter.Create(rutaxml,propiedades))
+            //{
+            //    Type serializacion = typeof(InvoiceType);
+            //    XmlSerializer crearxml = new XmlSerializer(serializacion);
+            //    crearxml.Serialize(escribir, Factura);
+
+            //}
+
+            //FirmarXML(rutaxml, rutaCertificado, clave);
+            //System.IO.File.Move(rutaxml, rutaMover);
             
-            ComprimirZip(rutaTEST, rutaZip);
-            Enviardocumento(rutaZip);
+            //ComprimirZip(rutaTEST, rutaZip);
+            //Enviardocumento(rutaZip);
+
+            #endregion
             return resultado;
         }
 

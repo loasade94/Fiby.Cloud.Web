@@ -30,6 +30,24 @@ namespace Fiby.Cloud.Web.Client.Controllers
         [AllowAnonymous]
         public IActionResult Login()
         {
+
+            string flagLoginExternal = string.Empty;
+            try
+            {
+                //flagLoginExternal = _configuration["ExternalLoginFlag"];
+                //var test = User.Identity.GetProfileId();
+                flagLoginExternal = "0";
+            }
+            catch (Exception ex)
+            {
+                flagLoginExternal = "0";
+            }
+
+            //if (flagLoginExternal.Equals("1"))
+            //{
+            //    return RedirectToAction("LogInMicrosoft", "Account");
+            //}
+            ViewBag.FlagLoginExternal = flagLoginExternal;
             return View();
         }
 
@@ -49,13 +67,16 @@ namespace Fiby.Cloud.Web.Client.Controllers
                 //var listDataUser = await _userService.GetUserLogin(userDTORequest);
                 var listDataUser = await _userService.GetUserLoginNew(userDTORequest);
 
-                TempData["UserOptions"] = JsonConvert.SerializeObject(listDataUser);
+                //TempData["UserOptions"] = JsonConvert.SerializeObject(listDataUser);
                 //TempData["CompanyId"] = JsonConvert.SerializeObject(listDataUser.oCompany.CompanyId.ToString());
 
                 List<Claim> claims = new List<Claim>();
 
                 claims.Add(new Claim(CustomClaimTypes.AplicationAdmin, JsonConvert.SerializeObject(listDataUser)));
                 claims.Add(new Claim(CustomClaimTypes.CompanyId, JsonConvert.SerializeObject(listDataUser.oCompany.CompanyId.ToString())));
+                claims.Add(new Claim(CustomClaimTypes.ProfileId, JsonConvert.SerializeObject(listDataUser.oUser.RolId.ToString())));
+                claims.Add(new Claim(CustomClaimTypes.Profile, JsonConvert.SerializeObject(listDataUser.oRol.Description.ToString())));
+                claims.Add(new Claim(CustomClaimTypes.Nombre, JsonConvert.SerializeObject(listDataUser.oUser.Names.ToString())));
 
                 ClaimsIdentity userIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                 ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
@@ -65,7 +86,7 @@ namespace Fiby.Cloud.Web.Client.Controllers
                 //_claimValue.SetValue(CookieAuthenticationDefaults.AuthenticationScheme, "AplicationAdmin", JsonConvert.SerializeObject(listDataUser));
 
                 ViewBag.Error = "";
-                return RedirectToAction("IndexAdminDashboard", "Home", new { id = 1 });
+                return RedirectToAction("IndexAdminDashboard", "Home");
             }
 
             ViewBag.Error = "Usuario no registrado";

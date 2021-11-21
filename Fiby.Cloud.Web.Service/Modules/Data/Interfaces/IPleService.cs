@@ -11,7 +11,7 @@ namespace Fiby.Cloud.Web.Service.Modules.Data.Interfaces
 {
     public interface IPleService
     {
-        Task<List<PleDTOResponse>> GetPleAll(PleDTORequest pleDTORequest);
+        Task<string> GetPleAll(PleDTORequest pleDTORequest);
         Task<List<PleDTOResponse>> GetPleAllNew(PLE14100DTORequest pLE14100DTORequest);
         Task<string> RegistrarPle14100DPorMes(PLE14100DTORequest pLE14100DTORequest);
         Task<List<PLE14100DTOResponse>> GetPlePLE14100All(PLE14100DTORequest pLE14100DTORequest);

@@ -10,5 +10,8 @@ namespace Fiby.Cloud.Web.Client.Extensions
     {
         public const string AplicationAdmin = "AplicationAdmin";
         public const string CompanyId = "CompanyId";
+        public const string ProfileId = "ProfileId";
+        public const string Profile = "Profile";
+        public const string Nombre = "Nombre";
     }
 }

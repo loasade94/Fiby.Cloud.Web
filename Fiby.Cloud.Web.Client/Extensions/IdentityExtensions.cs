@@ -34,5 +34,34 @@ namespace Fiby.Cloud.Web.Client.Extensions
             var result = JsonConvert.DeserializeObject<string>(ValueToString);
             return result;
         }
+        public static string GetProfileId(this IIdentity identity)
+        {
+            ClaimsIdentity claimsIdentity = identity as ClaimsIdentity;
+            Claim claim = claimsIdentity?.FindFirst("ProfileId");
+
+            if (claim == null)
+                return "";
+            return claim.Value;
+        }
+        public static string GetProfile(this IIdentity identity)
+        {
+            ClaimsIdentity claimsIdentity = identity as ClaimsIdentity;
+            Claim claim = claimsIdentity?.FindFirst("Profile");
+
+            if (claim == null)
+                return "";
+
+            return claim.Value;
+        }
+        public static string GetNombre(this IIdentity identity)
+        {
+            ClaimsIdentity claimsIdentity = identity as ClaimsIdentity;
+            Claim claim = claimsIdentity?.FindFirst("Nombre");
+
+            if (claim == null)
+                return "";
+
+            return claim.Value;
+        }
     }
 }

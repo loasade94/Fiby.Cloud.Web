@@ -4,6 +4,7 @@ using Fiby.Cloud.Web.DTO.Modules.Horario.Response;
 using Fiby.Cloud.Web.Service.Interfaces;
 using Fiby.Cloud.Web.Service.Interfaces.Horario;
 using Fiby.Cloud.Web.Util.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -12,18 +13,22 @@ using System.Threading.Tasks;
 
 namespace Fiby.Cloud.Web.Client.Areas.Horario.Controllers
 {
+    [Authorize]
     [Area("Horario")]
     public class CalendarioController : Controller
     {
 
         private readonly IEmpleadoService _empleadoService;
         private readonly ICalendarioService _calendarioService;
+        private readonly ISemanaService _semanaService;
 
         public CalendarioController(IEmpleadoService empleadoService,
-                                    ICalendarioService calendarioService)
+                                    ICalendarioService calendarioService,
+                                    ISemanaService semanaService)
         {
             _empleadoService = empleadoService;
             _calendarioService = calendarioService;
+            _semanaService = semanaService;
         }
 
         public async Task<IActionResult> Index()
@@ -108,6 +113,9 @@ namespace Fiby.Cloud.Web.Client.Areas.Horario.Controllers
             {
                 ViewBag.ModalGeneralIsNew = "1";
             }
+
+            ViewBag.ListaHorario = await _semanaService.GetListaHorario();
+
             return PartialView(calendarioDTOResponse);
         }
     }
