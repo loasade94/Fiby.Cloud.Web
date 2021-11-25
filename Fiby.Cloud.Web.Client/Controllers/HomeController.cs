@@ -2,6 +2,7 @@
 using Fiby.Cloud.Web.Client.Models;
 using Fiby.Cloud.Web.DTO.Modules.User.Request;
 using Fiby.Cloud.Web.Service.Modules.Data.Interfaces;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -18,12 +19,14 @@ namespace Fiby.Cloud.Web.Client.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IUserService _userService;
-
+        private readonly IClaimValue _claimValue;
         public HomeController(ILogger<HomeController> logger,
-            IUserService userService)
+            IUserService userService,
+            IClaimValue claimValue)
         {
             _logger = logger;
             _userService = userService;
+            _claimValue = claimValue;
         }
 
         public async Task<IActionResult> IndexAdminDashboard(int id)
@@ -48,6 +51,12 @@ namespace Fiby.Cloud.Web.Client.Controllers
             //}
             ViewBag.NombreSesion = User.Identity.GetNombre();
             return View();
+        }
+
+        public void SetClaimValueProfile(string ProfileId, string Profile)
+        {
+            _claimValue.SetValue(CookieAuthenticationDefaults.AuthenticationScheme, "ProfileLevelId", ProfileId);
+            _claimValue.SetValue(CookieAuthenticationDefaults.AuthenticationScheme, "Profile", Profile);
         }
     }
 }

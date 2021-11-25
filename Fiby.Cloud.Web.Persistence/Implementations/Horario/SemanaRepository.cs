@@ -90,7 +90,8 @@ namespace Fiby.Cloud.Web.Persistence.Implementations.Horario
                         listResponse.Add(new SemanaDTOResponse
                         {
                             IdSemana = DataUtility.ObjectToInt(result["IdSemana"]),
-                            NombreSemana = DataUtility.ObjectToString(result["NombreSemana"])
+                            NombreSemana = DataUtility.ObjectToString(result["NombreSemana"]),
+                            Prioridad = DataUtility.ObjectToInt(result["Prioridad"])
                         });
                     }
                 }

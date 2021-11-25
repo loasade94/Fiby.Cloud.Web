@@ -207,7 +207,10 @@ namespace Fiby.Cloud.Web.Persistence.Implementations
                         CompanyId = DataUtility.ObjectToInt(result["IdEmpresa"]),
                         NameCompany = DataUtility.ObjectToString(result["NombreEmpresa"]),
                         Active = DataUtility.ObjectToBool(result["Activo"]),
-                        DateRegister = DataUtility.ObjectToDateTime(result["FechaRegistro"])
+                        DateRegister = DataUtility.ObjectToDateTime(result["FechaRegistro"]),
+                        VersionUbl = DataUtility.ObjectToString(result["VersionUbl"]),
+                        VersionEstDoc = DataUtility.ObjectToString(result["VersionEstDoc"]),
+                        RUC = DataUtility.ObjectToString(result["RUC"]),
                     };
                 }
                 authModel.oCompany = companyModel;

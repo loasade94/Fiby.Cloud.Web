@@ -10,5 +10,8 @@ namespace Fiby.Cloud.Web.DTO.Modules.User.Response
         public string NameCompany { get; set; }
         public bool Active { get; set; }
         public DateTime? DateRegister { get; set; }
+        public string VersionUbl { get; set; }
+        public string VersionEstDoc { get; set; }
+        public string RUC{ get; set; }
     }
 }

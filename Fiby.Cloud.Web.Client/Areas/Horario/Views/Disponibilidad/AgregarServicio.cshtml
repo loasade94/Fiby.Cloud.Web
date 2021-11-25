@@ -27,7 +27,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <div class="fiby-md-form">
                     <select class="fiby-input-text" id="cboHoraInicio">
                         @foreach (var item in ViewBag.ListaHorario)
@@ -38,7 +38,25 @@
                     <label for="cboHoraInicio" class="fiby-label active">Hora Inicio</label>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
+                <div class="fiby-md-form">
+                    <select class="fiby-input-text" id="txtHoras">
+                        <option disabled selected value="0"></option>
+                        <option value="3">3 Horas</option>
+                        <option value="4">4 Horas</option>
+                        <option value="5">5 Horas</option>
+                        <option value="6">6 Horas</option>
+                        <option value="7">7 Horas</option>
+                        <option value="8">8 Horas</option>
+                        <option value="9">9 Horas</option>
+                        <option value="10">10 Horas</option>
+                        <option value="11">11 Horas</option>
+                        <option value="12">12 Horas</option>
+                    </select>
+                    <label for="txtHoras" class="fiby-label active">Cantidad de Horas</label>
+                </div>
+            </div>
+            <div class="col-md-4">
                 <div class="fiby-md-form">
                     <select class="fiby-input-text" id="cboHoraFin">
                         @foreach (var item in ViewBag.ListaHorario)

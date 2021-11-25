@@ -21,12 +21,26 @@
         calendariojs.buscarServicio();
 
         CreatePickaDate('txtFecha');
-        CreatePickaTime('txtHoraInicio');
-        CreatePickaTime('txtHoraFin');
+        //CreatePickaTime('txtHoraInicio');
+        //CreatePickaTime('txtHoraFin');
 
         $('#cboEmpleado').change(function () {
             calendariojs.buscarServicio();
             //calendariojs.limpiar();
+        });
+
+        $('#txtHoraInicio').change(function () {
+
+            if ($('#txtHoras').val() != "0" && $('#txtHoras').val() != null) {
+                calendariojs.calcularFin();
+            }
+        });
+
+        $('#txtHoras').change(function () {
+
+            if ($('#txtHoras').val() != "0" && $('#txtHoras').val() != null) {
+                calendariojs.calcularFin();
+            }
         });
 
     },
@@ -414,9 +428,42 @@
         $('#txtHoraFin').val('06:00');
         $('#txtCliente').val('');
         $('#txtDesServicio').val('');
+        $('#txtHoras').val('0');
 
         calendariojs.buscarServicio();
-    }
+    },
+
+    calcularFin: function () {
+
+        $.ajax({
+            type: "POST",
+            data:
+            {
+                fecha: CurrentDateFormat($('#txtFecha').val()),
+                horaInicio: $('#txtHoraInicio').val(),
+                horas: $('#txtHoras').val()
+            },
+            beforeSend: function () {
+                $('#loading').show();
+            },
+            url: '/Horario/Calendario/CalcularHoraFin',
+            success: function (response, textStatus, jqXhr) {
+
+                if (response != null) {
+                    $('#txtHoraFin').val(response);
+                }
+            },
+            complete: function () {
+                calendariojs.buscarServicioCalendario();
+            },
+            error: function (xhr, status, errorThrown) {
+                var err = "Status: " + status + " " + errorThrown;
+                console.log(err);
+                $('#loading').hide();
+            },
+            async: true,
+        })
+    },
 
 }
 

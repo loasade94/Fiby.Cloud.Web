@@ -1,8 +1,12 @@
+using Fiby.Cloud.Web.Client.Filters;
+using Fiby.Cloud.Web.Common.Helpers;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -53,31 +57,22 @@ namespace Fiby.Cloud.Web.Client
             });
 
             Register.IoCRegister.AddRegistration(services);
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+
+            //ServiceActivator.Configure(app.ApplicationServices);
+
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                //app.UseDeveloperExceptionPage();
             }
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
             }
-
-            app.UseHttpsRedirection();
-            app.UseStaticFiles(new StaticFileOptions()
-            {
-                OnPrepareResponse = context => {
-                    context.Context.Response.Headers.Add("Cache-Control", "no-cache, no-store");
-                    context.Context.Response.Headers.Add("Caduca", "-1");
-                }
-            });
 
             app.Use(async (context, next) =>
             {
@@ -110,8 +105,16 @@ namespace Fiby.Cloud.Web.Client
                 }
             });
 
+
+
             app.UseStaticFiles();
+            //app.UseAzureAppConfiguration();
             app.UseRouting();
+            app.ConfigureExceptionHandler();
+
+            //app.UseCookiePolicy();
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseCors
            (builder =>
@@ -119,9 +122,7 @@ namespace Fiby.Cloud.Web.Client
                builder.SetIsOriginAllowed(_ => true)
                .AllowAnyHeader().AllowAnyMethod().AllowCredentials();
            });
-            app.UseAuthentication();
-            app.UseAuthorization();
-           
+
 
             app.UseEndpoints(endpoints =>
             {

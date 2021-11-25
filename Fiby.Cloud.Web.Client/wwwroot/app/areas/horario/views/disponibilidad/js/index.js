@@ -167,6 +167,21 @@
         }, function (data) {
             createModal(data);
             CreatePickaDate('txtFechaAdd');
+
+            $('#cboHoraInicio').change(function () {
+
+                if ($('#txtHoras').val() != "0" && $('#txtHoras').val() != null) {
+                    disponibilidadjs.calcularFin();
+                }
+            });
+
+            $('#txtHoras').change(function () {
+
+                if ($('#txtHoras').val() != "0" && $('#txtHoras').val() != null) {
+                    disponibilidadjs.calcularFin();
+                }
+            });
+
         });
     },
 
@@ -223,6 +238,38 @@
                 }
 
                 /*                calendariojs.buscarServicio();*/
+            },
+            error: function (xhr, status, errorThrown) {
+                var err = "Status: " + status + " " + errorThrown;
+                console.log(err);
+                $('#loading').hide();
+            },
+            async: true,
+        })
+    },
+
+    calcularFin: function () {
+
+        $.ajax({
+            type: "POST",
+            data:
+            {
+                fecha: CurrentDateFormat($('#txtFechaAdd').val()),
+                horaInicio: $('#cboHoraInicio').val(),
+                horas: $('#txtHoras').val()
+            },
+            beforeSend: function () {
+                $('#loading').show();
+            },
+            url: '/Horario/Calendario/CalcularHoraFin',
+            success: function (response, textStatus, jqXhr) {
+
+                if (response != null) {
+                    $('#cboHoraFin').val(response);
+                }
+            },
+            complete: function () {
+                $('#loading').hide();
             },
             error: function (xhr, status, errorThrown) {
                 var err = "Status: " + status + " " + errorThrown;

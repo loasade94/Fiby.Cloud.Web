@@ -33,7 +33,14 @@
                                                     <select class="fiby-input-text" id="cboSemana">
                                                         @foreach (var item in ViewBag.ListaSemana)
                                                         {
-                                                            <option value="@item.IdSemana">@item.NombreSemana</option>
+                                                            if (item.Prioridad == 1)
+                                                            {
+                                                                <option selected value="@item.IdSemana">@item.NombreSemana</option>
+                                                            }
+                                                            else
+                                                            {
+                                                                <option value="@item.IdSemana">@item.NombreSemana</option>
+                                                            }
                                                         }
                                                     </select>
                                                     <label for="cboSemana" class="fiby-label active">Semana</label>

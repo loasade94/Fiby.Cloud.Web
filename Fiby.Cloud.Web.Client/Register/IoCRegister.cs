@@ -14,10 +14,12 @@ using Fiby.Cloud.Web.Persistence.Interfaces.Reportes;
 using Fiby.Cloud.Web.Proxy.Src;
 using Fiby.Cloud.Web.Service.Implementations;
 using Fiby.Cloud.Web.Service.Implementations.Horario;
+using Fiby.Cloud.Web.Service.Implementations.Maintenance;
 using Fiby.Cloud.Web.Service.Implementations.Pagos;
 using Fiby.Cloud.Web.Service.Implementations.Reportes;
 using Fiby.Cloud.Web.Service.Interfaces;
 using Fiby.Cloud.Web.Service.Interfaces.Horario;
+using Fiby.Cloud.Web.Service.Interfaces.Maintenance;
 using Fiby.Cloud.Web.Service.Interfaces.Pagos;
 using Fiby.Cloud.Web.Service.Interfaces.Reportes;
 using Fiby.Cloud.Web.Service.Modules.Data.Implementations;
@@ -61,6 +63,7 @@ namespace Fiby.Cloud.Web.Client.Register
             services.AddScoped<IPagoEmpleadoService, PagoEmpleadoService>();
             services.AddScoped<IPagoClienteService, PagoClienteService>();
             services.AddScoped<IReporteSemanaService, ReporteSemanaService>();
+            services.AddScoped<IClienteService, ClienteService>();
 
             return services;
         }
@@ -94,6 +97,7 @@ namespace Fiby.Cloud.Web.Client.Register
             services.AddSingleton<IPagoEmpleadoRepository, PagoEmpleadoRepository>();
             services.AddSingleton<IPagoClienteRepository, PagoClienteRepository>();
             services.AddSingleton<IReporteSemanaRepository, ReporteSemanaRepository>();
+            services.AddSingleton<IClienteRepository, ClienteRepository>();
             return services;
         }
 

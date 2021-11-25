@@ -24,6 +24,15 @@ namespace Fiby.Cloud.Web.Client
                     webBuilder.ConfigureAppConfiguration((host, config) =>
                     {
                         var settings = config.Build();
+                        //config.AddAzureAppConfiguration (options =>
+                        //{
+                        //    options
+                        //    .ConfigureRefresh(refresh =>
+                        //    {
+                        //        refresh.Register("Version", true)
+                        //           .SetCacheExpiration(TimeSpan.FromSeconds(5));
+                        //    });
+                        //});
                     }).UseKestrel(options =>
                     {
                         options.Limits.MaxRequestHeadersTotalSize = 1048576;

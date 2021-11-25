@@ -1,7 +1,7 @@
 ﻿@{
     Layout = "~/Views/Shared/_LayoutAdministrator.cshtml";
 }
-@*<link href="~/css/mdb.min.css" rel="stylesheet">*@
+<link href="~/app/areas/horario/views/calendario/css/index.css" rel="stylesheet">
 
 <div class="card">
     <div class="card-body wizard-content">
@@ -31,21 +31,49 @@
                                             </div>
 
                                             <div class="row">
-                                                <div class="col-md-4">
+                                                <div class="col-md-3">
                                                     <div class="fiby-md-form">
                                                         <input readonly type="text" value="@DateTime.Now.ToString("dd/MM/yyyy")" class="fiby-input-text form-control" id="txtFecha" placeholder=" ">
                                                         <label for="txtFecha" class="fiby-label active">Fecha</label>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-4">
+                                                <div class="col-md-3">
                                                     <div class="fiby-md-form">
-                                                        <input readonly type="text" class="fiby-input-text form-control" id="txtHoraInicio" placeholder=" ">
+                                                        <select class="fiby-input-text" id="txtHoraInicio">
+                                                            @foreach (var item in ViewBag.ListaHorario)
+                                                            {
+                                                                <option value="@item.Horario">@item.Horario</option>
+                                                            }
+                                                        </select>
                                                         <label for="txtHoraInicio" class="fiby-label active">Hora Inicio</label>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-4">
+                                                <div class="col-md-3">
                                                     <div class="fiby-md-form">
-                                                        <input readonly type="text" class="fiby-input-text form-control" id="txtHoraFin" placeholder=" ">
+                                                        <select class="fiby-input-text" id="txtHoras">
+                                                            <option disabled selected value="0"></option>
+                                                            <option value="3">3 Horas</option>
+                                                            <option value="4">4 Horas</option>
+                                                            <option value="5">5 Horas</option>
+                                                            <option value="6">6 Horas</option>
+                                                            <option value="7">7 Horas</option>
+                                                            <option value="8">8 Horas</option>
+                                                            <option value="9">9 Horas</option>
+                                                            <option value="10">10 Horas</option>
+                                                            <option value="11">11 Horas</option>
+                                                            <option value="12">12 Horas</option>
+                                                        </select>
+                                                        <label for="txtHoras" class="fiby-label active">Cantidad de Horas</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="fiby-md-form">
+                                                        <select class="fiby-input-text" id="txtHoraFin">
+                                                            @foreach (var item in ViewBag.ListaHorario)
+                                                            {
+                                                                <option value="@item.Horario">@item.Horario</option>
+                                                            }
+                                                        </select>
                                                         <label for="txtHoraFin" class="fiby-label active">Hora Fin</label>
                                                     </div>
                                                 </div>

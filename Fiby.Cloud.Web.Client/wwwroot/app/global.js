@@ -119,14 +119,14 @@ function CreatePickaDate(id) {
     $('#' + id).datepicker({
         autoclose: true,
         todayHighlight: true,
-        monthsFull: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Setiembre', 'Octubre',
-            'Noviembre', 'Diciembre'],
+        monthNames: ["1", "2", "3", "April", "Maj", "Juni", "Juli", "August", "September", "Oktober", "November", "December"],
         weekdaysShort: ['Dom', 'Lun', 'Mar', 'Mier', 'Jue', 'Vie', 'Sab'],
         today: 'Hoy',
         clear: 'Borrar',
         close: 'Cerrar',
         formatSubmit: 'dd/mm/yyyy',
-        format: 'dd/mm/yyyy'
+        format: 'dd/mm/yyyy',
+        weekStart: 1
     });
 
 }

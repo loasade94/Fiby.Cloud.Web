@@ -34,7 +34,7 @@ namespace Fiby.Cloud.Web.Client.Areas.Horario.Controllers
         public async Task<IActionResult> Index()
         {
             ViewBag.ListaEmpleados = await _empleadoService.GetEmpleadoAll();
-
+            ViewBag.ListaHorario = await _semanaService.GetListaHorario();
             return View();
         }
 
@@ -117,6 +117,19 @@ namespace Fiby.Cloud.Web.Client.Areas.Horario.Controllers
             ViewBag.ListaHorario = await _semanaService.GetListaHorario();
 
             return PartialView(calendarioDTOResponse);
+        }
+
+        public string CalcularHoraFin(DateTime? fecha,string horaInicio, int horas)
+        {
+            var fechaFormato = fecha.Value.ToString("yyyy-MM-dd");
+            DateTime? myDate = DateTime.ParseExact(fechaFormato + " "+ horaInicio + ":00,000", "yyyy-MM-dd HH:mm:ss,fff",
+                                       System.Globalization.CultureInfo.InvariantCulture);
+
+            var DateHoraFinal = myDate.Value.AddHours(horas);
+
+            var horaFinal = DateHoraFinal.ToString("HH:mm");
+
+            return horaFinal;
         }
     }
 }
