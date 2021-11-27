@@ -21,10 +21,10 @@ namespace Fiby.Cloud.Web.Persistence.Implementations.Horario
             _connectionFactory = connectionFactory;
         }
 
-        public async Task<string> RegistrarServicio(CalendarioDTORequest calendarioDTORequest)
+        public async Task<List<string>> RegistrarServicio(CalendarioDTORequest calendarioDTORequest)
         {
             var parameters = new DynamicParameters();
-            var result = string.Empty;
+            var result = new List<string>();
             try
             {
 
@@ -32,12 +32,16 @@ namespace Fiby.Cloud.Web.Persistence.Implementations.Horario
                 parameters.Add("@pIdEmpleado", calendarioDTORequest.IdEmpleado, direction: ParameterDirection.Input);
                 parameters.Add("@pIdCliente", calendarioDTORequest.IdCliente, direction: ParameterDirection.Input);
                 parameters.Add("@pCliente", calendarioDTORequest.ClienteOpcional, direction: ParameterDirection.Input);
+                parameters.Add("@pTelefonoCliente", calendarioDTORequest.ClienteTelefono, direction: ParameterDirection.Input);
+                parameters.Add("@pDireccionCliente", calendarioDTORequest.ClienteDireccion, direction: ParameterDirection.Input);
                 parameters.Add("@pDescripcion", calendarioDTORequest.Descripcion, direction: ParameterDirection.Input);
                 parameters.Add("@pFecha", calendarioDTORequest.Fecha, direction: ParameterDirection.Input);
                 parameters.Add("@pHoraInicio", calendarioDTORequest.HoraInicio, direction: ParameterDirection.Input);
                 parameters.Add("@pHoraFin", calendarioDTORequest.HoraFin, direction: ParameterDirection.Input);
+                parameters.Add("@pRecurrente", calendarioDTORequest.Recurrente, direction: ParameterDirection.Input);
                 parameters.Add("@pUsuario", calendarioDTORequest.UsuarioCreacion, direction: ParameterDirection.Input);
 
+                parameters.Add("@pCodigoResultado", string.Empty, direction: ParameterDirection.Output);
                 parameters.Add("@pMensajeResultado", string.Empty, direction: ParameterDirection.Output);
 
                 var sp = "uspInsServicioHorario";
@@ -48,16 +52,21 @@ namespace Fiby.Cloud.Web.Persistence.Implementations.Horario
                         commandType: CommandType.StoredProcedure
                     );
 
+                string cod = (parameters.Get<string>("pCodigoResultado") == null ?
+                    string.Empty :
+                    parameters.Get<string>("pCodigoResultado"));
+
+                result.Add(cod);
+
                 string err = (parameters.Get<string>("pMensajeResultado") == null ?
                     string.Empty :
                     parameters.Get<string>("pMensajeResultado"));
 
-                result = err;
+                result.Add(err);
             }
             catch (Exception ex)
             {
-
-                result = ex.Message;
+                result.Add(ex.Message);
             }
 
             return result;
@@ -97,7 +106,8 @@ namespace Fiby.Cloud.Web.Persistence.Implementations.Horario
                             FechaInicio = DataUtility.ObjectToString(result["FechaInicio"]),
                             FechaFin = DataUtility.ObjectToString(result["FechaFin"]),
                             NombreDia = DataUtility.ObjectToString(result["NombreDia"]),
-                            NumeroDia = DataUtility.ObjectToString(result["NumeroDia"])
+                            NumeroDia = DataUtility.ObjectToString(result["NumeroDia"]),
+                            Direccion = DataUtility.ObjectToString(result["Direccion"])
                         });
                     }
                 }
@@ -253,6 +263,7 @@ namespace Fiby.Cloud.Web.Persistence.Implementations.Horario
                         {
                             IdServicio = DataUtility.ObjectToInt(result["IdServicio"]),
                             Fecha = DataUtility.ObjectToDateTime(result["Fecha"]),
+                            IdCliente = DataUtility.ObjectToInt(result["IdCliente"]),
                             ClienteOpcional = DataUtility.ObjectToString(result["ClienteOpcional"]),
                             Descripcion = DataUtility.ObjectToString(result["Descripcion"]),
                             HoraInicio = DataUtility.ObjectToString(result["HoraInicio"]),

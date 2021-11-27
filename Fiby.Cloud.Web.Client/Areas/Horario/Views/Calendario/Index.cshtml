@@ -2,6 +2,8 @@
     Layout = "~/Views/Shared/_LayoutAdministrator.cshtml";
 }
 <link href="~/app/areas/horario/views/calendario/css/index.css" rel="stylesheet">
+<link href="~/app/areas/horario/views/calendario/css/jquery-ui.css" rel="stylesheet">
+<link href="~/app/areas/horario/views/calendario/css/jquery-ui-autocomplete-with-clear-button.css" rel="stylesheet">
 
 <div class="card">
     <div class="card-body wizard-content">
@@ -82,18 +84,38 @@
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="fiby-md-form">
-                                                        <input type="text" class="fiby-input-text form-control" id="txtCliente" placeholder=" ">
-                                                        <label for="txtCliente" class="fiby-label active">Cliente</label>
+                                                        <select class="fiby-input-text" id="combobox">
+                                                            <option selected id="originalValue" value="0"></option>
+                                                            @foreach (var item in ViewBag.ListaCliente)
+                                                            {
+                                                                <option value="@item.IdCliente">@item.Nombres</option>
+                                                            }
+                                                        </select>
+                                                        <label for="combobox" class="fiby-label active">Cliente</label>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div class="col-md-2">
                                                     <div class="fiby-md-form">
-                                                        <input type="text" class="fiby-input-text form-control" id="txtDesServicio" placeholder=" ">
-                                                        <label for="txtDesServicio" class="fiby-label active">Descripción Servicio</label>
+                                                        <input type="checkbox" id="chkRecurrente" />
+                                                        <label for="chkRecurrente" class="active">Recurrente?</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="fiby-md-form">
+                                                        <input type="text" class="fiby-input-text form-control" id="txtTelefonoCliente" placeholder=" ">
+                                                        <label for="txtTelefonoCliente" class="fiby-label active">Telefono Cliente</label>
                                                     </div>
                                                 </div>
                                             </div>
 
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="fiby-md-form">
+                                                        <input type="text" class="fiby-input-text form-control" id="txtDireccionCliente" placeholder=" ">
+                                                        <label for="txtDireccionCliente" class="fiby-label active">Dirección Cliente</label>
+                                                    </div>
+                                                </div>
+                                            </div>
 
                                         </div>
                                     </div>
@@ -120,7 +142,7 @@
                                                                     <th class="text-center">Cliente</th>
                                                                     <th class="text-center">Hora Inicio</th>
                                                                     <th class="text-center">Hora Fin</th>
-                                                                    <th class="text-center">Detalle</th>
+                                                                    <th class="text-center">Dirección</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody id="tbServiciosPorEmpleado">
@@ -177,4 +199,6 @@
     </div>
 </div>*@
 @*<script type="text/javascript" src="@Url.Content("~/js/mdb.min.js")"></script>*@
+<script type="text/javascript" src="@Url.Content("~/app/areas/horario/views/calendario/js/jquery-ui.js")" asp-append-version="true"></script>
+<script type="text/javascript" src="@Url.Content("~/app/areas/horario/views/calendario/js/jquery-ui-autocomplete-with-clear-button.js")" asp-append-version="true"></script>
 <script type="text/javascript" src="@Url.Content("~/app/areas/horario/views/calendario/js/index.js")" asp-append-version="true"></script>

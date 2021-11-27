@@ -3,6 +3,7 @@ using Fiby.Cloud.Web.DTO.Modules.Horario.Request;
 using Fiby.Cloud.Web.DTO.Modules.Horario.Response;
 using Fiby.Cloud.Web.Service.Interfaces;
 using Fiby.Cloud.Web.Service.Interfaces.Horario;
+using Fiby.Cloud.Web.Service.Interfaces.Maintenance;
 using Fiby.Cloud.Web.Util.Utility;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -21,40 +22,46 @@ namespace Fiby.Cloud.Web.Client.Areas.Horario.Controllers
         private readonly IEmpleadoService _empleadoService;
         private readonly ICalendarioService _calendarioService;
         private readonly ISemanaService _semanaService;
+        private readonly IClienteService _clienteService;
 
         public CalendarioController(IEmpleadoService empleadoService,
                                     ICalendarioService calendarioService,
-                                    ISemanaService semanaService)
+                                    ISemanaService semanaService,
+                                    IClienteService clienteService)
         {
             _empleadoService = empleadoService;
             _calendarioService = calendarioService;
             _semanaService = semanaService;
+            _clienteService = clienteService;
         }
 
         public async Task<IActionResult> Index()
         {
             ViewBag.ListaEmpleados = await _empleadoService.GetEmpleadoAll();
             ViewBag.ListaHorario = await _semanaService.GetListaHorario();
+            ViewBag.ListaCliente = await _clienteService.GetClienteAll();
+
             return View();
         }
 
         [HttpPost]
-        public async Task<string> RegistrarServicio(CalendarioDTORequest calendarioDTORequest)
+        public async Task<List<string>> RegistrarServicio(CalendarioDTORequest calendarioDTORequest)
         {
             string resultado = string.Empty;
+            var response = new List<string>();
             calendarioDTORequest.UsuarioCreacion = 1;
             try
             {
                 //calendarioDTORequest.Fecha = DateTime.Parse(calendarioDTORequest.FechaText);
                 calendarioDTORequest.Fecha = General.ConvertFormatDateTime(calendarioDTORequest.FechaText);
-                resultado = await _calendarioService.RegistrarServicio(calendarioDTORequest);
+                response = await _calendarioService.RegistrarServicio(calendarioDTORequest);
             }
             catch (Exception ex)
             {
                 resultado = ex.Message;
             }
 
-            return resultado;
+            return response;
         }
 
         [HttpPost]
@@ -130,6 +137,13 @@ namespace Fiby.Cloud.Web.Client.Areas.Horario.Controllers
             var horaFinal = DateHoraFinal.ToString("HH:mm");
 
             return horaFinal;
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> BuscarServicioXCodigo(CalendarioDTORequest calendarioDTORequest)
+        {
+            var model = await _calendarioService.GetCalendarioById(calendarioDTORequest);
+            return Json(model);
         }
     }
 }

@@ -1,9 +1,164 @@
 ﻿var calendariojs = {
+    valorCliente : '',
+
+    initializeCliente: function () {
+
+        $.widget("custom.combobox", {
+            _create: function () {
+                this.wrapper = $("<span>")
+                    .addClass("custom-combobox")
+                    .insertAfter(this.element);
+
+                this.element.hide();
+                this._createAutocomplete();
+                this._createShowAllButton();
+            },
+
+            _createAutocomplete: function () {
+                var selected = this.element.children(":selected"),
+                    value = selected.val() ? selected.text() : "";
+
+                
+
+                this.input = $("<input>")
+                    .appendTo(this.wrapper)
+                    .val(value)
+                    .attr("title", "")
+                    .addClass("custom-combobox-input ui-widget ui-widget-content ui-state-default ui-corner-left")
+                    .autocomplete({
+                        delay: 0,
+                        minLength: 0,
+                        clearButton: true,
+                        source: this._source.bind(this),
+                        change: function () {
+                            calendariojs.buscarClientePorCodigo()
+                        }      
+                    })
+                    .tooltip({
+                        classes: {
+                            "ui-tooltip": "ui-state-highlight"
+                        }
+                    });
+
+                this._on(this.input, {
+                    autocompleteselect: function (event, ui) {
+                        ui.item.option.selected = true;
+                        this._trigger("select", event, {
+                            item: ui.item.option
+                        });
+                    },
+
+                    autocompletechange: "_removeIfInvalid"
+                });
+            },
+
+            _createShowAllButton: function () {
+                var input = this.input,
+                    wasOpen = false;
+
+                $("<a>")
+                    .attr("tabIndex", -1)
+                    .attr("title", "Show All Items")
+                    .tooltip()
+                    .appendTo(this.wrapper)
+                    .button({
+                        icons: {
+                            primary: "ui-icon-triangle-1-s"
+                        },
+                        text: false
+                    })
+                    .removeClass("ui-corner-all")
+                    .addClass("custom-combobox-toggle ui-corner-right")
+                    .on("mousedown", function () {
+                        wasOpen = input.autocomplete("widget").is(":visible");
+                    })
+                    .on("click", function () {
+                        input.trigger("focus");
+
+                        // Close if already visible
+                        if (wasOpen) {
+                            return;
+                        }
+
+                        // Pass empty string as value to search for, displaying all results
+                        input.autocomplete("search", "");
+                    });
+            },
+
+            _source: function (request, response) {
+                var matcher = new RegExp($.ui.autocomplete.escapeRegex(request.term), "i");
+                response(this.element.children("option").map(function () {
+                    var text = $(this).text();
+                    if (this.value && (!request.term || matcher.test(text)))
+                        return {
+                            label: text,
+                            value: text,
+                            option: this
+                        };
+                }));
+            },
+
+            _removeIfInvalid: function (event, ui) {
+
+                // Selected an item, nothing to do
+                if (ui.item) {
+                    return;
+                }
+
+                // Search for a match (case-insensitive)
+                var value = this.input.val(),
+                    valueLowerCase = value.toLowerCase(),
+                    valid = false;
+                this.element.children("option").each(function () {
+                    if ($(this).text().toLowerCase() === valueLowerCase) {
+                        this.selected = valid = true;
+                        return false;
+                    }
+                });
+
+                // Found a match, nothing to do
+                if (valid) {
+                    calendariojs.valorCliente = value;
+                    return;
+                } else {
+                 /*   $('#originalValue').attr('value', '0').html('');*/
+                    //$('#originalValue').attr('value', '0').html(value);
+                    calendariojs.valorCliente = value;
+                    $('#combobox').val('0');
+                }
+
+                // Remove invalid value
+                //this.input
+                //    .val("")
+                //    .attr("title", value + " didn't match any item")
+                //    .tooltip("open");
+                //this.eleme    nt.val("");
+                //this._delay(function () {
+                //    this.input.tooltip("close").attr("title", "");
+                //}, 2500);
+                this.input.autocomplete("instance").term = "";
+                
+            },
+
+            _destroy: function () {
+                this.wrapper.remove();
+                this.element.show();
+            }
+        });
+
+        $("#combobox").combobox();
+        $("#toggle").on("click", function () {
+            $("#combobox").toggle();
+        });
+
+        $("#btnBorrarCliente").addClass("is-hidden");
+
+    },
 
     initializeEvent: function () {
 
         $("#btnGrabar").click(function () {
-            calendariojs.registrarServicio();
+            calendariojs.registrarServicio_ValidacionRecurrente();
         });
 
         $("#btnBuscar").click(function () {
@@ -63,27 +218,74 @@
         });
     },
 
+    registrarServicio_ValidacionRecurrente: function() {
+        var recurrente = 0;
+
+        var checkboxElem = $('#chkRecurrente')[0].checked;
+        if (checkboxElem == true) {
+            recurrente = 1;
+        } else {
+            recurrente = 0;
+        }
+
+        if (recurrente == 1) {
+            ModalConfirm('¿Esta creando un servicio recurrente , esa seguro?', 'calendariojs.registrarServicio();');
+        } else {
+            calendariojs.registrarServicio();
+        }
+    },
+
     registrarServicio: function (obj) {
-        var cliente = $("#txtCliente").val();
+        var cliente = '';
+        var Valuecliente = $('#combobox').val();
+
+        if (Valuecliente == '0') {
+            cliente = calendariojs.valorCliente;
+        } else {
+            cliente = $("#combobox option:selected").text();
+        }
+
+        //$("#combobox option:selected").text();
 
         if (cliente == null || cliente == '') {
             ModalAlertCancel('Debe Ingresar un Cliente');
             return;
         }
 
-
         ModalConfirm('¿Seguro que desea registrar?', 'calendariojs.registrarServicio_callback();');
     },
 
     registrarServicio_callback: function () {
 
+        var recurrente = 0;
+
+        var checkboxElem = $('#chkRecurrente')[0].checked;
+        if (checkboxElem == true) {
+            recurrente = 1;
+        } else {
+            recurrente = 0;
+        }
+
+        var cliente = '';
+        var Valuecliente = $('#combobox').val();
+
+        if (Valuecliente == '0') {
+            cliente = calendariojs.valorCliente;
+        } else {
+            cliente = $("#combobox option:selected").text();
+        }
+
         var calendarioDTORequest = {
             IdEmpleado: $("#cboEmpleado").val(),
-            ClienteOpcional: $("#txtCliente").val(),
+            IdCliente: Valuecliente,
+            ClienteOpcional: cliente,
+            ClienteTelefono: $("#txtTelefonoCliente").val(),
+            ClienteDireccion: $("#txtDireccionCliente").val(),
             Descripcion: $("#txtDesServicio").val(),
             FechaText: $("#txtFecha").val(),
             HoraInicio: $("#txtHoraInicio").val(),
-            HoraFin: $("#txtHoraFin").val()
+            HoraFin: $("#txtHoraFin").val(),
+            Recurrente: recurrente
         };
 
         /*        var html = "";*/
@@ -104,16 +306,27 @@
             //},
             success: function (response, textStatus, jqXhr) {
 
-                if (response == "OK") {
-                    ModalAlert('Registrado Correctamente');
+                if (response != null) {
+                    if (response[1] == "OK") {
+                        ModalAlert('Registrado Correctamente');
+
+                        if (Valuecliente == '0') {
+                            calendariojs.buscarServicioXCodigo(response[0]);
+                        }
+
+                        calendariojs.buscarServicio();
+                        calendariojs.limpiar();
+                    }
+                    else {
+                        ModalAlertCancel('Error al registrar : ' + response[1]);
+                        calendariojs.buscarServicio();
+                    }
+                } else {
+                    ModalAlertCancel("Ocurrio un error");
                     calendariojs.buscarServicio();
-                    calendariojs.limpiar();
                 }
-                else
-                {
-                    ModalAlertCancel('Error al registrar : ' + response);
-                    calendariojs.buscarServicio();
-                }
+
+                
 
 /*                calendariojs.buscarServicio();*/
             },
@@ -123,6 +336,48 @@
                 $('#loading').hide();
             },
             async: true,
+        })
+    },
+
+    buscarServicioXCodigo: function (valuex) {
+
+        var calendarioDTORequest = {
+            IdServicio: valuex
+        };
+
+        $.ajax({
+            type: "POST",
+            data:
+            {
+                calendarioDTORequest
+            },
+            //beforeSend: function () {
+            //    $('#loading').show();
+            //},
+            url: '/Horario/Calendario/BuscarServicioXCodigo',
+            success: function (response, textStatus, jqXhr) {
+
+                var select = document.getElementById('combobox');
+
+                if (response != null) {
+                    for (var i = 0; i < 1; i++) {
+                        var opt = document.createElement('option');
+                        opt.value = response.idCliente;
+                        opt.innerHTML = response.clienteOpcional;
+                        select.appendChild(opt);
+                    }
+                }
+
+            },
+            //complete: function () {
+            //    calendariojs.buscarServicioCalendario();
+            //},
+            error: function (xhr, status, errorThrown) {
+                var err = "Status: " + status + " " + errorThrown;
+                console.log(err);
+                $('#loading').hide();
+            },
+            async: false,
         })
     },
 
@@ -176,7 +431,7 @@
                             html += '    <td style="text-align:center;">' + response[i].clienteOpcional + '</td>';
                             html += '    <td style="text-align:center;">' + response[i].horaInicio + '</td>';
                             html += '    <td style="text-align:center;">' + response[i].horaFin + '</td>';
-                            html += '    <td style="text-align:center;">' + response[i].descripcion + '</td>';
+                            html += '    <td style="text-align:center;">' + response[i].direccion + '</td>';
                             html += '</tr>';
                             indice += 1;
                             
@@ -371,6 +626,7 @@
     },
 
     actualizarServicio: function (obj) {
+
         ModalConfirm('¿Seguro que desea actualizar el registro?', 'calendariojs.actualizarServicio_callback();');
     },
 
@@ -426,9 +682,13 @@
     limpiar: function () {
         $('#txtHoraInicio').val('06:00');
         $('#txtHoraFin').val('06:00');
-        $('#txtCliente').val('');
+        $('#combobox').val('0');
+        calendariojs.valorCliente = '';
+        $("#btnBorrarCliente").trigger("click");
         $('#txtDesServicio').val('');
         $('#txtHoras').val('0');
+        $('#txtDireccionCliente').val('');
+        $('#txtTelefonoCliente').val('');
 
         calendariojs.buscarServicio();
     },
@@ -465,10 +725,51 @@
         })
     },
 
+    buscarClientePorCodigo: function () {
+
+        var cod = $('#combobox').val();
+
+        if (cod == "0") {
+            $('#txtDireccionCliente').val('');
+            $('#txtTelefonoCliente').val('');
+            return;
+        }
+
+        $.ajax({
+            type: "POST",
+            data:
+            {
+                codigo: cod
+            },
+            beforeSend: function () {
+                $('#loading').show();
+            },
+            url: '/Maintenance/Cliente/BuscarClientesCodio',
+            success: function (response, textStatus, jqXhr) {
+
+                if (response != null) {
+                    $('#txtDireccionCliente').val(response.direccion);
+                    $('#txtTelefonoCliente').val(response.telefono);
+                }
+
+            },
+            complete: function () {
+                $('#loading').hide();
+            },
+            error: function (xhr, status, errorThrown) {
+                var err = "Status: " + status + " " + errorThrown;
+                console.log(err);
+                $('#loading').hide();
+            },
+            async: true,
+        })
+    },
+
 }
 
 $(function () {
 
     calendariojs.initializeEvent();
+    calendariojs.initializeCliente();
 
 });

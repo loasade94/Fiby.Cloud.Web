@@ -24,7 +24,7 @@ namespace Fiby.Cloud.Web.Service.Implementations.Horario
             _mapper = mapper;
         }
 
-        public async Task<string> RegistrarServicio(CalendarioDTORequest calendarioDTORequest)
+        public async Task<List<string>> RegistrarServicio(CalendarioDTORequest calendarioDTORequest)
         {
             var response = await _calendarioRepository.RegistrarServicio(calendarioDTORequest);
             return response;

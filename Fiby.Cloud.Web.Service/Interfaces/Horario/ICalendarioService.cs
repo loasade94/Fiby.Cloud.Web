@@ -9,7 +9,7 @@ namespace Fiby.Cloud.Web.Service.Interfaces.Horario
 {
     public interface ICalendarioService
     {
-        Task<string> RegistrarServicio(CalendarioDTORequest calendarioDTORequest);
+        Task<List<string>> RegistrarServicio(CalendarioDTORequest calendarioDTORequest);
         Task<List<CalendarioDTOResponse>> GetServicioXEmpleado(CalendarioDTORequest calendarioDTORequest);
         Task<List<CalendarioDTOResponse>> GetServicioXEmpleadoCalendario(CalendarioDTORequest calendarioDTORequest);
         Task<List<CalendarioDTOResponse>> GetServicioXEmpleadoTotales(CalendarioDTORequest calendarioDTORequest);

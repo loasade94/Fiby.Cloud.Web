@@ -84,6 +84,8 @@ namespace Fiby.Cloud.Web.Client.Register
             services.AddTransient<IDbConnection>(db => new SqlConnection($"{configuration["BDFiby"]}"));
             services.AddTransient<IConnectionFactory, ConnectionFactory>();
 
+            services.AddMvc().SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0);
+
             return services;
         }
         private static IServiceCollection AddRegisterRepositories(this IServiceCollection services)

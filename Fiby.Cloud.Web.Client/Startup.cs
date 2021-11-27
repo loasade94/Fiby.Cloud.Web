@@ -29,7 +29,7 @@ namespace Fiby.Cloud.Web.Client
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            
             
 
             services.Configure<CookiePolicyOptions>(options =>
@@ -56,6 +56,8 @@ namespace Fiby.Cloud.Web.Client
                 //options.AddPolicy("Worker", policy => policy.RequireClaim("Profile", "Worker"));
             });
 
+            services.AddControllersWithViews();
+
             Register.IoCRegister.AddRegistration(services);
         }
 
@@ -63,7 +65,7 @@ namespace Fiby.Cloud.Web.Client
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
 
-            //ServiceActivator.Configure(app.ApplicationServices);
+            ServiceActivator.Configure(app.ApplicationServices);
 
             if (env.IsDevelopment())
             {
@@ -106,14 +108,14 @@ namespace Fiby.Cloud.Web.Client
             });
 
 
-
+            app.UseHttpsRedirection();
             app.UseStaticFiles();
             //app.UseAzureAppConfiguration();
-            app.UseRouting();
-            app.ConfigureExceptionHandler();
+            
 
             //app.UseCookiePolicy();
             app.UseAuthentication();
+            app.UseRouting();
             app.UseAuthorization();
 
             app.UseCors
@@ -122,6 +124,9 @@ namespace Fiby.Cloud.Web.Client
                builder.SetIsOriginAllowed(_ => true)
                .AllowAnyHeader().AllowAnyMethod().AllowCredentials();
            });
+
+            
+            app.ConfigureExceptionHandler();
 
 
             app.UseEndpoints(endpoints =>

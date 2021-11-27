@@ -87,5 +87,14 @@ namespace Fiby.Cloud.Web.Client.Areas.Maintenance.Controllers
             return PartialView(clienteDTOResponse);
         }
 
+        [HttpPost]
+        public async Task<JsonResult> BuscarClientesCodio(int codigo)
+        {
+            ClienteDTORequest request = new ClienteDTORequest();
+            request.IdCliente = codigo;
+            var model = await _clienteService.GetClientePorCodigo(request);
+            return Json(model);
+        }
+
     }
 }

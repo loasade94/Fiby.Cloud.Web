@@ -162,7 +162,9 @@ namespace Fiby.Cloud.Web.Persistence.Implementations.Maintenance
                         listResponse = new ClienteDTOResponse
                         {
                             IdCliente = DataUtility.ObjectToInt(result["IdCliente"]),
-                            Nombres = DataUtility.ObjectToString(result["Nombre"])
+                            Nombres = DataUtility.ObjectToString(result["Nombre"]),
+                            Direccion = DataUtility.ObjectToString(result["Direccion"]),
+                            Telefono = DataUtility.ObjectToString(result["Telefono"])
                         };
                     }
                 }
