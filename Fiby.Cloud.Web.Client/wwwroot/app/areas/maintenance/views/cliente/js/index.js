@@ -45,6 +45,8 @@
                             html += '    </td>';
                             html += '    <td style="text-align:center;">' + response[i].idCliente + '</td>';
                             html += '    <td style="text-align:center;">' + response[i].nombres + '</td>';
+                            html += '    <td style="text-align:center;">' + response[i].direccion + '</td>';
+                            html += '    <td style="text-align:center;">' + response[i].telefono + '</td>';
                             html += '</tr>';
 
                         }
@@ -85,7 +87,9 @@
     registrarCliente_callback: function () {
 
         var clienteDTORequest = {
-            Nombres: $("#txtNombres").val()
+            Nombres: $("#txtNombres").val(),
+            Direccion: $("#txtDireccion").val(),
+            Telefono: $("#txtTelefono").val()
         };
 
         /*        var html = "";*/
@@ -207,7 +211,9 @@
 
         var clienteDTORequest = {
             IdCliente: $("#hiddenClienteId").val(),
-            Nombres: $("#txtNombreEditar").val()
+            Nombres: $("#txtNombreEditar").val(),
+            Telefono: $("#txtTelefonoEditar").val(),
+            Direccion: $("#txtDireccionEditar").val()
         };
 
         /*        var html = "";*/

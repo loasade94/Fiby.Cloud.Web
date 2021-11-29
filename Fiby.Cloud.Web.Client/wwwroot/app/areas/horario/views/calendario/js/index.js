@@ -656,18 +656,18 @@
                 $('#loading').hide();
             },
             success: function (response, textStatus, jqXhr) {
-
-                if (response == "OK") {
-                    $('#modal-register').modal('hide');
-                    ModalAlert("Actualizado correctamente");
-                    calendariojs.buscarServicio();
+                if (response != null) {
+                    if (response[1] == "OK") {
+                        $('#modal-register').modal('hide');
+                        ModalAlert("Actualizado correctamente");
+                        calendariojs.buscarServicio();
+                    }
+                    else {
+                        $('#modal-register').modal('hide');
+                        ModalAlert('Error al actualizar : ' + response[1]);
+                        calendariojs.buscarServicio();
+                    }
                 }
-                else {
-                    $('#modal-register').modal('hide');
-                    ModalAlert('Error al actualizar : ' + response);
-                    calendariojs.buscarServicio();
-                }
-
                 
             },
             error: function (xhr, status, errorThrown) {

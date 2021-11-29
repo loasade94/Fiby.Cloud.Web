@@ -32,8 +32,8 @@ namespace Fiby.Cloud.Web.Persistence.Implementations.Maintenance
                 parameters.Add("@pTipoDocumento", "", direction: ParameterDirection.Input);
                 parameters.Add("@pNumeroDocumento", "", direction: ParameterDirection.Input);
                 parameters.Add("@pNombre", clienteDTORequest.Nombres, direction: ParameterDirection.Input);
-                parameters.Add("@pDireccion", "", direction: ParameterDirection.Input);
-                parameters.Add("@pTelefono", "", direction: ParameterDirection.Input);
+                parameters.Add("@pDireccion", clienteDTORequest.Direccion, direction: ParameterDirection.Input);
+                parameters.Add("@pTelefono", clienteDTORequest.Telefono, direction: ParameterDirection.Input);
 
                 parameters.Add("@pMensajeResultado", string.Empty, direction: ParameterDirection.Output);
 
@@ -87,7 +87,9 @@ namespace Fiby.Cloud.Web.Persistence.Implementations.Maintenance
                         listResponse.Add(new ClienteDTOResponse
                         {
                             IdCliente = DataUtility.ObjectToInt(result["IdCliente"]),
-                            Nombres = DataUtility.ObjectToString(result["Nombre"])
+                            Nombres = DataUtility.ObjectToString(result["Nombre"]),
+                            Direccion = DataUtility.ObjectToString(result["Direccion"]),
+                            Telefono = DataUtility.ObjectToString(result["Telefono"])
                         });
                     }
                 }

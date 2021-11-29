@@ -8,5 +8,7 @@ namespace Fiby.Cloud.Web.DTO.Modules.Maintenance.Request
     {
         public int IdCliente { get; set; }
         public string Nombres { get; set; }
+        public string Direccion { get; set; }
+        public string Telefono { get; set; }
     }
 }
