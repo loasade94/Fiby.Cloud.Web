@@ -22,9 +22,9 @@
                 semanaDTORequest
             },
             url: '/Horario/Disponibilidad/GetListaDiasXSemana',
-            beforeSend: function () {
-                $('#loading').show();
-            },
+            //beforeSend: function () {
+            //    $('#loading').show();
+            //},
             success: function (response, textStatus, jqXhr) {
 
                 if (response != null) {
@@ -58,7 +58,7 @@
                 console.log(err);
                 $('#loading').hide();
             },
-            async: true,
+            async: false,
         })
     },
     
@@ -75,9 +75,9 @@
                 semanaDTORequest
             },
             url: '/Horario/Disponibilidad/GetDisponibilidadSemana',
-            //beforeSend: function () {
-            //    $('#loading').show();
-            //},
+            beforeSend: function () {
+                $('#loading').show();
+            },
             success: function (response, textStatus, jqXhr) {
 
                 if (response != null) {
@@ -186,10 +186,19 @@
     },
 
     registrarServicio: function (obj) {
-        var cliente = $("#txtCliente").val();
+        var cliente = '';
+        var Valuecliente = $('#combobox').val();
+
+        if (Valuecliente == '0') {
+            cliente = agregarserviciojs.valorCliente;
+        } else {
+            cliente = $("#combobox option:selected").text();
+        }
+
+        //$("#combobox option:selected").text();
 
         if (cliente == null || cliente == '') {
-            ModalAlert('Debe Ingresar un Cliente');
+            ModalAlertCancel('Debe Ingresar un Cliente');
             return;
         }
 
@@ -199,13 +208,26 @@
 
     registrarServicio_callback: function () {
 
+        var cliente = '';
+        var Valuecliente = $('#combobox').val();
+
+        if (Valuecliente == '0') {
+            cliente = agregarserviciojs.valorCliente;
+        } else {
+            cliente = $("#combobox option:selected").text();
+        }
+
         var calendarioDTORequest = {
             IdEmpleado: $("#cboEmpleado").val(),
-            ClienteOpcional: $("#txtCliente").val(),
+            IdCliente: Valuecliente,
+            ClienteOpcional: cliente,
+            ClienteTelefono: $("#txtTelefono").val(),
+            ClienteDireccion: $("#txtDireccion").val(),
             Descripcion: $("#txtDetalle").val(),
             FechaText: $("#txtFechaAdd").val(),
             HoraInicio: $("#cboHoraInicio").val(),
-            HoraFin: $("#cboHoraFin").val()
+            HoraFin: $("#cboHoraFin").val(),
+            Recurrente: 0
         };
 
         /*        var html = "";*/
@@ -226,16 +248,23 @@
             //},
             success: function (response, textStatus, jqXhr) {
 
-                if (response == "OK") {
-                    ModalAlert('Registrado Correctamente');
-                    $('#modal-register').modal('hide');
-                    disponibilidadjs.buscarCabeceras();
+                if (response != null) {
+                    if (response[1] == "OK") {
+                        ModalAlert('Registrado Correctamente');
+                        $('#modal-register').modal('hide');
+                        disponibilidadjs.buscarCabeceras();
+                    }
+                    else {
+                        ModalAlert('Error al registrar : ' + response);
+                        $('#modal-register').modal('hide');
+                        disponibilidadjs.buscarCabeceras();
+                    }
+                } else {
+                    ModalAlertCancel("Ocurrio un error");
+                    disponibilidadjs.buscarServicio();
                 }
-                else {
-                    ModalAlert('Error al registrar : ' + response);
-                    $('#modal-register').modal('hide');
-                    disponibilidadjs.buscarCabeceras();
-                }
+
+                
 
                 /*                calendariojs.buscarServicio();*/
             },

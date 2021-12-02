@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Fiby.Cloud.Web.DTO.Modules.Horario.Request;
 using Fiby.Cloud.Web.Service.Interfaces;
 using Fiby.Cloud.Web.Service.Interfaces.Horario;
+using Fiby.Cloud.Web.Service.Interfaces.Maintenance;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,12 +18,14 @@ namespace Fiby.Cloud.Web.Client.Areas.Horario.Controllers
 
         private readonly ISemanaService _semanaService;
         private readonly IEmpleadoService _empleadoService;
-
+        private readonly IClienteService _clienteService;
         public DisponibilidadController(ISemanaService semanaService,
-                                        IEmpleadoService empleadoService)
+                                        IEmpleadoService empleadoService,
+                                        IClienteService clienteService)
         {
             _semanaService = semanaService;
             _empleadoService = empleadoService;
+            _clienteService = clienteService;
         }
 
         public async Task<IActionResult> Index()
@@ -50,7 +53,7 @@ namespace Fiby.Cloud.Web.Client.Areas.Horario.Controllers
 
         public async Task<IActionResult> AgregarServicio(string fecha)
         {
-
+            ViewBag.ListaCliente = await _clienteService.GetClienteAll();
             ViewBag.ListaEmpleados = await _empleadoService.GetEmpleadoAll();
             ViewBag.ListaHorario = await _semanaService.GetListaHorario();
             ViewBag.Fecha = fecha;

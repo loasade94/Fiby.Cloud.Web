@@ -2,10 +2,20 @@
 @using Fiby.Cloud.Web.DTO.Modules.User.Response;
 @using Fiby.Cloud.Web.Client.Extensions;
 @{
-    //var DataListOpcionAdmin = TempData.Count > 0 ?
-    //    JsonConvert.DeserializeObject<UserDTOResponse>(TempData["UserOptions"].ToString()) :
-    //    User.Identity.ListAplicationAdmin();
+    var DataListOpcionAdmin = TempData.Count > 0 ?
+        JsonConvert.DeserializeObject<UserDTOResponse>(TempData["UserOptions"].ToString()) :
+        User.Identity.ListAplicationAdmin();
     //var DataListOpcionAdmin = User.Identity.ListAplicationAdmin();
+
+    //var DataListAplication = User.Identity.ListAplicationAdmin();
+
+    //var DataListOpcionAdmin = new UserDTOResponse();
+    //string perfilValue = ViewData["profile"] == null ? "" : ViewData["profile"].ToString();
+
+    //if (perfilValue != string.Empty)
+    //    DataListOpcionAdmin = (UserDTOResponse)ViewData["AuthOptions"];
+    //else
+    //    DataListOpcionAdmin = User.Identity.ListMenuOptionAdmin();
 
 
 }
@@ -274,13 +284,13 @@
                                 <i class="mdi mdi-view-dashboard"></i><span class="hide-menu">Dashboard</span>
                             </a>
                         </li>
-                        @*@for (int i = 0; i < DataListOpcionAdmin.oListMenu.Count; i++)
+                        @for (int i = 0; i < DataListOpcionAdmin.oListMenu.Count; i++)
                             {
 
                                 <li class="sidebar-item">
                                     <a class="sidebar-link has-arrow waves-effect waves-dark"
                                        href="javascript:void(0)" aria-expanded="false">
-                                        <i class="mdi mdi-receipt"></i><span class="hide-menu">@DataListOpcionAdmin.oListMenu[i].Name</span>
+                                        <i class="mdi @DataListOpcionAdmin.oListMenu[i].Icon"></i><span class="hide-menu">@DataListOpcionAdmin.oListMenu[i].Name</span>
                                     </a>
                                     <ul aria-expanded="false" class="collapse  first-level">
 
@@ -290,7 +300,7 @@
                                             {
                                                 <li class="sidebar-item">
                                                     <a href="@Url.Action(DataListOpcionAdmin.oListSubMenu[j].Action, DataListOpcionAdmin.oListSubMenu[j].Controlator, new { Area = DataListOpcionAdmin.oListSubMenu[j].Area })" class="sidebar-link">
-                                                        <i class="mdi mdi-note-outline"></i><span class="hide-menu">
+                                                        <i class="mdi @DataListOpcionAdmin.oListSubMenu[j].ImageIco"></i><span class="hide-menu">
                                                             @DataListOpcionAdmin.oListSubMenu[j].Name
                                                         </span>
                                                     </a>
@@ -300,7 +310,7 @@
                                     </ul>
 
                                 </li>
-                            }*@
+                            }
 
 
                     </ul>
