@@ -55,6 +55,7 @@
                                 html += '    </td>';
                                 html += '    <td style="text-align:center;">' + response[i].nombreDia + ' ' + response[i].numeroDia + '</td>';
                                 html += '    <td style="text-align:center;">' + response[i].cliente + '</td>';
+                                html += '    <td style="text-align:center;">' + response[i].horas + '</td>';
                                 html += '    <td style="text-align:center;">' + response[i].montoPagoCliente + '</td>';
                                 html += '</tr>';
                             }

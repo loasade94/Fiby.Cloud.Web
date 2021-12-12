@@ -13,5 +13,6 @@ namespace Fiby.Cloud.Web.Service.Interfaces.Horario
         Task<List<SemanaDTOResponse>> GetListaSemana();
         Task<List<SemanaDTOResponse>> GetListaDiasXSemana(SemanaDTORequest semanaDTORequest);
         Task<List<SemanaDTOResponse>> GetListaHorario();
+        Task<SemanaDTOResponse> GetRentabilidadGraficoDashboard();
     }
 }

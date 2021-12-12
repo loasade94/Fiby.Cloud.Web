@@ -46,5 +46,11 @@ namespace Fiby.Cloud.Web.Service.Implementations.Horario
             var response = await _semanaRepository.GetListaHorario();
             return response;
         }
+
+        public async Task<SemanaDTOResponse> GetRentabilidadGraficoDashboard()
+        {
+            var response = await _semanaRepository.GetRentabilidadGraficoDashboard();
+            return response;
+        }
     }
 }

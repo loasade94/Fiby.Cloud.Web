@@ -212,6 +212,20 @@
         }, function (data) {
             createModal(data);
             CreatePickaDate('txtFechaEditar');
+
+            $('#txtHoraInicioEditar').change(function () {
+
+                if ($('#txtHorasEditar').val() != "0" && $('#txtHorasEditar').val() != null) {
+                    calendariojs.calcularFinEditar();
+                }
+            });
+
+            $('#txtHorasEditar').change(function () {
+
+                if ($('#txtHorasEditar').val() != "0" && $('#txtHorasEditar').val() != null) {
+                    calendariojs.calcularFinEditar();
+                }
+            });
             //CreatePickaTime('txtHoraInicioEditar');
             //CreatePickaTime('txtHoraFinEditar');
             //createSelect('cboRegistrationStatusNew');
@@ -715,6 +729,38 @@
             },
             complete: function () {
                 calendariojs.buscarServicioCalendario();
+            },
+            error: function (xhr, status, errorThrown) {
+                var err = "Status: " + status + " " + errorThrown;
+                console.log(err);
+                $('#loading').hide();
+            },
+            async: true,
+        })
+    },
+
+    calcularFinEditar: function () {
+
+        $.ajax({
+            type: "POST",
+            data:
+            {
+                fecha: CurrentDateFormat($('#txtFechaEditar').val()),
+                horaInicio: $('#txtHoraInicioEditar').val(),
+                horas: $('#txtHorasEditar').val()
+            },
+            beforeSend: function () {
+                $('#loading').show();
+            },
+            url: '/Horario/Calendario/CalcularHoraFin',
+            success: function (response, textStatus, jqXhr) {
+
+                if (response != null) {
+                    $('#txtHoraFinEditar').val(response);
+                }
+            },
+            complete: function () {
+                $('#loading').hide();
             },
             error: function (xhr, status, errorThrown) {
                 var err = "Status: " + status + " " + errorThrown;

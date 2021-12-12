@@ -181,5 +181,63 @@ namespace Fiby.Cloud.Web.Persistence.Implementations.Horario
             }
             return listResponse;
         }
+
+        public async Task<SemanaDTOResponse> GetRentabilidadGraficoDashboard()
+        {
+            SemanaDTOResponse authModel = new SemanaDTOResponse();
+            List<SemanaDTOResponse> ListaNombres = new List<SemanaDTOResponse>();
+            List<SemanaDTOResponse> ListaMontos = new List<SemanaDTOResponse>();
+            var parameters = new DynamicParameters();
+
+            //parameters.Add("@pIdUsuario", userDTORequest.UserId, direction: ParameterDirection.Input);
+            var sp = "uspListarEstadisticasGanancias";
+            var cn = _connectionFactory.GetConnection();
+            var result = await cn.ExecuteReaderAsync(
+                   sp,
+                   parameters,
+                   commandTimeout: 0,
+                   commandType: CommandType.StoredProcedure
+               );
+
+            if (result.FieldCount > 0)
+            {
+
+                #region NOMBRES DE FECHA
+
+                //DATOS DE USUARIO
+                while (result.Read())
+                {
+                    ListaNombres.Add(new SemanaDTOResponse
+                    {
+                        NombreSemana = DataUtility.ObjectToString(result["NombreSemana"])
+                    });
+                }
+                authModel.ListaNombres = ListaNombres;
+
+                result.NextResult();
+
+                #endregion
+
+                #region DATOS DE TIENDA
+                //DATOS DE TIENDA
+
+                while (result.Read())
+                {
+                    ListaMontos.Add(new SemanaDTOResponse
+                    {
+                        Monto = DataUtility.ObjectToDecimal(result["Monto"])
+                    });
+                }
+                authModel.ListaMontos = ListaMontos;
+
+                result.NextResult();
+                #endregion
+
+                result.Close();
+            }
+
+
+            return authModel;
+        }
     }
 }

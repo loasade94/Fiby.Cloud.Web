@@ -16,10 +16,10 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <div class="fiby-md-form">
                     @*<input type="text" value="@Model.HoraInicio" class="fiby-input-text form-control" id="txtHoraInicioEditar" placeholder=" ">
-        <label for="txtHoraInicioEditar" class="fiby-label active">Hora de Inicio</label>*@
+                <label for="txtHoraInicioEditar" class="fiby-label active">Hora de Inicio</label>*@
                     <select class="fiby-input-text" id="txtHoraInicioEditar">
                         @foreach (var item in ViewBag.ListaHorario)
                         {
@@ -37,10 +37,28 @@
                     <label for="txtHoraInicioEditar" class="fiby-label active">Hora Inicio</label>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
+                <div class="fiby-md-form">
+                    <select class="fiby-input-text" id="txtHorasEditar">
+                        <option disabled selected value="0"></option>
+                        <option value="3">3 Horas</option>
+                        <option value="4">4 Horas</option>
+                        <option value="5">5 Horas</option>
+                        <option value="6">6 Horas</option>
+                        <option value="7">7 Horas</option>
+                        <option value="8">8 Horas</option>
+                        <option value="9">9 Horas</option>
+                        <option value="10">10 Horas</option>
+                        <option value="11">11 Horas</option>
+                        <option value="12">12 Horas</option>
+                    </select>
+                    <label for="txtHoras" class="fiby-label active">Cantidad de Horas</label>
+                </div>
+            </div>
+            <div class="col-md-4">
                 <div class="fiby-md-form">
                     @*<input type="text" value="@Model.HoraFin" class="fiby-input-text form-control" id="txtHoraFinEditar" placeholder=" ">
-        <label for="txtHoraFinEditar" class="fiby-label active">Hora Fin</label>*@
+                <label for="txtHoraFinEditar" class="fiby-label active">Hora Fin</label>*@
                     <select class="fiby-input-text" id="txtHoraFinEditar">
                         @foreach (var item in ViewBag.ListaHorario)
                         {
@@ -58,7 +76,7 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        @*<div class="row">
             <div class="col-md-6">
                 <div class="fiby-md-form">
                     <input type="text" value="@Model.ClienteOpcional" class="fiby-input-text form-control" id="txtClienteEditar" placeholder=" ">
@@ -71,7 +89,7 @@
                     <label for="txtDetalleEditar" class="fiby-label active">Detalle</label>
                 </div>
             </div>
-        </div>
+        </div>*@
         <input type="hidden" id="hiddenModalServicioIsNew" name="hiddenModalServicioIsNew" value="@ViewBag.ModalGeneralIsNew" />
         <input type="hidden" id="hiddenServicioId" name="hiddenServicioId" value="@Model.IdServicio" />
     </div>

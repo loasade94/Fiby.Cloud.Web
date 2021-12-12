@@ -37,5 +37,13 @@ namespace Fiby.Cloud.Web.Client.Areas.Reportes.Controllers
             return Json(model);
         }
 
+
+        [HttpPost]
+        public async Task<JsonResult> BuscarRentabilidadGraficoDashboard()
+        {
+            var model = await _semanaService.GetRentabilidadGraficoDashboard();
+            return Json(model);
+        }
+
     }
 }

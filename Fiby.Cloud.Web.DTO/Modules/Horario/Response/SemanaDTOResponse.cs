@@ -19,5 +19,9 @@ namespace Fiby.Cloud.Web.DTO.Modules.Horario.Response
         public string Dia { get; set; }
         public DateTime? Fecha { get; set; }
         public int Prioridad { get; set; }
+        public decimal Monto { get; set; }
+        public List<SemanaDTOResponse> ListaNombres { get; set; }
+        public List<SemanaDTOResponse> ListaMontos { get; set; }
+
     }
 }
