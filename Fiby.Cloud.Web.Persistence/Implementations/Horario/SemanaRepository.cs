@@ -239,5 +239,79 @@ namespace Fiby.Cloud.Web.Persistence.Implementations.Horario
 
             return authModel;
         }
+
+        public async Task<SemanaDTOResponse> GetPasajesEmpleadoDashboard()
+        {
+            SemanaDTOResponse authModel = new SemanaDTOResponse();
+            List<SemanaDTOResponse> ListaNombres = new List<SemanaDTOResponse>();
+            List<SemanaDTOResponse> ListaMontos1 = new List<SemanaDTOResponse>();
+            List<SemanaDTOResponse> ListaMontos2 = new List<SemanaDTOResponse>();
+            var parameters = new DynamicParameters();
+
+            //parameters.Add("@pIdUsuario", userDTORequest.UserId, direction: ParameterDirection.Input);
+            var sp = "uspListarDashPasajesEmpleado";
+            var cn = _connectionFactory.GetConnection();
+            var result = await cn.ExecuteReaderAsync(
+                   sp,
+                   parameters,
+                   commandTimeout: 0,
+                   commandType: CommandType.StoredProcedure
+               );
+
+            if (result.FieldCount > 0)
+            {
+
+                #region NOMBRES DE FECHA
+
+                //DATOS DE USUARIO
+                while (result.Read())
+                {
+                    ListaNombres.Add(new SemanaDTOResponse
+                    {
+                        NombreSemana = DataUtility.ObjectToString(result["NombreSemana"])
+                    });
+                }
+                authModel.ListaNombres = ListaNombres;
+
+                result.NextResult();
+
+                #endregion
+
+                #region MONTO 1
+                //DATOS DE TIENDA
+
+                while (result.Read())
+                {
+                    ListaMontos1.Add(new SemanaDTOResponse
+                    {
+                        Monto = DataUtility.ObjectToDecimal(result["Monto"])
+                    });
+                }
+                authModel.ListaMontos1 = ListaMontos1;
+
+                result.NextResult();
+                #endregion
+
+                #region MONTO 2
+                //DATOS DE TIENDA
+
+                while (result.Read())
+                {
+                    ListaMontos2.Add(new SemanaDTOResponse
+                    {
+                        Monto = DataUtility.ObjectToDecimal(result["Monto"])
+                    });
+                }
+                authModel.ListaMontos2 = ListaMontos2;
+
+                result.NextResult();
+                #endregion
+
+                result.Close();
+            }
+
+
+            return authModel;
+        }
     }
 }

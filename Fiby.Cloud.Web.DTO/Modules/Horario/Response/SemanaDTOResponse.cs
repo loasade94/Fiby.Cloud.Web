@@ -22,6 +22,8 @@ namespace Fiby.Cloud.Web.DTO.Modules.Horario.Response
         public decimal Monto { get; set; }
         public List<SemanaDTOResponse> ListaNombres { get; set; }
         public List<SemanaDTOResponse> ListaMontos { get; set; }
+        public List<SemanaDTOResponse> ListaMontos1 { get; set; }
+        public List<SemanaDTOResponse> ListaMontos2 { get; set; }
 
     }
 }

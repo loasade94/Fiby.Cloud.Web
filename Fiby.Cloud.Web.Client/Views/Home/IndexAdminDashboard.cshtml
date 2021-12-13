@@ -1,7 +1,7 @@
 ﻿@{
     Layout = "~/Views/Shared/_LayoutAdministrator.cshtml";
 }
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/charts.css/dist/charts.min.css">
 <div class="page-breadcrumb">
     <div class="row">
         <div class="col-12 d-flex no-block align-items-center">
@@ -122,17 +122,30 @@
             </div>*@
         <!-- Column -->
     </div>
+    <div class="row">
+        <div class="col-md-6 mt-3">
+            <h5 class="card-main-title mt-4 mb-3">
+                Ingresos
+            </h5>
+            <div class="card-body card-dashboard">
 
-    <div class="col-md-9 mt-3">
-        <h5 class="card-main-title mt-4 mb-3">
-            Ingresos
-        </h5>
-        <div class="card-body card-dashboard">
+                <canvas id="ControlDashBoardAssistanceDetail"></canvas>
+                <span style="margin: 0 auto !important;" class="d-table m-0-auto">SEMANAS</span>
+            </div>
+        </div>
 
-            <canvas id="ControlDashBoardAssistanceDetail"></canvas>
-            <span style="margin: 0 auto !important;" class="d-table m-0-auto">SEMANAS</span>
+        <div class="col-md-6 mt-3">
+            <h5 class="card-main-title mt-4 mb-3">
+                Pasajes
+            </h5>
+            <div class="card-body card-dashboard">
+
+                <canvas id="ControlDashBoardPasajes"></canvas>
+                <span style="margin: 0 auto !important;" class="d-table m-0-auto">SEMANAS</span>
+            </div>
         </div>
     </div>
+    
 
 </div>
 <!-- ============================================================== -->
@@ -147,6 +160,8 @@
 <!-- ============================================================== -->
 <!-- End footer -->
 <!-- ============================================================== -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.2/chart.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.2/chart.js"></script>
+
 
 <script src="@Url.Content("~/js/adminDashboard.js")"></script>

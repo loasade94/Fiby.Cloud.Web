@@ -1,10 +1,11 @@
 ﻿$(function () {
-    adminDashboard.initializeEvent();
+    adminDashboard.initializeEventDashRent();
+    
 });
 
 var adminDashboard = {
 
-    initializeEvent: function () {
+    initializeEventDashRent: function () {
 
         adminDashboard.GetDataDashBoardAdmin(function (data) {
 
@@ -13,14 +14,16 @@ var adminDashboard = {
 
     },
 
-    GetDataDashBoardAdmin: function (callback) {
-        //return;
-        //var request = {
-        //    CodeOrganizationalUnit: codeOrganizationalUnit,
-        //    YearPeriod: yearPeriod,
-        //    CodePeriod: codePeriod
+    initializeEventDashPasajes: function () {
 
-        //};
+        adminDashboard.GetDataDashPasajesAdmin(function (data) {
+
+            adminDashboard.LoadDashBoarAdminPasajes(data);
+        });
+
+    },
+    //GANANCIAS INICIO
+    GetDataDashBoardAdmin: function (callback) {
 
         var ListData = {
 
@@ -113,6 +116,125 @@ var adminDashboard = {
                 }
             });
         }
+
+        adminDashboard.initializeEventDashPasajes();
     },
+    //GANANCIAS FIN
+
+    //PASAJES INICIO
+    GetDataDashPasajesAdmin: function (callback) {
+
+        var ListData = {
+
+            ListNombres: [],
+            ListMontos1: [],
+            ListMontos2: []
+
+        }
+
+        $.ajax({
+            type: "POST",
+            //data: { request: request },
+            url: '/Reportes/ReporteSemana/BuscarPasajesEmpleadoDashboard',
+            // dataType: "json",
+            beforeSend: function () {
+
+
+            },
+            complete: function () {
+
+
+            },
+            success: function (response, textStatus, jqXhr) {
+
+                console.log('response GetDataDashBoardAdmin');
+                console.log(response);
+
+                var ListNombres = [];
+                var ListMontos1 = [];
+                var ListMontos2 = [];
+
+                if (response != null) {
+
+                    for (var i = 0; i < response.listaNombres.length; i++) {
+                        ListNombres[i] = response.listaNombres[i].nombreSemana;
+                    }
+
+                    for (var i = 0; i < response.listaMontos1.length; i++) {
+                        ListMontos1[i] = response.listaMontos1[i].monto;
+                    }
+
+                    for (var i = 0; i < response.listaMontos2.length; i++) {
+                        ListMontos2[i] = response.listaMontos2[i].monto;
+                    }
+                }
+
+                ListData.ListNombres.push(ListNombres);
+                ListData.ListMontos1.push(ListMontos1);
+                ListData.ListMontos2.push(ListMontos2);
+
+                callback(ListData);
+            },
+            error: function (xhr, status, errorThrown) {
+                var err = "Status: " + status + " " + errorThrown;
+                console.log(err);
+                callback(ListData);
+            },
+            async: true,
+        })
+    },
+
+    LoadDashBoarAdminPasajes: function (data) {
+
+        if (document.getElementById("ControlDashBoardPasajes") != null) {
+            var ctxL = document.getElementById("ControlDashBoardPasajes").getContext('2d');
+            var myLineChart = new Chart(ctxL, {
+                type: 'line',
+                data: {
+                    labels: data.ListNombres[0],
+                    //datasets: [{
+                    //    label: "Ganancias",
+                    //    data: data.ListMontos[0],
+                    //    backgroundColor: [
+                    //        'rgba(0, 255, 34, 1)',
+                    //    ],
+                    //    borderColor: [
+                    //        'rgba(0, 255, 34, 0.7)',
+                    //    ],
+                    //    borderWidth: 2
+                    //}
+                    //]
+                    datasets: [{
+                        label: "Elsa",
+                        data: data.ListMontos1[0],
+                        backgroundColor: [
+                            'rgba(105, 0, 132, .2)',
+                        ],
+                        borderColor: [
+                            'rgba(200, 99, 132, .7)',
+                        ],
+                        borderWidth: 2
+                    },
+                    {
+                        label: "Katelin",
+                        data: data.ListMontos2[0],
+                        backgroundColor: [
+                            'rgba(0, 137, 132, .2)',
+                        ],
+                        borderColor: [
+                            'rgba(0, 10, 130, .7)',
+                        ],
+                        borderWidth: 2
+                    }
+                    ]
+                },
+                options: {
+                    responsive: true
+                }
+            });
+        }
+    },
+
+    //PASAJES FIN
 
 }
