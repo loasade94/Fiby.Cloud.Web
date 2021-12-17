@@ -1,0 +1,166 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutEmpleado.cshtml";
+}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/charts.css/dist/charts.min.css">
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+            <h4 class="page-title">Hola <span><b>@ViewBag.NombreSesion</b></span> </h4>
+            <div class="ms-auto text-end">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        @*<li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Library</li>*@
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ============================================================== -->
+<!-- End Bread crumb and right sidebar toggle -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- Container fluid  -->
+<!-- ============================================================== -->
+<div class="container-fluid">
+    <!-- ============================================================== -->
+    <!-- Sales Cards  -->
+    <!-- ============================================================== -->
+    <div class="row">
+        <!-- Column -->
+        <div class="col-md-6 col-lg-2 col-xlg-3">
+            <div class="card card-hover">
+                <a href="@Url.Action("Index", "Calendario", new { Area = "Horario" })" class="box bg-cyan text-center">
+                    <h1 class="font-light text-white"><i class="mdi mdi-calendar-plus"></i></h1>
+                    <h6 class="text-white">Registrar Servicio</h6>
+                </a>
+            </div>
+        </div>
+        <!-- Column -->
+        @*<div class="col-md-6 col-lg-2 col-xlg-3">
+            <div class="card card-hover">
+                <a href="@Url.Action("Index", "Disponibilidad", new { Area = "Horario" })" class="box bg-success text-center">
+                    <h1 class="font-light text-white"><i class="mdi mdi-calendar-search"></i></h1>
+                    <h6 class="text-white">Ver Disponibilidad</h6>
+                </a>
+            </div>
+        </div>*@
+        <!-- Column -->
+        @*<div class="col-md-6 col-lg-3 col-xlg-3">
+            <div class="card card-hover">
+                <a href="@Url.Action("Index", "PagoEmpleado", new { Area = "Pagos" })" class="box bg-warning text-center">
+                    <h1 class="font-light text-white"><i class="mdi mdi-cash"></i></h1>
+                    <h6 class="text-white">Registrar Pago Empleados</h6>
+                </a>
+            </div>
+        </div>*@
+        <!-- Column -->
+        @*<div class="col-md-6 col-lg-4 col-xlg-3">
+            <div class="card card-hover">
+                <a href="@Url.Action("Index", "PagoCliente", new { Area = "Pagos" })" class="box bg-danger text-center">
+                    <h1 class="font-light text-white"><i class="mdi mdi-cash-multiple"></i></h1>
+                    <h6 class="text-white">Registrar Pagos de Clientes</h6>
+                </a>
+            </div>
+        </div>*@
+        <!-- Column -->
+        @*<div class="col-md-6 col-lg-2 col-xlg-3">
+            <div class="card card-hover">
+                <a href="@Url.Action("Index", "ReporteSemana", new { Area = "Reportes" })" class="box bg-info text-center">
+                    <h1 class="font-light text-white"><i class="mdi mdi-calculator"></i></h1>
+                    <h6 class="text-white">Reporte Semanal</h6>
+                </a>
+            </div>
+        </div>*@
+        <!-- Column -->
+        <!-- Column -->
+        @*<div class="col-md-6 col-lg-3 col-xlg-3">
+            <div class="card card-hover">
+                <a href="@Url.Action("Index", "Cliente", new { Area = "Maintenance" })" class="box bg-danger text-center">
+                    <h1 class="font-light text-white"><i class="mdi mdi-receipt"></i></h1>
+                    <h6 class="text-white">Registro de Clientes</h6>
+                </a>
+            </div>
+        </div>*@
+        <!-- Column -->
+        @*<div class="col-md-6 col-lg-2 col-xlg-3">
+            <div class="card card-hover">
+                <a href="@Url.Action("Index", "ServicioSemana", new { Area = "Horario" })" class="box bg-info text-center">
+                    <h1 class="font-light text-white"><i class="mdi mdi-relative-scale"></i></h1>
+                    <h6 class="text-white">Servicios de Mañana</h6>
+                </a>
+            </div>
+        </div>*@
+        <!-- Column -->
+        @*<div class="col-md-6 col-lg-2 col-xlg-3">
+                <div class="card card-hover">
+                    <div class="box bg-cyan text-center">
+                        <h1 class="font-light text-white"><i class="mdi mdi-pencil"></i></h1>
+                        <h6 class="text-white">Elements</h6>
+                    </div>
+                </div>
+            </div>*@
+        <!-- Column -->
+        @*<div class="col-md-6 col-lg-2 col-xlg-3">
+                <div class="card card-hover">
+                    <div class="box bg-success text-center">
+                        <h1 class="font-light text-white"><i class="mdi mdi-calendar-check"></i></h1>
+                        <h6 class="text-white">Calnedar</h6>
+                    </div>
+                </div>
+            </div>*@
+        <!-- Column -->
+        @*<div class="col-md-6 col-lg-2 col-xlg-3">
+                <div class="card card-hover">
+                    <div class="box bg-warning text-center">
+                        <h1 class="font-light text-white"><i class="mdi mdi-alert"></i></h1>
+                        <h6 class="text-white">Errors</h6>
+                    </div>
+                </div>
+            </div>*@
+        <!-- Column -->
+    </div>
+    @*<div class="row">
+        <div class="col-md-6 mt-3">
+            <h5 class="card-main-title mt-4 mb-3">
+                Ingresos
+            </h5>
+            <div class="card-body card-dashboard">
+
+                <canvas id="ControlDashBoardAssistanceDetail"></canvas>
+                <span style="margin: 0 auto !important;" class="d-table m-0-auto">SEMANAS</span>
+            </div>
+        </div>
+
+        <div class="col-md-6 mt-3">
+            <h5 class="card-main-title mt-4 mb-3">
+                Pasajes
+            </h5>
+            <div class="card-body card-dashboard">
+
+                <canvas id="ControlDashBoardPasajes"></canvas>
+                <span style="margin: 0 auto !important;" class="d-table m-0-auto">SEMANAS</span>
+            </div>
+        </div>
+    </div>*@
+
+
+</div>
+<!-- ============================================================== -->
+<!-- End Container fluid  -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- footer -->
+<!-- ============================================================== -->
+<footer class="footer text-center">
+    Diseñado y Desarrollado por <a href="https://www.fibysoft.com">Fibysoft</a>.
+</footer>
+<!-- ============================================================== -->
+<!-- End footer -->
+<!-- ============================================================== -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.2/chart.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.2/chart.js"></script>
+
+
+<script src="@Url.Content("~/js/adminDashboard.js")"></script>

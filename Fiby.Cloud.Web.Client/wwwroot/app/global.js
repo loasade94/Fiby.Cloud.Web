@@ -331,8 +331,8 @@ function start_from_Zero(minute, seconds) {
 }
 
 $(document).ready(function () {
-    start_cuntdown();
+    //start_cuntdown();
     $('body').mousemove(function () {
-        start_cuntdown();
+        //start_cuntdown();
     });
 });

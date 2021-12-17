@@ -128,7 +128,8 @@ var adminDashboard = {
 
             ListNombres: [],
             ListMontos1: [],
-            ListMontos2: []
+            ListMontos2: [],
+            ListMontos3: []
 
         }
 
@@ -153,6 +154,7 @@ var adminDashboard = {
                 var ListNombres = [];
                 var ListMontos1 = [];
                 var ListMontos2 = [];
+                var ListMontos3 = [];
 
                 if (response != null) {
 
@@ -167,11 +169,16 @@ var adminDashboard = {
                     for (var i = 0; i < response.listaMontos2.length; i++) {
                         ListMontos2[i] = response.listaMontos2[i].monto;
                     }
+
+                    for (var i = 0; i < response.listaMontos3.length; i++) {
+                        ListMontos3[i] = response.listaMontos3[i].monto;
+                    }
                 }
 
                 ListData.ListNombres.push(ListNombres);
                 ListData.ListMontos1.push(ListMontos1);
                 ListData.ListMontos2.push(ListMontos2);
+                ListData.ListMontos3.push(ListMontos3);
 
                 callback(ListData);
             },
@@ -192,18 +199,6 @@ var adminDashboard = {
                 type: 'line',
                 data: {
                     labels: data.ListNombres[0],
-                    //datasets: [{
-                    //    label: "Ganancias",
-                    //    data: data.ListMontos[0],
-                    //    backgroundColor: [
-                    //        'rgba(0, 255, 34, 1)',
-                    //    ],
-                    //    borderColor: [
-                    //        'rgba(0, 255, 34, 0.7)',
-                    //    ],
-                    //    borderWidth: 2
-                    //}
-                    //]
                     datasets: [{
                         label: "Elsa",
                         data: data.ListMontos1[0],
@@ -223,6 +218,17 @@ var adminDashboard = {
                         ],
                         borderColor: [
                             'rgba(0, 10, 130, .7)',
+                        ],
+                        borderWidth: 2
+                    },
+                    {
+                        label: "Brenda",
+                        data: data.ListMontos3[0],
+                        backgroundColor: [
+                            'rgba(249, 105, 14, .1)',
+                        ],
+                        borderColor: [
+                            'rgba(100, 10, 14, .7)',
                         ],
                         borderWidth: 2
                     }

@@ -60,10 +60,10 @@ namespace Fiby.Cloud.Web.Client.Controllers
             //var response = await _userService.LoginUser(authDTORequest);
             var response = await _userService.LoginUserNew(authDTORequest);
 
-            if (response == "1")
+            if (response != "0")
             {
                 UserDTORequest userDTORequest = new UserDTORequest();
-                userDTORequest.UserId = 1;
+                userDTORequest.UserId = int.Parse(response);
 
                 //var listDataUser = await _userService.GetUserLogin(userDTORequest);
                 var listDataUser = await _userService.GetUserLoginNew(userDTORequest);
@@ -75,7 +75,7 @@ namespace Fiby.Cloud.Web.Client.Controllers
 
                 claims.Add(new Claim(CustomClaimTypes.AplicationAdmin, JsonConvert.SerializeObject(listDataUser)));
                 claims.Add(new Claim(CustomClaimTypes.CompanyId, JsonConvert.SerializeObject(listDataUser.oCompany.CompanyId.ToString())));
-                claims.Add(new Claim(CustomClaimTypes.ProfileId, JsonConvert.SerializeObject(listDataUser.oUser.RolId.ToString())));
+                claims.Add(new Claim(CustomClaimTypes.ProfileId, listDataUser.oUser.RolId.ToString()));
                 claims.Add(new Claim(CustomClaimTypes.Profile, JsonConvert.SerializeObject(listDataUser.oRol.Description.ToString())));
                 claims.Add(new Claim(CustomClaimTypes.Nombre, JsonConvert.SerializeObject(listDataUser.oUser.Names.ToString())));
 
@@ -87,7 +87,17 @@ namespace Fiby.Cloud.Web.Client.Controllers
                 //_claimValue.SetValue(CookieAuthenticationDefaults.AuthenticationScheme, "AplicationAdmin", JsonConvert.SerializeObject(listDataUser));
 
                 ViewBag.Error = "";
-                return RedirectToAction("IndexAdminDashboard", "Home");
+
+                if (listDataUser.oRol.RolId == 1)
+                {
+                    return RedirectToAction("IndexAdminDashboard", "Home");
+                }
+                //else
+                //{
+                //    return RedirectToAction("IndexEmpleadoDashboard", "Home");
+                //}
+
+                
             }
 
             ViewBag.Error = "Usuario no registrado";

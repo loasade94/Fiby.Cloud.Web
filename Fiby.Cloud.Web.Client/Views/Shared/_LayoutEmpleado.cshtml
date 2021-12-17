@@ -73,10 +73,9 @@
                         </b>
                         <!--End Logo icon -->
                         <!-- Logo text -->
-                        <span class="logo-text" style="font-size:30px;height:50%;font-family:cursive;">
+                        <span class="logo-text">
                             <!-- dark Logo text -->
-                            @*<img src="~/cssadmin/assets/images/logo-text.png" alt="homepage" class="light-logo" />*@
-                            F I B Y
+                            <img src="~/cssadmin/assets/images/logo-text.png" alt="homepage" class="light-logo" />
 
                         </span>
                         <!-- Logo icon -->
@@ -280,38 +279,38 @@
                     <ul id="sidebarnav" class="pt-4">
 
                         @*<li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                               href="index.html" aria-expanded="false">
-                                <i class="mdi mdi-view-dashboard"></i><span class="hide-menu">Dashboard</span>
-                            </a>
-                        </li>*@
+                                <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                   href="index.html" aria-expanded="false">
+                                    <i class="mdi mdi-view-dashboard"></i><span class="hide-menu">Dashboard</span>
+                                </a>
+                            </li>*@
                         @for (int i = 0; i < DataListOpcionAdmin.oListMenu.Count; i++)
-                            {
+                        {
 
-                                <li class="sidebar-item">
-                                    <a class="sidebar-link has-arrow waves-effect waves-dark"
-                                       href="javascript:void(0)" aria-expanded="false">
-                                        <i class="mdi @DataListOpcionAdmin.oListMenu[i].Icon"></i><span class="hide-menu">@DataListOpcionAdmin.oListMenu[i].Name</span>
-                                    </a>
-                                    <ul aria-expanded="false" class="collapse  first-level">
+                            <li class="sidebar-item">
+                                <a class="sidebar-link has-arrow waves-effect waves-dark"
+                                   href="javascript:void(0)" aria-expanded="false">
+                                    <i class="mdi @DataListOpcionAdmin.oListMenu[i].Icon"></i><span class="hide-menu">@DataListOpcionAdmin.oListMenu[i].Name</span>
+                                </a>
+                                <ul aria-expanded="false" class="collapse  first-level">
 
-                                        @for (int j = 0; j < DataListOpcionAdmin.oListSubMenu.Count; j++)
+                                    @for (int j = 0; j < DataListOpcionAdmin.oListSubMenu.Count; j++)
+                                    {
+                                        @if (DataListOpcionAdmin.oListSubMenu[j].IdMenu == DataListOpcionAdmin.oListMenu[i].MenuId)
                                         {
-                                            @if (DataListOpcionAdmin.oListSubMenu[j].IdMenu == DataListOpcionAdmin.oListMenu[i].MenuId)
-                                            {
-                                                <li class="sidebar-item">
-                                                    <a href="@Url.Action(DataListOpcionAdmin.oListSubMenu[j].Action, DataListOpcionAdmin.oListSubMenu[j].Controlator, new { Area = DataListOpcionAdmin.oListSubMenu[j].Area })" class="sidebar-link">
-                                                        <i class="mdi @DataListOpcionAdmin.oListSubMenu[j].ImageIco"></i><span class="hide-menu">
-                                                            @DataListOpcionAdmin.oListSubMenu[j].Name
-                                                        </span>
-                                                    </a>
-                                                </li>
-                                            }
+                                            <li class="sidebar-item">
+                                                <a href="@Url.Action(DataListOpcionAdmin.oListSubMenu[j].Action, DataListOpcionAdmin.oListSubMenu[j].Controlator, new { Area = DataListOpcionAdmin.oListSubMenu[j].Area })" class="sidebar-link">
+                                                    <i class="mdi @DataListOpcionAdmin.oListSubMenu[j].ImageIco"></i><span class="hide-menu">
+                                                        @DataListOpcionAdmin.oListSubMenu[j].Name
+                                                    </span>
+                                                </a>
+                                            </li>
                                         }
-                                    </ul>
+                                    }
+                                </ul>
 
-                                </li>
-                            }
+                            </li>
+                        }
 
 
                     </ul>

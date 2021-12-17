@@ -53,10 +53,18 @@ namespace Fiby.Cloud.Web.Client.Controllers
             return View();
         }
 
-        public void SetClaimValueProfile(string ProfileId, string Profile)
-        {
-            _claimValue.SetValue(CookieAuthenticationDefaults.AuthenticationScheme, "ProfileLevelId", ProfileId);
-            _claimValue.SetValue(CookieAuthenticationDefaults.AuthenticationScheme, "Profile", Profile);
-        }
+        //public IActionResult IndexEmpleadoDashboard(int id)
+        //{
+
+        //    if (User.Identity.GetProfileId() != "2")
+        //    {
+        //        return RedirectToAction("Login", "Account");
+        //    }
+
+        //    ViewBag.NombreSesion = User.Identity.GetNombre();
+        //    return View();
+        //}
+
+       
     }
 }

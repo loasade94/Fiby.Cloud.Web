@@ -66,6 +66,7 @@ namespace Fiby.Cloud.Web.Client
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("Admin", policy => policy.RequireClaim("Profile", "Admin"));
+                //options.AddPolicy("EMPLEADO", policy => policy.RequireClaim("Profile", "EMPLEADO"));
                 //options.AddPolicy("Supervisor", policy => policy.RequireClaim("Profile", "Supervisor"));
                 //options.AddPolicy("Worker", policy => policy.RequireClaim("Profile", "Worker"));
             });
