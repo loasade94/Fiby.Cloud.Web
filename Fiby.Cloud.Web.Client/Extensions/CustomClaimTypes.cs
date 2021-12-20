@@ -13,5 +13,6 @@ namespace Fiby.Cloud.Web.Client.Extensions
         public const string ProfileId = "ProfileId";
         public const string Profile = "Profile";
         public const string Nombre = "Nombre";
+        public const string IdEmpleado = "IdEmpleado";
     }
 }

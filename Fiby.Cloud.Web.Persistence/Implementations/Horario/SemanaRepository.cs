@@ -187,6 +187,7 @@ namespace Fiby.Cloud.Web.Persistence.Implementations.Horario
             SemanaDTOResponse authModel = new SemanaDTOResponse();
             List<SemanaDTOResponse> ListaNombres = new List<SemanaDTOResponse>();
             List<SemanaDTOResponse> ListaMontos = new List<SemanaDTOResponse>();
+            List<SemanaDTOResponse> ListaMontos1 = new List<SemanaDTOResponse>();
             var parameters = new DynamicParameters();
 
             //parameters.Add("@pIdUsuario", userDTORequest.UserId, direction: ParameterDirection.Input);
@@ -218,7 +219,7 @@ namespace Fiby.Cloud.Web.Persistence.Implementations.Horario
 
                 #endregion
 
-                #region DATOS DE TIENDA
+                #region Ganacias
                 //DATOS DE TIENDA
 
                 while (result.Read())
@@ -229,6 +230,21 @@ namespace Fiby.Cloud.Web.Persistence.Implementations.Horario
                     });
                 }
                 authModel.ListaMontos = ListaMontos;
+
+                result.NextResult();
+                #endregion
+
+                #region Perdias
+                //DATOS DE TIENDA
+
+                while (result.Read())
+                {
+                    ListaMontos1.Add(new SemanaDTOResponse
+                    {
+                        Monto = DataUtility.ObjectToDecimal(result["Monto"])
+                    });
+                }
+                authModel.ListaMontos1 = ListaMontos1;
 
                 result.NextResult();
                 #endregion

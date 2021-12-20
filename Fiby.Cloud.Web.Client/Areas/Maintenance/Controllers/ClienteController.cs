@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Fiby.Cloud.Web.Client.Extensions;
 using Fiby.Cloud.Web.DTO.Modules.Maintenance.Request;
 using Fiby.Cloud.Web.DTO.Modules.Maintenance.Response;
 using Fiby.Cloud.Web.Service.Interfaces.Maintenance;
@@ -24,6 +25,11 @@ namespace Fiby.Cloud.Web.Client.Areas.Maintenance.Controllers
 
         public IActionResult Index()
         {
+            if (User.Identity.GetProfileId() != "1")
+            {
+                return RedirectToAction("Logout", "Account", new { Area = "" });
+            }
+
             return View();
         }
 

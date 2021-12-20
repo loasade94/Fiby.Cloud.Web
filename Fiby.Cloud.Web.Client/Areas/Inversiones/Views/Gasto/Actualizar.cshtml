@@ -1,0 +1,66 @@
+﻿@model Fiby.Cloud.Web.DTO.Modules.Inversiones.Response.GastoDTOResponse
+@{ Layout = null; }
+<div class="modal-content">
+    <div class="text-center">
+        <div class="modal-header center-block">
+            <h4 class="modal-title text-center" id="modal-step-title">
+                <strong>@ViewBag.titleModal</strong>
+            </h4>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="fiby-md-form">
+                    <select class="fiby-input-text" id="cboSemanaEditar">
+                        @foreach (var item in ViewBag.ListaSemana)
+                        {
+                            if (item.IdSemana == Model.IdSemana)
+                            {
+                                <option selected value="@item.IdSemana">@item.NombreSemana</option>
+                            }
+                            else
+                            {
+                                <option value="@item.IdSemana">@item.NombreSemana</option>
+                            }
+
+                        }
+                    </select>
+                    <label for="cboSemanaEditar" class="fiby-label active">Semana</label>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="fiby-md-form">
+                    <input type="text" value="@Model.Descripcion" class="fiby-input-text form-control" id="txtDescripcionEditar" placeholder=" ">
+                    <label for="txtDescripcionEditar" class="fiby-label active">Descripción</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="fiby-md-form">
+                    @if (Model.Monto > 0)
+                    {
+                        <input type="text" value="@Model.Monto.ToString("0.00")" class="fiby-input-text form-control" id="txtMontoEditar" placeholder=" ">
+                    }
+                    else
+                    {
+                        <input type="text" class="fiby-input-text form-control" id="txtMontoEditar" placeholder="0.00">
+                    }
+
+                    <label for="txtMontoEditar" class="fiby-label active">Monto</label>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" id="hiddenModalGastoIsNew" name="hiddenModalGastoIsNew" value="@ViewBag.ModalGeneralIsNew" />
+        <input type="hidden" id="hiddenGastoId" name="hiddenGastoId" value="@Model.IdGasto" />
+    </div>
+
+    <div class="align-self-center d-flex modal-buttons-div">
+        <button type="button" class="btn btn-info btn modal-btn-save" id="btnActualizar" onclick="gastojs.actualizarGasto();">
+            ACTUALIZAR
+        </button>
+        <button type="button" class="btn btn-info btn" data-dismiss="modal">
+            CERRAR
+        </button>
+    </div>
+
+</div>

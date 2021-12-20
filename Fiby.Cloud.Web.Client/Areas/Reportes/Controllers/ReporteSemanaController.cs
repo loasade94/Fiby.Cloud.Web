@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Fiby.Cloud.Web.Client.Extensions;
 using Fiby.Cloud.Web.DTO.Modules.Reportes.Request;
 using Fiby.Cloud.Web.Service.Interfaces.Horario;
 using Fiby.Cloud.Web.Service.Interfaces.Reportes;
@@ -26,6 +27,11 @@ namespace Fiby.Cloud.Web.Client.Areas.Reportes.Controllers
 
         public async Task<IActionResult> Index()
         {
+            if (User.Identity.GetProfileId() != "1")
+            {
+                return RedirectToAction("Logout", "Account", new { Area = "" });
+            }
+
             ViewBag.ListaSemana = await _semanaService.GetListaSemana();
             return View();
         }

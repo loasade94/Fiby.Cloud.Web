@@ -82,6 +82,7 @@ namespace Fiby.Cloud.Web.Persistence.Implementations.Horario
 
                 parameters.Add("@pIdEmpleado", calendarioDTORequest.IdEmpleado, direction: ParameterDirection.Input);
                 parameters.Add("@pFecha", calendarioDTORequest.Fecha, direction: ParameterDirection.Input);
+                parameters.Add("@pFlagEmpleado", calendarioDTORequest.FlagEmpleado, direction: ParameterDirection.Input);
 
                 var cn = _connectionFactory.GetConnection();
                 var sp = "uspListaServiciosXEmpleado";

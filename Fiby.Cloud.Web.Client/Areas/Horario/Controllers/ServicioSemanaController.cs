@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Fiby.Cloud.Web.Client.Extensions;
 using Fiby.Cloud.Web.Service.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -20,7 +21,18 @@ namespace Fiby.Cloud.Web.Client.Areas.Horario.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            ViewBag.ListaEmpleados = await _empleadoService.GetEmpleadoAll();
+            if (User.Identity.GetProfileId() == "2")
+            {
+                var empleadoId = User.Identity.GetIdEmpleado();
+                var listEmpleado = await _empleadoService.GetEmpleadoAll();
+                ViewBag.ListaEmpleados = listEmpleado.Where(x => x.Codigo.ToString() == empleadoId);
+                ViewBag.IdPerfil = User.Identity.GetProfileId();
+            }
+            else
+            {
+                ViewBag.ListaEmpleados = await _empleadoService.GetEmpleadoAll();
+            }
+
             return View();
         }
     }

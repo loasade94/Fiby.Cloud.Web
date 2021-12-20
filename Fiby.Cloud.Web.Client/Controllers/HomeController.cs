@@ -29,9 +29,12 @@ namespace Fiby.Cloud.Web.Client.Controllers
             _claimValue = claimValue;
         }
 
-        public async Task<IActionResult> IndexAdminDashboard(int id)
+        public IActionResult IndexAdminDashboard(int id)
         {
-
+            if (User.Identity.GetProfileId() != "1")
+            {
+                return RedirectToAction("Logout", "Account");
+            }
             //UserDTORequest userDTORequest = new UserDTORequest();
             //userDTORequest.UserId = id;
 
@@ -53,18 +56,18 @@ namespace Fiby.Cloud.Web.Client.Controllers
             return View();
         }
 
-        //public IActionResult IndexEmpleadoDashboard(int id)
-        //{
+        public IActionResult IndexEmpleadoDashboard(int id)
+        {
 
-        //    if (User.Identity.GetProfileId() != "2")
-        //    {
-        //        return RedirectToAction("Login", "Account");
-        //    }
+            if (User.Identity.GetProfileId() != "2")
+            {
+                return RedirectToAction("Logout", "Account");
+            }
 
-        //    ViewBag.NombreSesion = User.Identity.GetNombre();
-        //    return View();
-        //}
+            ViewBag.NombreSesion = User.Identity.GetNombre();
+            return View();
+        }
 
-       
+
     }
 }

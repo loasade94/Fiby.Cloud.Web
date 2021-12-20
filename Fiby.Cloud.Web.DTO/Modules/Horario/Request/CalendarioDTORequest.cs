@@ -23,5 +23,6 @@ namespace Fiby.Cloud.Web.DTO.Modules.Horario.Request
         public DateTime? FechaCambio { get; set; }
         public int UsuarioCambio { get; set; }
         public int Recurrente { get; set; }
+        public int FlagEmpleado { get; set; }
     }
 }

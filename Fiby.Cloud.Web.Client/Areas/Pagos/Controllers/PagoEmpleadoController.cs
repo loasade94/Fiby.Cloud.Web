@@ -4,6 +4,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Fiby.Cloud.Web.Client.Extensions;
 using Fiby.Cloud.Web.DTO.Modules.Horario.Request;
 using Fiby.Cloud.Web.DTO.Modules.Horario.Response;
 using Fiby.Cloud.Web.DTO.Modules.Pagos.Request;
@@ -45,6 +46,11 @@ namespace Fiby.Cloud.Web.Client.Areas.Pagos.Controllers
 
         public async Task<IActionResult> Index()
         {
+            if (User.Identity.GetProfileId() != "1")
+            {
+                return RedirectToAction("Logout", "Account", new { Area = "" });
+            }
+
             ViewBag.ListaEmpleados = await _empleadoService.GetEmpleadoAll();
             ViewBag.ListaSemana = await _semanaService.GetListaSemana();
             return View();

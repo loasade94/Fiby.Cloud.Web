@@ -28,7 +28,8 @@ var adminDashboard = {
         var ListData = {
 
             ListNombres: [],
-            ListMontos: []
+            ListMontos: [],
+            ListMontos1: []
 
         }
 
@@ -52,6 +53,7 @@ var adminDashboard = {
 
                 var ListNombres = [];
                 var ListMontos = [];
+                var ListMontos1 = [];
 
                 if (response != null) {
 
@@ -62,10 +64,15 @@ var adminDashboard = {
                     for (var i = 0; i < response.listaMontos.length; i++) {
                         ListMontos[i] = response.listaMontos[i].monto;
                     }
+
+                    for (var i = 0; i < response.listaMontos1.length; i++) {
+                        ListMontos1[i] = response.listaMontos1[i].monto;
+                    }
                 }
 
                 ListData.ListNombres.push(ListNombres);
                 ListData.ListMontos.push(ListMontos);
+                ListData.ListMontos1.push(ListMontos1);
 
                 callback(ListData);
             },
@@ -90,25 +97,25 @@ var adminDashboard = {
                         label: "Ganancias",
                         data: data.ListMontos[0],
                         backgroundColor: [
-                            'rgba(0, 255, 34, 1)',
+                            'rgba(0, 255, 34, .1)',
                         ],
                         borderColor: [
                             'rgba(0, 255, 34, 0.7)',
                         ],
                         borderWidth: 2
                     }
-                    //    ,
-                    //{
-                    //    label: "Tardanzas",
-                    //    data: data.ListDataDelay[0],
-                    //    backgroundColor: [
-                    //        'rgba(0, 137, 132, .2)',
-                    //    ],
-                    //    borderColor: [
-                    //        'rgba(0, 10, 130, .7)',
-                    //    ],
-                    //    borderWidth: 2
-                    //}
+                        ,
+                    {
+                        label: "Gastos",
+                        data: data.ListMontos1[0],
+                        backgroundColor: [
+                            'rgba(247, 30, 0, .1)',
+                        ],
+                        borderColor: [
+                            'rgba(247, 30, 0, 0.7)',
+                        ],
+                        borderWidth: 2
+                    }
                     ]
                 },
                 options: {

@@ -63,7 +63,7 @@
                     <!-- ============================================================== -->
                     <!-- Logo -->
                     <!-- ============================================================== -->
-                    <a class="navbar-brand" href="@Url.Action("IndexAdminDashboard", "Home", new { Area = "" })">
+                    <a class="navbar-brand" href="@Url.Action("IndexEmpleadoDashboard", "Home", new { Area = "" })">
                         <!-- Logo icon -->
                         <b class="logo-icon ps-2">
                             <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
@@ -73,10 +73,10 @@
                         </b>
                         <!--End Logo icon -->
                         <!-- Logo text -->
-                        <span class="logo-text">
+                        <span class="logo-text" style="font-size:30px;height:50%;font-family:cursive;">
                             <!-- dark Logo text -->
-                            <img src="~/cssadmin/assets/images/logo-text.png" alt="homepage" class="light-logo" />
-
+                            @*<img src="~/cssadmin/assets/images/logo-text.png" alt="homepage" class="light-logo" />*@
+                            F I B Y
                         </span>
                         <!-- Logo icon -->
                         <!-- <b class="logo-icon"> -->
@@ -141,7 +141,7 @@
                         <!-- ============================================================== -->
                         <!-- Comment -->
                         <!-- ============================================================== -->
-                        <li class="nav-item dropdown">
+                        <li class="nav-item dropdown is-hidden">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="mdi mdi-bell font-24"></i>
                             </a>
@@ -158,7 +158,7 @@
                         <!-- ============================================================== -->
                         <!-- Messages -->
                         <!-- ============================================================== -->
-                        <li class="nav-item dropdown">
+                        <li class="nav-item dropdown is-hidden">
                             <a class="nav-link dropdown-toggle waves-effect waves-dark" href="#" id="2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="font-24 mdi mdi-comment-processing"></i>
                             </a>
@@ -232,9 +232,9 @@
                             <ul class="dropdown-menu dropdown-menu-end user-dd animated" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="javascript:void(0)">
                                     <i class="ti-user me-1 ms-1"></i>
-                                    My Profile
+                                    Mi Perfil
                                 </a>
-                                <a class="dropdown-item" href="javascript:void(0)">
+                                @*<a class="dropdown-item" href="javascript:void(0)">
                                     <i class="ti-wallet me-1 ms-1"></i>
                                     My Balance
                                 </a>
@@ -245,10 +245,10 @@
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="javascript:void(0)">
                                     <i class="ti-settings me-1 ms-1"></i> Account Setting
-                                </a>
+                                </a>*@
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="javascript:void(0)">
-                                    <i class="fa fa-power-off me-1 ms-1"></i> Logout
+                                <a class="dropdown-item" href="@Url.Action("Logout", "Account", new { Area = "" })">
+                                    <i class="fa fa-power-off me-1 ms-1"></i> Cerrar Sesión
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <div class="ps-4 p-10">
@@ -339,7 +339,7 @@
     <script src="~/cssadmin/dist/js/custom.min.js"></script>
     <script type="text/javascript" src="@Url.Content("~/js/popper.min.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/js/bootstrap.min.js")"></script>
-
+    <script src="~/cssadmin/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     @*<script src="~/cssadmin/assets/libs/jquery/dist/jquery.min.js"></script>
         <script src="~/cssadmin/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
         <script src="~/cssadmin/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>

@@ -37,6 +37,12 @@ namespace Fiby.Cloud.Web.Client.Areas.Horario.Controllers
 
         public async Task<IActionResult> Index()
         {
+
+            if (User.Identity.GetProfileId() != "1")
+            {
+                return RedirectToAction("Logout", "Account", new { Area = "" });
+            }
+
             ViewBag.ListaEmpleados = await _empleadoService.GetEmpleadoAll();
             ViewBag.ListaHorario = await _semanaService.GetListaHorario();
             ViewBag.ListaCliente = await _clienteService.GetClienteAll();
@@ -68,6 +74,12 @@ namespace Fiby.Cloud.Web.Client.Areas.Horario.Controllers
         public async Task<JsonResult> BuscarServicioXEmpleado(CalendarioDTORequest calendarioDTORequest, int indicadorInicio)
         {
             calendarioDTORequest.Fecha = General.ConvertFormatDateTime(calendarioDTORequest.FechaText);
+
+            if (User.Identity.GetProfileId() == "2")
+            {
+                calendarioDTORequest.FlagEmpleado = 1;
+            }
+
             var model = await _calendarioService.GetServicioXEmpleado(calendarioDTORequest);
             return Json(model);
         }
