@@ -1,5 +1,6 @@
 ﻿using Fiby.Cloud.Web.DTO.Modules.Horario.Request;
 using Fiby.Cloud.Web.DTO.Modules.Horario.Response;
+using Fiby.Cloud.Web.DTO.Modules.Maintenance.Request;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -15,5 +16,6 @@ namespace Fiby.Cloud.Web.Persistence.Interfaces.Horario
         Task<List<SemanaDTOResponse>> GetListaHorario();
         Task<SemanaDTOResponse> GetRentabilidadGraficoDashboard();
         Task<SemanaDTOResponse> GetPasajesEmpleadoDashboard();
+        Task<List<SemanaDTOResponse>> GetListaSemanaPagadaXEmpleado(EmpleadoDTORequest empleadoDTORequest);
     }
 }

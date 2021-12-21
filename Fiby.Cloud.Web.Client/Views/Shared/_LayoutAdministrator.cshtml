@@ -33,7 +33,7 @@
     <meta name="description"
           content="Matrix Admin Lite Free Version is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
     <meta name="robots" content="noindex,nofollow">
-    <title>Sistema Fiby</title>
+    <title>Fiby-Portal Web</title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="~/cssadmin/assets/images/favicon.png">
     <!-- Custom CSS -->
@@ -240,13 +240,13 @@
                                     Mis Pagos
                                 </a>
                                 @*<a class="dropdown-item" href="javascript:void(0)">
-                                    <i class="ti-email me-1 ms-1"></i>
-                                    Inbox
-                                </a>*@
+                                        <i class="ti-email me-1 ms-1"></i>
+                                        Inbox
+                                    </a>*@
                                 @*<div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="javascript:void(0)">
-                                    <i class="ti-settings me-1 ms-1"></i> Account Setting
-                                </a>*@
+                                    <a class="dropdown-item" href="javascript:void(0)">
+                                        <i class="ti-settings me-1 ms-1"></i> Account Setting
+                                    </a>*@
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="@Url.Action("Logout", "Account", new { Area = "" })">
                                     <i class="fa fa-power-off me-1 ms-1"></i> Cerrar Sesión
@@ -288,31 +288,35 @@
                         @for (int i = 0; i < DataListOpcionAdmin.oListMenu.Count; i++)
                         {
 
-                            <li class="sidebar-item">
-                                <a class="sidebar-link has-arrow waves-effect waves-dark"
-                                   href="javascript:void(0)" aria-expanded="false">
-                                    <i class="mdi @DataListOpcionAdmin.oListMenu[i].Icon"></i><span class="hide-menu">@DataListOpcionAdmin.oListMenu[i].Name</span>
-                                </a>
-                                <ul aria-expanded="false" class="collapse  first-level">
+                        <li class="sidebar-item">
+                            <a class="sidebar-link has-arrow waves-effect waves-dark"
+                               href="javascript:void(0)" aria-expanded="false">
+                                <i class="mdi @DataListOpcionAdmin.oListMenu[i].Icon"></i><span class="hide-menu">@DataListOpcionAdmin.oListMenu[i].Name</span>
+                            </a>
+                            <ul aria-expanded="false" class="collapse  first-level">
 
-                                    @for (int j = 0; j < DataListOpcionAdmin.oListSubMenu.Count; j++)
+                                @for (int j = 0; j < DataListOpcionAdmin.oListSubMenu.Count; j++)
                                     {
-                                        @if (DataListOpcionAdmin.oListSubMenu[j].IdMenu == DataListOpcionAdmin.oListMenu[i].MenuId)
+                                @if (DataListOpcionAdmin.oListSubMenu[j].IdMenu == DataListOpcionAdmin.oListMenu[i].MenuId)
                                         {
-                                            <li class="sidebar-item">
-                                                <a href="@Url.Action(DataListOpcionAdmin.oListSubMenu[j].Action, DataListOpcionAdmin.oListSubMenu[j].Controlator, new { Area = DataListOpcionAdmin.oListSubMenu[j].Area })" class="sidebar-link">
-                                                    <i class="mdi @DataListOpcionAdmin.oListSubMenu[j].ImageIco"></i><span class="hide-menu">
-                                                        @DataListOpcionAdmin.oListSubMenu[j].Name
-                                                    </span>
-                                                </a>
-                                            </li>
+                                <li class="sidebar-item">
+                                    <a href="@Url.Action(DataListOpcionAdmin.oListSubMenu[j].Action, DataListOpcionAdmin.oListSubMenu[j].Controlator, new { Area = DataListOpcionAdmin.oListSubMenu[j].Area })" class="sidebar-link">
+                                        <i class="mdi @DataListOpcionAdmin.oListSubMenu[j].ImageIco"></i><span class="hide-menu">
+                                            @DataListOpcionAdmin.oListSubMenu[j].Name
+                                        </span>
+                                    </a>
+                                </li>
                                         }
                                     }
-                                </ul>
+                            </ul>
 
-                            </li>
+                        </li>
                         }
 
+                    @*<a class="sidebar-link has-arrow waves-effect waves-dark"
+                       href="@Url.Action("Logout", "Account", new { Area = "" })" aria-expanded="false">
+                        <i class="fa fa-power-off me-1 ms-1"></i><span class="hide-menu">Cerrar Sesión</span>
+                    </a>*@
 
                     </ul>
                 </nav>
@@ -336,11 +340,13 @@
         @RenderSection("SectionModal", required: false)
     </div>
 
+    @*<script src="~/cssadmin/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>*@
     <script src="~/cssadmin/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
     <script src="~/cssadmin/dist/js/custom.min.js"></script>
     <script type="text/javascript" src="@Url.Content("~/js/popper.min.js")"></script>
+
     <script type="text/javascript" src="@Url.Content("~/js/bootstrap.min.js")"></script>
-    <script src="~/cssadmin/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
 
     @*<script src="~/cssadmin/assets/libs/jquery/dist/jquery.min.js"></script>
         <script src="~/cssadmin/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

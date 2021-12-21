@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Fiby.Cloud.Web.DTO.Modules.Horario.Request;
 using Fiby.Cloud.Web.DTO.Modules.Horario.Response;
+using Fiby.Cloud.Web.DTO.Modules.Maintenance.Request;
 using Fiby.Cloud.Web.Persistence.Interfaces.Horario;
 using Fiby.Cloud.Web.Proxy.Src;
 using Fiby.Cloud.Web.Service.Interfaces.Horario;
@@ -56,6 +57,12 @@ namespace Fiby.Cloud.Web.Service.Implementations.Horario
         public async Task<SemanaDTOResponse> GetPasajesEmpleadoDashboard()
         {
             var response = await _semanaRepository.GetPasajesEmpleadoDashboard();
+            return response;
+        }
+
+        public async Task<List<SemanaDTOResponse>> GetListaSemanaPagadaXEmpleado(EmpleadoDTORequest empleadoDTORequest)
+        {
+            var response = await _semanaRepository.GetListaSemanaPagadaXEmpleado(empleadoDTORequest);
             return response;
         }
     }

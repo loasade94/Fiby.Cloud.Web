@@ -115,7 +115,13 @@
 
                             if (i == (response.length - 1)) {
                                 html += '<tr>';
-                                html += '    <td colspan="5" style="text-align:center;">Totales</td>';
+
+                                if ($('#hddIdPerfil').val() == "1") {
+                                    html += '    <td colspan="5" style="text-align:center;">Totales</td>';
+                                } else {
+                                    html += '    <td colspan="4" style="text-align:center;">Totales</td>';
+                                }
+
                                 html += '    <td style="text-align:center;">' + response[i].horas + '</td>';
                                 html += '    <td style="text-align:center;"> S/. ' + response[i].subTotal + '</td>';
                                 html += '    <td style="text-align:center;"> S/. ' + response[i].pasaje + '</td>';
@@ -123,12 +129,17 @@
                                 html += '</tr>';
                             } else {
                                 html += '<tr>';
-                                html += '    <td>';
-                                html += '        <div class="ctn-btn-tabla ctn-btn-tabla-mx">';
-                                html += '            <img src="/cssadmin/assets/images/edit.png" onclick="pagoempleadojs.edit(\'' + response[i].idServicio + '\',\'' + 0 + '\');" alt="Editar" data-toggle="tooltip" title="Editar" ';
-                                html += '                      class="material-tooltip-main" data-id-ctn="_editar-consulta">';
-                                html += '        </div>';
-                                html += '    </td>';
+
+                                if ($('#hddIdPerfil').val() == "1") {
+
+                                    html += '    <td>';
+                                    html += '        <div class="ctn-btn-tabla ctn-btn-tabla-mx">';
+                                    html += '            <img src="/cssadmin/assets/images/edit.png" onclick="pagoempleadojs.edit(\'' + response[i].idServicio + '\',\'' + 0 + '\');" alt="Editar" data-toggle="tooltip" title="Editar" ';
+                                    html += '                      class="material-tooltip-main" data-id-ctn="_editar-consulta">';
+                                    html += '        </div>';
+                                    html += '    </td>';
+                                }
+
                                 html += '    <td style="text-align:center;">' + response[i].nombreDia + ' ' + response[i].numeroDia + '</td>';
                                 html += '    <td style="text-align:center;">' + response[i].cliente + '</td>';
                                 html += '    <td style="text-align:center;">' + response[i].horaInicio + '</td>';

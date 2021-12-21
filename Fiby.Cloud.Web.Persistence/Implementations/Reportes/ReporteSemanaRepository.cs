@@ -69,5 +69,46 @@ namespace Fiby.Cloud.Web.Persistence.Implementations.Reportes
             }
             return listResponse;
         }
+
+        public async Task<List<AnuncioDTOResponse>> GetAnunciosParaEmpleados()
+        {
+            var listResponse = new List<AnuncioDTOResponse>();
+            try
+            {
+                var parameters = new DynamicParameters();
+
+                //parameters.Add("@pIdSemana", pagoEmpleadoDTORequest.IdSemana, direction: ParameterDirection.Input);
+
+                var cn = _connectionFactory.GetConnection();
+                var sp = "uspListaAnunciosPorFechas";
+
+                var result = await cn.ExecuteReaderAsync(
+                             sp,
+                             parameters,
+                             commandTimeout: 0,
+                             commandType: CommandType.StoredProcedure);
+
+                if (result.FieldCount > 0)
+                {
+                    while (result.Read())
+                    {
+                        listResponse.Add(new AnuncioDTOResponse
+                        {
+                            Titulo = DataUtility.ObjectToString(result["Titulo"]),
+                            Detalle = DataUtility.ObjectToString(result["Detalle"]),
+                            Mes = DataUtility.ObjectToString(result["Mes"]),
+                            Dia = DataUtility.ObjectToString(result["Dia"]),
+                        });
+                    }
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                listResponse = null;
+            }
+            return listResponse;
+        }
     }
 }

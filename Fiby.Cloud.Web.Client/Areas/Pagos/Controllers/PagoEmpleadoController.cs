@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Fiby.Cloud.Web.Client.Extensions;
 using Fiby.Cloud.Web.DTO.Modules.Horario.Request;
 using Fiby.Cloud.Web.DTO.Modules.Horario.Response;
+using Fiby.Cloud.Web.DTO.Modules.Maintenance.Request;
 using Fiby.Cloud.Web.DTO.Modules.Pagos.Request;
 using Fiby.Cloud.Web.DTO.Modules.Pagos.Response;
 using Fiby.Cloud.Web.Service.Interfaces;
@@ -46,13 +47,29 @@ namespace Fiby.Cloud.Web.Client.Areas.Pagos.Controllers
 
         public async Task<IActionResult> Index()
         {
-            if (User.Identity.GetProfileId() != "1")
+            if (User.Identity.GetProfileId() == "2")
             {
-                return RedirectToAction("Logout", "Account", new { Area = "" });
+                var empleadoId = User.Identity.GetIdEmpleado();
+                var listEmpleado = await _empleadoService.GetEmpleadoAll();
+                ViewBag.ListaEmpleados = listEmpleado.Where(x => x.Codigo.ToString() == empleadoId);
+
+                ViewBag.ListaSemana = await _semanaService.GetListaSemanaPagadaXEmpleado(new EmpleadoDTORequest
+                {
+                    Codigo = int.Parse(empleadoId)
+                });
+
+                ViewBag.Layout = "~/Views/Shared/_LayoutEmpleado.cshtml";
+
+            }
+            else
+            {
+                ViewBag.ListaEmpleados = await _empleadoService.GetEmpleadoAll();
+                ViewBag.ListaSemana = await _semanaService.GetListaSemana();
+                ViewBag.Layout = "~/Views/Shared/_LayoutAdministrator.cshtml";
             }
 
-            ViewBag.ListaEmpleados = await _empleadoService.GetEmpleadoAll();
-            ViewBag.ListaSemana = await _semanaService.GetListaSemana();
+            ViewBag.IdPerfil = User.Identity.GetProfileId();
+
             return View();
         }
 

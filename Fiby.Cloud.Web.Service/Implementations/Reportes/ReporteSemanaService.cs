@@ -28,5 +28,10 @@ namespace Fiby.Cloud.Web.Service.Implementations.Reportes
             var response = await _reporteSemanaRepository.GetReporteRentabilidadSemanal(reporteSemanaDTORequest);
             return response;
         }
+        public async Task<List<AnuncioDTOResponse>> GetAnunciosParaEmpleados()
+        {
+            var response = await _reporteSemanaRepository.GetAnunciosParaEmpleados();
+            return response;
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using Fiby.Cloud.Web.DTO.Modules.Horario.Request;
 using Fiby.Cloud.Web.DTO.Modules.Horario.Response;
+using Fiby.Cloud.Web.DTO.Modules.Maintenance.Request;
 using Fiby.Cloud.Web.Persistence.Connection;
 using Fiby.Cloud.Web.Persistence.Interfaces.Horario;
 using Fiby.Cloud.Web.Util.Utility;
@@ -344,6 +345,46 @@ namespace Fiby.Cloud.Web.Persistence.Implementations.Horario
 
 
             return authModel;
+        }
+
+        public async Task<List<SemanaDTOResponse>> GetListaSemanaPagadaXEmpleado(EmpleadoDTORequest empleadoDTORequest)
+        {
+            var listResponse = new List<SemanaDTOResponse>();
+            try
+            {
+                var parameters = new DynamicParameters();
+
+                parameters.Add("@pIdEmpleado", empleadoDTORequest.Codigo, direction: ParameterDirection.Input);
+
+                var cn = _connectionFactory.GetConnection();
+                var sp = "uspListarSemanaPagadaXEmpleado";
+
+                var result = await cn.ExecuteReaderAsync(
+                             sp,
+                             parameters,
+                             commandTimeout: 0,
+                             commandType: CommandType.StoredProcedure);
+
+                if (result.FieldCount > 0)
+                {
+                    while (result.Read())
+                    {
+                        listResponse.Add(new SemanaDTOResponse
+                        {
+                            IdSemana = DataUtility.ObjectToInt(result["IdSemana"]),
+                            NombreSemana = DataUtility.ObjectToString(result["NombreSemana"]),
+                            Prioridad = DataUtility.ObjectToInt(result["Prioridad"])
+                        });
+                    }
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                listResponse = null;
+            }
+            return listResponse;
         }
     }
 }

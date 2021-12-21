@@ -58,5 +58,12 @@ namespace Fiby.Cloud.Web.Client.Areas.Reportes.Controllers
             return Json(model);
         }
 
+        [HttpPost]
+        public async Task<JsonResult> BuscarAnunciosParaEmpleados()
+        {
+            var model = await _reporteSemanaService.GetAnunciosParaEmpleados();
+            return Json(model);
+        }
+
     }
 }

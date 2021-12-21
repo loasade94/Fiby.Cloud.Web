@@ -26,12 +26,16 @@ namespace Fiby.Cloud.Web.Client.Areas.Horario.Controllers
                 var empleadoId = User.Identity.GetIdEmpleado();
                 var listEmpleado = await _empleadoService.GetEmpleadoAll();
                 ViewBag.ListaEmpleados = listEmpleado.Where(x => x.Codigo.ToString() == empleadoId);
-                ViewBag.IdPerfil = User.Identity.GetProfileId();
+
+                ViewBag.Layout = "~/Views/Shared/_LayoutEmpleado.cshtml";
             }
             else
             {
                 ViewBag.ListaEmpleados = await _empleadoService.GetEmpleadoAll();
+                ViewBag.Layout = "~/Views/Shared/_LayoutAdministrator.cshtml";
             }
+
+            ViewBag.IdPerfil = User.Identity.GetProfileId();
 
             return View();
         }

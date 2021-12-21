@@ -1,7 +1,7 @@
 ﻿@{
     Layout = "~/Views/Shared/_LayoutEmpleado.cshtml";
 }
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/charts.css/dist/charts.min.css">
+
 <div class="page-breadcrumb">
     <div class="row">
         <div class="col-12 d-flex no-block align-items-center">
@@ -38,14 +38,14 @@
             </div>
         </div>
         <!-- Column -->
-        @*<div class="col-md-6 col-lg-2 col-xlg-3">
+        <div class="col-md-6 col-lg-3 col-xlg-3">
             <div class="card card-hover">
-                <a href="@Url.Action("Index", "Disponibilidad", new { Area = "Horario" })" class="box bg-success text-center">
-                    <h1 class="font-light text-white"><i class="mdi mdi-calendar-search"></i></h1>
-                    <h6 class="text-white">Ver Disponibilidad</h6>
+                <a href="@Url.Action("Index", "PagoEmpleado", new { Area = "Pagos" })" class="box bg-warning text-center">
+                    <h1 class="font-light text-white"><i class="mdi mdi-cash"></i></h1>
+                    <h6 class="text-white">Ver Mis Pagos</h6>
                 </a>
             </div>
-        </div>*@
+        </div>
         <!-- Column -->
         @*<div class="col-md-6 col-lg-3 col-xlg-3">
             <div class="card card-hover">
@@ -121,19 +121,36 @@
             </div>*@
         <!-- Column -->
     </div>
-    @*<div class="row">
+    <div class="row">
         <div class="col-md-6 mt-3">
-            <h5 class="card-main-title mt-4 mb-3">
+            @*<h5 class="card-main-title mt-4 mb-3">
                 Ingresos
-            </h5>
-            <div class="card-body card-dashboard">
-
-                <canvas id="ControlDashBoardAssistanceDetail"></canvas>
-                <span style="margin: 0 auto !important;" class="d-table m-0-auto">SEMANAS</span>
+            </h5>*@
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title mb-0">Anuncios</h4>
+                </div>
+                <ul class="list-style-none" id="ulAnuncios">
+                    @*<li class="d-flex no-block card-body border-top">
+                        <i class="mdi mdi-comment-question-outline fs-4 w-30px mt-1"></i>
+                        <div>
+                            <a href="#" class="mb-0 font-medium p-0">
+                                I am alwayse here if you have any question
+                            </a>
+                            <span class="text-muted">we glad that you choose our template</span>
+                        </div>
+                        <div class="ms-auto">
+                            <div class="tetx-right">
+                                <h5 class="text-muted mb-0">15</h5>
+                                <span class="text-muted font-16">Jan</span>
+                            </div>
+                        </div>
+                    </li>*@
+                </ul>
             </div>
         </div>
 
-        <div class="col-md-6 mt-3">
+        @*<div class="col-md-6 mt-3">
             <h5 class="card-main-title mt-4 mb-3">
                 Pasajes
             </h5>
@@ -142,8 +159,8 @@
                 <canvas id="ControlDashBoardPasajes"></canvas>
                 <span style="margin: 0 auto !important;" class="d-table m-0-auto">SEMANAS</span>
             </div>
-        </div>
-    </div>*@
+        </div>*@
+    </div>
 
 
 </div>
@@ -159,8 +176,5 @@
 <!-- ============================================================== -->
 <!-- End footer -->
 <!-- ============================================================== -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.2/chart.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.2/chart.js"></script>
 
-
-<script src="@Url.Content("~/js/adminDashboard.js")"></script>
+<script src="@Url.Content("~/js/empleadoDashboard.js")"></script>
