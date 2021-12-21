@@ -65,6 +65,10 @@ namespace Fiby.Cloud.Web.Client.Controllers
                 UserDTORequest userDTORequest = new UserDTORequest();
                 userDTORequest.UserId = int.Parse(response);
 
+                //REGISTRAR LOG INGRESO
+                userDTORequest.NameUser = user;
+                var log = await _userService.RegistarLogIngreso(userDTORequest);
+
                 //var listDataUser = await _userService.GetUserLogin(userDTORequest);
                 var listDataUser = await _userService.GetUserLoginNew(userDTORequest);
 

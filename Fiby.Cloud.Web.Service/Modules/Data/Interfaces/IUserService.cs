@@ -13,5 +13,6 @@ namespace Fiby.Cloud.Web.Service.Modules.Data.Interfaces
         Task<UserDTOResponse> GetUserLogin(UserDTORequest userDTORequest);
         Task<string> LoginUserNew(UserDTORequest userDTORequest);
         Task<UserDTOResponse> GetUserLoginNew(UserDTORequest userDTORequest);
+        Task<string> RegistarLogIngreso(UserDTORequest userDTORequest);
     }
 }

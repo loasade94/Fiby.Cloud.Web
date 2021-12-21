@@ -226,5 +226,40 @@ namespace Fiby.Cloud.Web.Persistence.Implementations
 
             return authModel;
         }
+
+        public async Task<string> RegistarLogIngreso(UserDTORequest userDTORequest)
+        {
+            var parameters = new DynamicParameters();
+            var result = string.Empty;
+            try
+            {
+
+                parameters.Add("@pUsuario", userDTORequest.NameUser, direction: ParameterDirection.Input);
+
+                parameters.Add("@pMensajeResultado", string.Empty, direction: ParameterDirection.Output);
+
+                var sp = "uspInsLogIngreso";
+                var cn = _connectionFactory.GetConnection();
+                var rpta = await cn.ExecuteReaderAsync(
+                        sp,
+                        parameters,
+                        commandType: CommandType.StoredProcedure
+                    );
+
+                string err = (parameters.Get<string>("@pMensajeResultado") == null ?
+                    string.Empty :
+                    parameters.Get<string>("@pMensajeResultado"));
+
+                result = err;
+            }
+            catch (Exception ex)
+            {
+
+                result = ex.Message;
+            }
+
+            return result;
+
+        }
     }
 }

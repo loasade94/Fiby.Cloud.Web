@@ -11,5 +11,6 @@ namespace Fiby.Cloud.Web.Persistence.Interfaces
     {
         Task<string> LoginUser(UserDTORequest userDTORequest);
         Task<UserDTOResponse> GetUserLogin(UserDTORequest userDTORequest);
+        Task<string> RegistarLogIngreso(UserDTORequest userDTORequest);
     }
 }

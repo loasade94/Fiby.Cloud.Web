@@ -74,5 +74,11 @@ namespace Fiby.Cloud.Web.Service.Modules.Data.Implementations
             var response = await _userRepository.GetUserLogin(userDTORequest);
             return response;
         }
+
+        public async Task<string> RegistarLogIngreso(UserDTORequest userDTORequest)
+        {
+            var response = await _userRepository.RegistarLogIngreso(userDTORequest);
+            return response;
+        }
     }
 }
