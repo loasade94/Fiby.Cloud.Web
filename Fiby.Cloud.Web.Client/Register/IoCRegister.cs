@@ -69,6 +69,7 @@ namespace Fiby.Cloud.Web.Client.Register
             services.AddScoped<IReporteSemanaService, ReporteSemanaService>();
             services.AddScoped<IClienteService, ClienteService>();
             services.AddScoped<IGastoService, GastoService>();
+            services.AddScoped<IAnuncioService, AnuncioService>();
 
             return services;
         }
@@ -106,6 +107,7 @@ namespace Fiby.Cloud.Web.Client.Register
             services.AddSingleton<IReporteSemanaRepository, ReporteSemanaRepository>();
             services.AddSingleton<IClienteRepository, ClienteRepository>();
             services.AddSingleton<IGastoRepository, GastoRepository>();
+            services.AddSingleton<IAnuncioRepository, AnuncioRepository>();
             return services;
         }
 
