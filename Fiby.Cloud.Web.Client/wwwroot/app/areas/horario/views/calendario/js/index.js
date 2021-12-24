@@ -243,7 +243,7 @@
         }
 
         if (recurrente == 1) {
-            ModalConfirm('¿Esta creando un servicio recurrente , esa seguro?', 'calendariojs.registrarServicio();');
+            ModalConfirm('¿Esta creando un servicio recurrente , esta seguro?', 'calendariojs.registrarServicio();');
         } else {
             calendariojs.registrarServicio();
         }
@@ -703,6 +703,7 @@
         $('#txtHoras').val('0');
         $('#txtDireccionCliente').val('');
         $('#txtTelefonoCliente').val('');
+        $('#chkRecurrente')[0].checked = false;
 
         calendariojs.buscarServicio();
     },
