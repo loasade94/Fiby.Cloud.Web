@@ -22,5 +22,6 @@ namespace Fiby.Cloud.Web.DTO.Modules.Pagos.Response
         public string Nombres { get; set; }
         public string ApellidoPaterno { get; set; }
         public string ApellidoMaterno { get; set; }
+        public int IdPagoEmpleado { get; set; }
     }
 }

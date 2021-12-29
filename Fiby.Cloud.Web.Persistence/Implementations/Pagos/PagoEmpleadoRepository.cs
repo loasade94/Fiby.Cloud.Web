@@ -133,6 +133,7 @@ namespace Fiby.Cloud.Web.Persistence.Implementations.Pagos
                     {
                         listResponse.Add(new PagoEmpleadoDTOResponse
                         {
+                            IdPagoEmpleado = DataUtility.ObjectToInt(result["IdPagoEmpleado"]),
                             Horas = DataUtility.ObjectToInt(result["HorasTotal"]),
                             Pago = DataUtility.ObjectToDecimal(result["MontoTotal"]),
                             Fecha = DataUtility.ObjectToDateTime(result["FechaRegistro"]),
@@ -166,6 +167,41 @@ namespace Fiby.Cloud.Web.Persistence.Implementations.Pagos
                 parameters.Add("@pMensajeResultado", string.Empty, direction: ParameterDirection.Output);
 
                 var sp = "uspUdpPasajeXServicio";
+                var cn = _connectionFactory.GetConnection();
+                var rpta = await cn.ExecuteReaderAsync(
+                        sp,
+                        parameters,
+                        commandType: CommandType.StoredProcedure
+                    );
+
+                string err = (parameters.Get<string>("pMensajeResultado") == null ?
+                    string.Empty :
+                    parameters.Get<string>("pMensajeResultado"));
+
+                result = err;
+            }
+            catch (Exception ex)
+            {
+
+                result = ex.Message;
+            }
+
+            return result;
+
+        }
+
+        public async Task<string> AnularPagoEmpleado(PagoEmpleadoDTORequest gastoDTORequest)
+        {
+            var parameters = new DynamicParameters();
+            var result = string.Empty;
+            try
+            {
+
+                parameters.Add("@pId", gastoDTORequest.IdPagoEmpleado, direction: ParameterDirection.Input);
+
+                parameters.Add("@pMensajeResultado", string.Empty, direction: ParameterDirection.Output);
+
+                var sp = "uspDelPagoEmpleado";
                 var cn = _connectionFactory.GetConnection();
                 var rpta = await cn.ExecuteReaderAsync(
                         sp,

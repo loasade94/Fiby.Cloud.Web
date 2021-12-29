@@ -13,5 +13,6 @@ namespace Fiby.Cloud.Web.Persistence.Interfaces.Pagos
         Task<string> RegistrarPagoEmpleado(PagoEmpleadoDTORequest pagoEmpleadoDTORequest);
         Task<List<PagoEmpleadoDTOResponse>> GetPagosXEmpleadoSemanaCab(PagoEmpleadoDTORequest pagoEmpleadoDTORequest);
         Task<string> ActualizarPasajeXServicio(PagoEmpleadoDTORequest pagoEmpleadoDTORequest);
+        Task<string> AnularPagoEmpleado(PagoEmpleadoDTORequest gastoDTORequest);
     }
 }

@@ -60,6 +60,10 @@
                                                     <table id="tbPagosXEmpleado" class="table table-striped table-bordered">
                                                         <thead id="thPagosXEmpleado">
                                                             <tr>
+                                                                @if (ViewBag.IdPerfil == "1")
+                                                                {
+                                                                    <th class="text-center">Acciones</th>
+                                                                }
                                                                 <th class="text-center">Horas Pagadas</th>
                                                                 <th class="text-center">Monto Pagado</th>
                                                                 <th class="text-center">Fecha de Pago</th>

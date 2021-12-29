@@ -147,6 +147,19 @@ namespace Fiby.Cloud.Web.Client.Areas.Pagos.Controllers
             return PartialView(calendarioDTOResponse);
         }
 
+        [HttpDelete]
+        public async Task<string> AnularPagoEmpleado(int idPagoEmpleado)
+        {
+
+            var anuncioDTORequest = new PagoEmpleadoDTORequest
+            {
+                IdPagoEmpleado = idPagoEmpleado,
+            };
+
+            string response = await _pagoEmpleadoService.AnularPagoEmpleado(anuncioDTORequest);
+            return response;
+        }
+
         public async Task<FileResult> GenerarBoletaPagoPDF(int idEmpleado,int idSemana)
         {
             PagoEmpleadoDTORequest pagoEmpleadoDTORequest = new PagoEmpleadoDTORequest();

@@ -48,6 +48,16 @@
                         for (var i = 0; i < response.length; i++) {
 
                             html += '<tr>';
+
+                            if ($('#hddIdPerfil').val() == "1") {
+                                html += '    <td>';
+                                html += '        <div class="ctn-btn-tabla ctn-btn-tabla-mx">';
+                                html += '            <img src="/cssadmin/assets/images/trash.png" onclick="pagoempleadojs.eliminarPagoEmpleado(\'' + response[i].idPagoEmpleado + '\');" class="material-tooltip-main eliminar-movimiento" alt="Eliminar" ';
+                                html += '                      data-toggle="tooltip" title="Eliminar">';
+                                html += '        </div>';
+                                html += '    </td>';
+                            }
+
                             html += '    <td style="text-align:center;">' + response[i].horas + '</td>';
                             html += '    <td style="text-align:center;"> S/. ' + response[i].pago + '</td>';
                             html += '    <td style="text-align:center;">' + formatDateTime(response[i].fecha) + '</td>';
@@ -63,7 +73,7 @@
 
                     if (response.length == 0) {
                         html += '<tr>';
-                        html += '    <td colspan="4" style="text-align:center;">NO PAGADO</td>';
+                        html += '    <td colspan="5" style="text-align:center;">NO PAGADO</td>';
                         html += '</tr>';
                         $('#tbPagosXEmpleado tbody').append(html);
                         $('#btnPagar').removeClass("is-hidden");
@@ -317,6 +327,50 @@
         form.method = 'POST';
         document.body.appendChild(form);
         form.submit();
+
+    },
+
+    eliminarPagoEmpleado: function (obj) {
+        ModalConfirm('¿Seguro que desea ANULAR el registro?', 'pagoempleadojs.eliminarPagoEmpleado_callback(\'' + obj + '\');');
+    },
+
+    eliminarPagoEmpleado_callback: function (obj) {
+
+        var idPagoEmpleado = obj;
+
+        $.ajax({
+            type: "DELETE",
+            data: {
+                idPagoEmpleado
+            },
+            beforeSend: function () {
+                $('#loading').show();
+            },
+            url: '/Pagos/PagoEmpleado/AnularPagoEmpleado',
+            success: function (response, textStatus, jqXhr) {
+
+                if (response == "OK") {
+                    ModalAlert("Eliminado Correctamente");
+                    pagoempleadojs.buscarPago();
+                } else {
+                    ModalAlertCancel("ERROR");
+                    pagoempleadojs.buscarPago();
+                }
+
+            },
+            complete: function () {
+                $('#loading').hide();
+            },
+            error: function (xhr, status, errorThrown) {
+                var err = "Status: " + status + " " + errorThrown;
+                console.log(err);
+                IziToastMessage(1, 'Ocurrio un error.', '', 'topRight', 5000);
+                $('#loading').hide();
+
+            },
+            async: true,
+        });
+
 
     },
 }
