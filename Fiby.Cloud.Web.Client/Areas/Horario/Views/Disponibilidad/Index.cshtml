@@ -45,16 +45,12 @@
                                                 <div class="table-responsive">
                                                     <table id="tbDisponibilidadSemana" class="table table-bordered">
                                                         <thead id="thDisponibilidadSemana">
-                                                            @*<tr>
-                                                                    <th class="text-center"><b>Hora</b></th>
-                                                                    <th class="text-center"><b>Lunes</b></th>
-                                                                    <th class="text-center"><b>Martes</b></th>
-                                                                    <th class="text-center"><b>Miercoles</b></th>
-                                                                    <th class="text-center"><b>Jueves</b></th>
-                                                                    <th class="text-center"><b>Viernes</b></th>
-                                                                    <th class="text-center"><b>Sabado</b></th>
-                                                                    <th class="text-center"><b>Domingo</b></th>
-                                                                </tr>*@
+                                                            <tr>
+                                                                @foreach (var item in ViewBag.ListaDiasXSemana)
+                                                                {
+                                                                    <th style="cursor:pointer;" onclick="disponibilidadjs.agregar_servicio('@item.Fecha.ToString("dd/MM/yyyy")');" class="text-center"><b>@item.Dia</b></th>
+                                                                }
+                                                            </tr>
                                                         </thead>
                                                         <tbody id="tbDisponibilidadSemana">
                                                         </tbody>

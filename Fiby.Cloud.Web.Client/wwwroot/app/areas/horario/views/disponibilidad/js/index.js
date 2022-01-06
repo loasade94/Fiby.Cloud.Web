@@ -6,7 +6,8 @@
             disponibilidadjs.buscarCabeceras();
         });
 
-        disponibilidadjs.buscarCabeceras();
+        //disponibilidadjs.buscarCabeceras();
+        disponibilidadjs.buscarDisponibilidad();
     },
 
     buscarCabeceras: function () {

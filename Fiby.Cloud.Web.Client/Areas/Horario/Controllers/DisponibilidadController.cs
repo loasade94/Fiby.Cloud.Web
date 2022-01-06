@@ -39,6 +39,11 @@ namespace Fiby.Cloud.Web.Client.Areas.Horario.Controllers
 
             var listaSemana = await _semanaService.GetListaSemana();
 
+            var semanaDTORequest = new SemanaDTORequest();
+            semanaDTORequest.IdSemana = listaSemana.Where(x => x.Prioridad == 1).FirstOrDefault().IdSemana;
+
+            ViewBag.ListaDiasXSemana = await _semanaService.GetListaDiasXSemana(semanaDTORequest);
+
             ViewBag.ListaSemana = listaSemana;
 
             return View();
