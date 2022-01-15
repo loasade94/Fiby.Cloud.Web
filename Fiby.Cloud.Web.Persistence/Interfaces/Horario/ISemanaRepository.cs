@@ -17,5 +17,6 @@ namespace Fiby.Cloud.Web.Persistence.Interfaces.Horario
         Task<SemanaDTOResponse> GetRentabilidadGraficoDashboard();
         Task<SemanaDTOResponse> GetPasajesEmpleadoDashboard();
         Task<List<SemanaDTOResponse>> GetListaSemanaPagadaXEmpleado(EmpleadoDTORequest empleadoDTORequest);
+        Task<List<ServicioClienteDTOResponse>> GetListaServicioXCliente(ServicioClienteDTORequest servicioClienteDTORequest);
     }
 }

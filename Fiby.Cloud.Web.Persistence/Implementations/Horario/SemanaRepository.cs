@@ -386,5 +386,49 @@ namespace Fiby.Cloud.Web.Persistence.Implementations.Horario
             }
             return listResponse;
         }
+
+        public async Task<List<ServicioClienteDTOResponse>> GetListaServicioXCliente(ServicioClienteDTORequest servicioClienteDTORequest)
+        {
+            var listResponse = new List<ServicioClienteDTOResponse>();
+            try
+            {
+                var parameters = new DynamicParameters();
+
+                parameters.Add("@pIdCliente", servicioClienteDTORequest.IdCliente, direction: ParameterDirection.Input);
+                parameters.Add("@pIdSemana", servicioClienteDTORequest.IdSemana, direction: ParameterDirection.Input);
+
+                var cn = _connectionFactory.GetConnection();
+                var sp = "uspListaServicioXCliente";
+
+                var result = await cn.ExecuteReaderAsync(
+                             sp,
+                             parameters,
+                             commandTimeout: 0,
+                             commandType: CommandType.StoredProcedure);
+
+                if (result.FieldCount > 0)
+                {
+                    while (result.Read())
+                    {
+                        listResponse.Add(new ServicioClienteDTOResponse
+                        {
+                            Fecha = DataUtility.ObjectToDateTime(result["Fecha"]),
+                            Horario = DataUtility.ObjectToString(result["Horario"]),
+                            Pasaje = DataUtility.ObjectToDecimal(result["Pasaje"]),
+                            MontoPagoCliente = DataUtility.ObjectToDecimal(result["MontoPagoCliente"]),
+                            NombreEmpleado = DataUtility.ObjectToString(result["NombreEmpleado"]),
+                            Direccion = DataUtility.ObjectToString(result["Direccion"])
+                        });
+                    }
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                listResponse = null;
+            }
+            return listResponse;
+        }
     }
 }

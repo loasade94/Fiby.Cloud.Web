@@ -65,5 +65,11 @@ namespace Fiby.Cloud.Web.Service.Implementations.Horario
             var response = await _semanaRepository.GetListaSemanaPagadaXEmpleado(empleadoDTORequest);
             return response;
         }
+
+        public async Task<List<ServicioClienteDTOResponse>> GetListaServicioXCliente(ServicioClienteDTORequest servicioClienteDTORequest)
+        {
+            var response = await _semanaRepository.GetListaServicioXCliente(servicioClienteDTORequest);
+            return response;
+        }
     }
 }
