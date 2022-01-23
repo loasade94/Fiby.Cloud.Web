@@ -14,7 +14,7 @@
         var error = $('#' + loginjs.componentView.hdLoginError.id).val();
         if (error.length > 0) {
 
-            alert("Usuario o contraseña no valido");
+            swal('Error', 'El usuario y contraseña que ingresaste es incorrecto', 'error');
 
             //var xmessage = "Usuario o contraseña no valido";
             //var xcolor = "red";

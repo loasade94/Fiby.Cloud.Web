@@ -12,7 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="~/css/login/css/style.css">
     @*<link rel="stylesheet" type="text/css " href="assets/css/css/all.min.css">*@
-    @*<link rel="stylesheet" href="assets/css/sweetalert.css">*@
+    <link rel="stylesheet" type="text/css" href="~/css/login/css/sweetalert.css">
     <link rel="icon" href="~/css/login/img/logo.png" type="image/x-icon" />
     <script src="https://kit.fontawesome.com/a81368914c.js"></script>
 </head>
@@ -63,6 +63,7 @@
     </div>
     <input type="hidden" value="@ViewBag.Error" id="hdLoginError" />
     <script type="text/javascript" src="@Url.Content("~/js/jquery.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/js/login/sweetalert.min.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/app/views/account/login.js")" asp-append-version="true"></script>
 
 

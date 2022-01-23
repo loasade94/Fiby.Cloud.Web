@@ -24,6 +24,7 @@ namespace Fiby.Cloud.Web.Persistence.Implementations
             _connectionFactory = connectionFactory;
         }
 
+        //SE QUEDA
         public async Task<string> LoginUser(UserDTORequest userDTORequest)
         {
             var parameters = new DynamicParameters();
@@ -60,6 +61,7 @@ namespace Fiby.Cloud.Web.Persistence.Implementations
 
         }
 
+        //SE QUEDA
         public async Task<UserDTOResponse> GetUserLogin(UserDTORequest userDTORequest)
         {
             UserDTOResponse authModel = new UserDTOResponse();
@@ -184,7 +186,7 @@ namespace Fiby.Cloud.Web.Persistence.Implementations
                         Controlator = DataUtility.ObjectToString(result["Controlador"]),
                         Action = DataUtility.ObjectToString(result["Accion"]),
                         NumberOrder = DataUtility.ObjectToInt(result["NumeroOrden"]),
-                        NameForm = DataUtility.ObjectToString(result["NombreFormulario"]),
+                        //NameForm = DataUtility.ObjectToString(result["NombreFormulario"]),
                         Active = DataUtility.ObjectToBool(result["Activo"]),
                         DateRegister = DataUtility.ObjectToDateTime(result["FechaRegistro"]),
                         ImageIco = DataUtility.ObjectToString(result["ImageIco"]),
@@ -227,6 +229,7 @@ namespace Fiby.Cloud.Web.Persistence.Implementations
             return authModel;
         }
 
+        //SE QUEDA
         public async Task<string> RegistarLogIngreso(UserDTORequest userDTORequest)
         {
             var parameters = new DynamicParameters();
