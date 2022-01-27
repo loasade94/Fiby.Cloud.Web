@@ -8,8 +8,10 @@ using Fiby.Cloud.Web.Persistence.Interfaces.Parametro;
 using Fiby.Cloud.Web.Persistence.Interfaces.Usuario;
 using Fiby.Cloud.Web.Proxy.Src;
 using Fiby.Cloud.Web.Service.Implementations.Clinica;
+using Fiby.Cloud.Web.Service.Implementations.Parametro;
 using Fiby.Cloud.Web.Service.Implementations.Usuario;
 using Fiby.Cloud.Web.Service.Interfaces.Clinica;
+using Fiby.Cloud.Web.Service.Interfaces.Parametro;
 using Fiby.Cloud.Web.Service.Interfaces.Usuario;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
@@ -34,9 +36,11 @@ namespace Fiby.Cloud.Web.Client.Register
         {
 
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ITablaDetalleService, TablaDetalleService>();
 
             services.AddScoped<ICitaService, CitaService>();
             services.AddScoped<IPacienteService, PacienteService>();
+            services.AddScoped<IDoctorService, DoctorService>();
 
             return services;
         }
@@ -68,6 +72,7 @@ namespace Fiby.Cloud.Web.Client.Register
 
             services.AddSingleton<ICitaRepository, CitaRepository>();
             services.AddSingleton<IPacienteRepository, PacienteRepository>();
+            services.AddSingleton<IDoctorRepository, DoctorRepository>();
             
             return services;
         }

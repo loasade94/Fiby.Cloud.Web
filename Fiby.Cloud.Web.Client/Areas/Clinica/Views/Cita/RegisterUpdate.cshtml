@@ -40,14 +40,19 @@
                     <div class="col-md-6">
                         <div class="form-group form-group-default">
                             <label>Especialidad</label>
-                            <select class="form-control" id="continentes" required name="codespe">
+                            <select onchange="citajs.buscarDoctorEspecialidadModal();" class="form-control" id="cboEspecialidad" required name="especialidad">
+                                <option value="0">-Seleccionar-</option>
+                                @foreach (var item in ViewBag.ListaEspecialidad)
+                                {
+                                    <option value="@item.CodigoRegistro">@item.DescripcionRegistro</option>
+                                }
                             </select>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group form-group-default">
                             <label>Médico</label>
-                            <select class="form-control" id="paises" required name="coddoc">
+                            <select class="form-control" id="cboMedicos" required name="medicos">
                             </select>
                         </div>
                     </div>
