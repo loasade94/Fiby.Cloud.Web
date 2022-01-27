@@ -23,7 +23,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Fiby.Cloud.Web.Common\Fiby.Cloud.Web.Common.csproj" />
-    <ProjectReference Include="..\Fiby.Cloud.Web.DTO\Fiby.Cloud.Web.DTO.csproj" />
     <ProjectReference Include="..\Fiby.Cloud.Web.Persistence\Fiby.Cloud.Web.Persistence.csproj" />
     <ProjectReference Include="..\Fiby.Cloud.Web.Service\Fiby.Cloud.Web.Service.csproj" />
   </ItemGroup>

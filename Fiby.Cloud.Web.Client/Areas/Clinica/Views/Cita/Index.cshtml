@@ -29,110 +29,18 @@
                 <div class="card-header">
                     <div class="d-flex align-items-center">
                         <h4 class="card-title">Mostrar</h4>
-
-                        <a href="#addRowModal" class="btn btn-primary btn-round ml-auto" data-toggle="modal">Nuevo</a>
-                        @*<?php include('AgregarModal.php'); ?>*@
+                        <a onclick="citajs.openModal(0)" class="btn btn-primary btn-round ml-auto">
+                            <span style="color: white;">
+                            Nuevo
+                            </span>
+                        </a>
                     </div>
                     <div class="card-tools">
-                        <!-- <a href="../view/specialty/reporte.php" class="btn btn-info btn-border btn-round btn-sm mr-2">
-                            <span class="btn-label">
-                                <i class="fa fa-pencil"></i>
-                            </span>
-                            Export
-                        </a>
-                        <a href="#" class="btn btn-info btn-border btn-round btn-sm">
-                            <span class="btn-label">
-                                <i class="fa fa-print"></i>
-                            </span>
-                            Print
-                        </a> -->
                     </div>
                     <div class="card-body">
 
 
-                        <div class="table-responsive">
-                            <table id="add-row" class="display table table-striped table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Fecha</th>
-                                        <th>Hora</th>
-                                        <th>Paciente</th>
-                                        <th>Médico</th>
-                                        <th>Consultorio</th>
-                                        <th>Estado</th>
-
-                                        <th style="width: 2%">Action</th>
-                                    </tr>
-                                </thead>
-                                <!-- <tfoot>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Fecha</th>
-                                        <th>Hora</th>
-                                        <th>Paciente</th>
-                                        <th>Médico</th>
-                                        <th>Consultorio</th>
-                                        <th>Estado</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </tfoot> -->
-
-
-                                <tbody>
-                                    @*<?php
-                                    foreach ($dato as $key => $value){
-                                    foreach ($value as $va) { ?>
-                                    <tr>
-                                        <td><?php echo $va['codcit'];?></td>
-                                        <td><?php echo $va['dates'];?></td>
-                                        <td><?php echo $va['hour'];?></td>
-                                        <td><?php echo $va ['nombrep'];?></td>
-                                        <td><?php echo $va ['nomdoc'];?></td>
-                                        <td><?php echo $va ['nombrees'];?></td>
-
-
-                                        <td>
-                                            <?php    if($va['estado']==1)  { ?>
-                                            <form method="get" action="javascript:activo('<?php echo $va['codcit']; ?>')">
-                                                <button type="submit" class="btn btn-success">Atendido</button>
-                                            </form>
-                                            <?php  }   else {?>
-
-                                            <form method="get" action="javascript:inactivo('<?php echo $va['codcit']; ?>')">
-                                                <button type="submit" class="btn btn-danger btn-xs">Pendiente</button>
-                                            </form>
-                                            <?php  } ?>
-                                        </td>
-
-
-
-
-                                        <td>
-                                            <div class="form-button-action">
-
-
-                                                <button href="#deleteRowModal=<?php echo $va['codcit'];?>" class="btn btn-link btn-danger btn-lg" data-toggle="modal" title="" data-original-title="Delete Task" data-target="#deleteRowModal<?php echo $va['codcit']; ?>">
-                                                    <i class="fa fa-trash"></i>
-
-                                                </button>
-
-                                            </div>
-                                        </td>
-
-                                        <?php include('editar.php'); ?>
-
-                                    </tr>
-                                    <?php
-                                    }
-                                    }
-                                    ?>*@
-                                </tbody>
-
-
-
-                            </table>
-                        </div>
+                        @Html.Partial("Grid")
 
 
                     </div>
@@ -142,5 +50,9 @@
             </div>
         </div>
     </div>
-
+    
 </div>
+
+
+<script type="text/javascript" src="@Url.Content("~/app/areas/clinica/views/cita/js/index.js")" asp-append-version="true"></script>
+

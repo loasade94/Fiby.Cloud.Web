@@ -91,15 +91,15 @@ namespace Fiby.Cloud.Web.Persistence.Implementations
                         UserId = DataUtility.ObjectToInt(result["IdUsuario"]),
                         Names = DataUtility.ObjectToString(result["Nombres"]),
                         LastName = DataUtility.ObjectToString(result["Apellidos"]),
-                        Email = DataUtility.ObjectToString(result["Correo"]),
+                        //Email = DataUtility.ObjectToString(result["Correo"]),
                         NameUser = DataUtility.ObjectToString(result["Usuario"]),
                         Password = DataUtility.ObjectToString(result["Clave"]),
                         StoreId = DataUtility.ObjectToInt(result["IdTienda"]),
                         RolId = DataUtility.ObjectToInt(result["IdRol"]),
-                        Active = DataUtility.ObjectToBool(result["Activo"]),
+                        //Active = DataUtility.ObjectToBool(result["Activo"]),
                         DateRegister = DataUtility.ObjectToDateTime(result["FechaRegistro"]),
                         CompanyId = DataUtility.ObjectToInt(result["IdEmpresa"]),
-                        IdEmpleado = DataUtility.ObjectToInt(result["IdEmpleado"])
+                        CodigoUnico = DataUtility.ObjectToString(result["CodigoUnico"])
                     };
                 }
                 authModel.oUser = userModel;

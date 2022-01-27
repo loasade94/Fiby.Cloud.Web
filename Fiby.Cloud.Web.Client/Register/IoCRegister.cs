@@ -1,6 +1,7 @@
 ﻿using Fiby.Cloud.Web.Client.Extensions;
 using Fiby.Cloud.Web.Persistence.Connection;
 using Fiby.Cloud.Web.Persistence.Implementations;
+using Fiby.Cloud.Web.Persistence.Implementations.Clinica;
 using Fiby.Cloud.Web.Persistence.Implementations.Horario;
 using Fiby.Cloud.Web.Persistence.Implementations.Inversiones;
 using Fiby.Cloud.Web.Persistence.Implementations.Maintenance;
@@ -8,6 +9,7 @@ using Fiby.Cloud.Web.Persistence.Implementations.Pagos;
 using Fiby.Cloud.Web.Persistence.Implementations.Reportes;
 using Fiby.Cloud.Web.Persistence.Implementations.Sale;
 using Fiby.Cloud.Web.Persistence.Interfaces;
+using Fiby.Cloud.Web.Persistence.Interfaces.Clinica;
 using Fiby.Cloud.Web.Persistence.Interfaces.Horario;
 using Fiby.Cloud.Web.Persistence.Interfaces.Inversiones;
 using Fiby.Cloud.Web.Persistence.Interfaces.Maintenance;
@@ -15,12 +17,14 @@ using Fiby.Cloud.Web.Persistence.Interfaces.Pagos;
 using Fiby.Cloud.Web.Persistence.Interfaces.Reportes;
 using Fiby.Cloud.Web.Proxy.Src;
 using Fiby.Cloud.Web.Service.Implementations;
+using Fiby.Cloud.Web.Service.Implementations.Clinica;
 using Fiby.Cloud.Web.Service.Implementations.Horario;
 using Fiby.Cloud.Web.Service.Implementations.Inversiones;
 using Fiby.Cloud.Web.Service.Implementations.Maintenance;
 using Fiby.Cloud.Web.Service.Implementations.Pagos;
 using Fiby.Cloud.Web.Service.Implementations.Reportes;
 using Fiby.Cloud.Web.Service.Interfaces;
+using Fiby.Cloud.Web.Service.Interfaces.Clinica;
 using Fiby.Cloud.Web.Service.Interfaces.Horario;
 using Fiby.Cloud.Web.Service.Interfaces.Inversiones;
 using Fiby.Cloud.Web.Service.Interfaces.Maintenance;
@@ -71,6 +75,9 @@ namespace Fiby.Cloud.Web.Client.Register
             services.AddScoped<IGastoService, GastoService>();
             services.AddScoped<IAnuncioService, AnuncioService>();
 
+            services.AddScoped<ICitaService, CitaService>();
+            services.AddScoped<IPacienteService, PacienteService>();
+
             return services;
         }
         private static IServiceCollection AddRegisterConnection(this IServiceCollection services)
@@ -108,6 +115,10 @@ namespace Fiby.Cloud.Web.Client.Register
             services.AddSingleton<IClienteRepository, ClienteRepository>();
             services.AddSingleton<IGastoRepository, GastoRepository>();
             services.AddSingleton<IAnuncioRepository, AnuncioRepository>();
+
+            services.AddSingleton<ICitaRepository, CitaRepository>();
+            services.AddSingleton<IPacienteRepository, PacienteRepository>();
+            
             return services;
         }
 

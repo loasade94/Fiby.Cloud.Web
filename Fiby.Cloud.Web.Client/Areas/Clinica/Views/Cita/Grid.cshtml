@@ -1,0 +1,47 @@
+﻿
+@model List<Fiby.Cloud.Web.DTO.Modules.Clinica.Response.CitaDTOResponse>
+
+@{
+    Layout = "";
+}
+<div class="table-responsive">
+    <table id="tablaCita" class="display table table-striped table-hover">
+        <thead id="thCita">
+            <tr>
+                <th class="text-center">Fecha Cita</th>
+                <th class="text-center">Hora</th>
+                <th class="text-center">Paciente</th>
+                <th class="text-center">Especialidad</th>
+                <th class="text-center">Doctor</th>
+                <th class="text-center">Estado</th>
+                <th class="text-center">Acciones</th>
+            </tr>
+        </thead>
+        <tbody id="tbCita">
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                var item = Model.ToList()[i];
+
+                <tr>
+                    <td>@item.FechaCita</td>
+                    <td>@item.Hora</td>
+                    <td>@item.NombrePaciente</td>
+                    <td>@item.DescripcionEspecialidad</td>
+                    <td>@item.NombreDoctor</td>
+                    <td>@item.DescripcionSituacionCita</td>
+                    <td>
+                        <div class="form-button-action">
+                            <button class="btn btn-link btn-danger btn-lg" title="Eliminar">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                            <button class="btn btn-link btn-primary btn-lg" title="Editar">
+                                <i class="fa fa-edit"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                
+            }
+        </tbody>
+    </table>
+</div>

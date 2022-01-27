@@ -24,5 +24,6 @@ namespace Fiby.Cloud.Web.DTO.Modules.User.Response
         public UserDTOResponse oUser { get; set; }
         public CompanyDTOResponse oCompany { get; set; }
         public int IdEmpleado { get; set; }
+        public string CodigoUnico { get; set; }
     }
 }

@@ -102,7 +102,25 @@ function createModal(html, $Size = "") {
     $('#modal-register').remove();
     var newSize = $Size == "" ? "lg" : "xl";
     var divModal = '';
-    divModal = divModal + '<div class="modal fade" id="modal-register" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"';
+    divModal = divModal + '<div class="modal fade" id="modal-register" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"';
+    divModal = divModal + 'aria-hidden="true">';
+    divModal = divModal + '<div class="modal-dialog modal-' + newSize + '" role="document" id="modal-register-container">';
+
+    divModal = divModal + html;
+
+    divModal = divModal + '</div>';
+    divModal = divModal + '</div>';
+
+    $("#divSection").append(divModal);
+    $('#modal-register').modal('show');
+}
+
+function createModalSize(html, newSize) {
+
+    $('#modal-register').remove();
+    /*var newSize = $Size == "" ? "lg" : "xl";*/
+    var divModal = '';
+    divModal = divModal + '<div class="modal fade" id="modal-register" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"';
     divModal = divModal + 'aria-hidden="true" data-backdrop="static">';
     divModal = divModal + '<div class="modal-dialog modal-' + newSize + '" role="document" id="modal-register-container">';
 

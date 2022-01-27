@@ -44,9 +44,11 @@
     <!-- CSS Files -->
     <link rel="stylesheet" href="~/css/bootstrap.min.css">
     <link rel="stylesheet" href="~/css/atlantis.min.css">
-
+    <link href="~/css/fiby.css" rel="stylesheet">
     <!-- CSS Just for demo purpose, don't include it in your project -->
     @*<link rel="stylesheet" href="~/css/demo.css">*@
+
+    <script type="text/javascript" src="@Url.Content("~/js/jquery.min.js")"></script>
 </head>
 <body>
     <div class="wrapper">
@@ -107,7 +109,7 @@
             <!-- End Navbar -->
         </div>
 
-        
+
 
         <!-- Sidebar -->
         <div class="sidebar sidebar-style-2">
@@ -197,7 +199,7 @@
 
             <footer class="footer">
                 <div class="container-fluid">
-                    
+
                     <div class="copyright ml-auto">
                         Diseñado y Desarrollado por <a href="https://www.fibysoft.com">Fibysoft</a>.
                     </div>
@@ -205,12 +207,11 @@
             </footer>
         </div>
 
-        <div id="loading" class="preloader" style="display:none;opacity:0.5;">
-            <div class="lds-ripple">
-                <div class="lds-pos"></div>
-                <div class="lds-pos"></div>
-            </div>
+        <div id="loading-screen" class="loading" style="display:none;">
+
         </div>
+
+
 
         <div id="divSection">
             @RenderSection("SectionModal", required: false)
@@ -257,7 +258,7 @@
         <!-- Atlantis DEMO methods, don't include it in your project! -->
         @*<script src="~/js/setting-demo.js"></script>
         <script src="~/js/demo.js"></script>*@
-
+        <script src="~/app/global.js"></script>
 
         @RenderSection("SectionScript", required: false)
 </body>
