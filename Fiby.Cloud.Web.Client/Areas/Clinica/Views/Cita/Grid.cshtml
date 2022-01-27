@@ -23,13 +23,13 @@
                 var item = Model.ToList()[i];
 
                 <tr>
-                    <td>@item.FechaCita</td>
-                    <td>@item.Hora</td>
-                    <td>@item.NombrePaciente</td>
-                    <td>@item.DescripcionEspecialidad</td>
-                    <td>@item.NombreDoctor</td>
-                    <td>@item.DescripcionSituacionCita</td>
-                    <td>
+                    <td class="text-center">@item.FechaCita.Value.ToString("dd/MM/yyyy")</td>
+                    <td class="text-center">@item.Hora.Substring(0,5)</td>
+                    <td class="text-center">@item.NombrePaciente</td>
+                    <td class="text-center">@item.DescripcionEspecialidad</td>
+                    <td class="text-center">@item.NombreDoctor</td>
+                    <td class="text-center">@item.DescripcionSituacionCita</td>
+                    <td class="text-center">
                         <div class="form-button-action">
                             <button class="btn btn-link btn-danger btn-lg" title="Eliminar">
                                 <i class="fa fa-trash"></i>

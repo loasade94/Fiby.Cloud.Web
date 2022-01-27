@@ -31,8 +31,4 @@
     <WCFMetadata Include="Connected Services" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\app\areas\inversiones\views\gasto\css\" />
-  </ItemGroup>
-
 </Project>
