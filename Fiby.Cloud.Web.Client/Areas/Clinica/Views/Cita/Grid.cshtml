@@ -31,10 +31,10 @@
                     <td class="text-center">@item.DescripcionSituacionCita</td>
                     <td class="text-center">
                         <div class="form-button-action">
-                            <button class="btn btn-link btn-danger btn-lg" title="Eliminar">
+                            <button class="btn btn-link btn-danger btn-lg" onclick="citajs.eliminarCita(@item.IdCita)" title="Eliminar">
                                 <i class="fa fa-trash"></i>
                             </button>
-                            <button class="btn btn-link btn-primary btn-lg" title="Editar">
+                            <button class="btn btn-link btn-primary btn-lg" onclick="citajs.openModal(@item.IdCita)" title="Editar">
                                 <i class="fa fa-edit"></i>
                             </button>
                         </div>

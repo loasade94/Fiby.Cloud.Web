@@ -12,6 +12,7 @@ namespace Fiby.Cloud.Web.DTO.Modules.Clinica.Response
         public string CodigoEspecialidad { get; set; }
         public string DescripcionEspecialidad { get; set; }
         public string CodigoUnicoDoctor { get; set; }
+        public string CodigoDoctor { get; set; }
         public string NombreDoctor { get; set; }
         public int CodigoPaciente { get; set; }
         public string NombrePaciente { get; set; }

@@ -45,6 +45,7 @@ namespace Fiby.Cloud.Web.Persistence.Implementations.Clinica
                     {
                         listResponse = new PacienteDTOResponse()
                         {
+                            CodigoPaciente = DataUtility.ObjectToString(result["CodigoPaciente"]),
                             NombrePaciente = DataUtility.ObjectToString(result["NombrePaciente"])
                         };
                     }

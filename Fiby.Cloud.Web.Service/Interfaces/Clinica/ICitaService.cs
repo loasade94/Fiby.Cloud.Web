@@ -10,5 +10,9 @@ namespace Fiby.Cloud.Web.Service.Interfaces.Clinica
     public interface ICitaService
     {
         Task<List<CitaDTOResponse>> GetCitaAll(CitaDTORequest citaDTORequest);
+        Task<string> GuardarCita(CitaDTORequest citaDTORequest);
+        Task<string> EditarCita(CitaDTORequest citaDTORequest);
+        Task<CitaDTOResponse> GetCitaPorId(CitaDTORequest citaDTORequest);
+        Task<string> EliminarCita(CitaDTORequest citaDTORequest);
     }
 }

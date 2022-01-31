@@ -7,5 +7,17 @@ namespace Fiby.Cloud.Web.DTO.Modules.Clinica.Request
     public class CitaDTORequest
     {
         public int IdCita { get; set; }
+        public DateTime? FechaCita { get; set; }
+        public string FechaCitaText { get; set; }
+        public string Hora { get; set; }
+        public string CodigoEspecialidad { get; set; }
+        public string DescripcionEspecialidad { get; set; }
+        public string CodigoUnicoDoctor { get; set; }
+        public string NombreDoctor { get; set; }
+        public int CodigoPaciente { get; set; }
+        public string NombrePaciente { get; set; }
+        public string DocumentoPaciente { get; set; }
+        public string SituacionCita { get; set; }
+        public string DescripcionSituacionCita { get; set; }
     }
 }
