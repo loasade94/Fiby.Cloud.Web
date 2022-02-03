@@ -1,0 +1,119 @@
+﻿@model Fiby.Cloud.Web.DTO.Modules.Clinica.Response.PacienteDTOResponse
+@{ Layout = null; }
+
+<div class="modal-content">
+    <div class="modal-header">
+        <center>
+            <h4 class="modal-title" id="myModalLabel">@ViewBag.titleModal</h4>
+        </center>
+    </div>
+    <div class="modal-body">
+        <div class="container-fluid">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group form-group-default">
+                            <label>DNI Paciente</label>
+                            <input name="dni" id="txtDni" value="@Model.DniPaciente" type="text" class="form-control" required placeholder="Ingrese DNI">
+                        </div>
+                    </div>
+                    <div class="col-md-6 pr-0">
+                        <div class="form-group form-group-default">
+                            <label>Nombres</label>
+                            <input name="nombre" id="txtNombres" value="@Model.NombrePaciente" type="text" class="form-control" required placeholder="Ingrese los Nombres">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group form-group-default">
+                            <label>Apellidos</label>
+                            <input name="apellido" id="txtApellidos" value="@Model.ApellidoPaciente" type="text" class="form-control" required placeholder="Ingrese los Apellidos">
+                        </div>
+                    </div>
+                    @*<div class="col-sm-6">
+                        <div class="form-group form-group-default">
+                            <label>Apellidos</label>
+                            <input name="apellido" id="txtApellidos" value="@Model.ApellidoPaciente" type="text" class="form-control" required placeholder="Ingrese los Apellidos">
+                        </div>
+                    </div>*@
+                    <div class="col-md-6">
+                        <div class="form-group form-group-default">
+                            <label>Seguro</label>
+                            <select class="form-control" id="cboSeguro" required name="seguro">
+
+                                @if (Model.Seguro == "1")
+                                {
+                                    <option value="0">NO</option>
+                                    <option selected value="1">SI</option>
+                                }
+                                else
+                                {
+                                    <option selected value="0">NO</option>
+                                    <option value="1">SI</option>
+                                }
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group form-group-default">
+                            <label>Telefono</label>
+                            <input name="telefono" id="txtTelefono" value="@Model.Telefono" type="text" class="form-control" required placeholder="Ingrese el Telefono">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group form-group-default">
+                            <label>Sexo</label>
+                            <select class="form-control" id="cboSexo" required name="sexo">
+                                @foreach (var item in ViewBag.ListaSexo)
+                                {
+                                    if (Model.Sexo == item.CodigoRegistro)
+                                    {
+                                        <option selected value="@item.CodigoRegistro">@item.DescripcionRegistro</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@item.CodigoRegistro">@item.DescripcionRegistro</option>
+                                    }
+
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group form-group-default">
+                            <label>Estado</label>
+                            <select class="form-control" id="cboEstado" required name="cboEstado">
+
+                                @if (Model.SituacionRegistro == "A")
+                                {
+                                    <option selected value="A">ACTIVO</option>
+                                    <option value="E">INACTIVO</option>
+                                }
+                                else if (Model.SituacionRegistro == "E")
+                                {
+                                    <option value="A">ACTIVO</option>
+                                    <option selected value="E">INACTIVO</option>
+                                }
+                                else
+                                {
+                                    <option value="A">ACTIVO</option>
+                                    <option value="E">INACTIVO</option>
+                                }
+
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <input type="hidden" id="hiddenModalGeneralIsNew" name="hiddenModalGeneralIsNew" value="@ViewBag.ModalGeneralIsNew" />
+        <input type="hidden" id="hiddenCodigoPaciente" name="hiddenCodigoPaciente" value="@Model.CodigoPaciente" />
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">
+                <span class="glyphicon glyphicon-remove"></span> Cancelar
+            </button>
+            <button onclick="pacientejs.registrarPaciente();" type="submit" name="agregar" class="btn btn-primary"><span class="glyphicon glyphicon-floppy-disk"></span> Guardar Registro</button>
+        </div>
+    </div>
+</div>

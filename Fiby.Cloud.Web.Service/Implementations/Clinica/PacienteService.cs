@@ -17,9 +17,38 @@ namespace Fiby.Cloud.Web.Service.Implementations.Clinica
         {
             _pacienteRepository = pacienteRepository;
         }
-        public async Task<PacienteDTOResponse> GetPacientePorDocumento(PacienteDTORequest PacienteDTORequest)
+        public async Task<PacienteDTOResponse> GetPacientePorDocumento(PacienteDTORequest pacienteDTORequest)
         {
-            var response = await _pacienteRepository.GetPacientePorDocumento(PacienteDTORequest);
+            var response = await _pacienteRepository.GetPacientePorDocumento(pacienteDTORequest);
+            return response;
+        }
+
+        public async Task<List<PacienteDTOResponse>> GetPacienteAll(PacienteDTORequest pacienteDTORequest)
+        {
+            var response = await _pacienteRepository.GetPacienteAll(pacienteDTORequest);
+            return response;
+        }
+
+        public async Task<string> GuardarPaciente(PacienteDTORequest pacienteDTORequest)
+        {
+            var response = await _pacienteRepository.GuardarPaciente(pacienteDTORequest);
+            return response;
+        }
+
+        public async Task<string> EditarPaciente(PacienteDTORequest pacienteDTORequest)
+        {
+            var response = await _pacienteRepository.EditarPaciente(pacienteDTORequest);
+            return response;
+        }
+
+        public async Task<PacienteDTOResponse> GetPacientePorId(PacienteDTORequest pacienteDTORequest)
+        {
+            var response = await _pacienteRepository.GetPacientePorId(pacienteDTORequest);
+            return response;
+        }
+        public async Task<string> EliminarPaciente(PacienteDTORequest pacienteDTORequest)
+        {
+            var response = await _pacienteRepository.EliminarPaciente(pacienteDTORequest);
             return response;
         }
     }

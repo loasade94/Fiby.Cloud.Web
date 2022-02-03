@@ -14,7 +14,15 @@
                     <div class="col-sm-12">
                         <div class="form-group form-group-default">
                             <label>Fecha</label>
-                            <input name="dates" id="txtFecha" value="@Model.FechaCita.Value.ToString("yyyy-MM-dd")" type="date" class="form-control" required placeholder="Ingrese fecha">
+                            @if (Model.FechaCita == null)
+                            {
+                                <input name="dates" id="txtFecha" value="" type="date" class="form-control" required placeholder="Ingrese fecha">
+                            }
+                            else
+                            {
+                                <input name="dates" id="txtFecha" value="@Model.FechaCita.Value.ToString("yyyy-MM-dd")" type="date" class="form-control" required placeholder="Ingrese fecha">
+                            }
+
                         </div>
                     </div>
                     <div class="col-md-6 pr-0">

@@ -10,5 +10,10 @@ namespace Fiby.Cloud.Web.Service.Interfaces.Clinica
     public interface IPacienteService
     {
         Task<PacienteDTOResponse> GetPacientePorDocumento(PacienteDTORequest PacienteDTORequest);
+        Task<List<PacienteDTOResponse>> GetPacienteAll(PacienteDTORequest pacienteDTORequest);
+        Task<string> GuardarPaciente(PacienteDTORequest pacienteDTORequest);
+        Task<string> EditarPaciente(PacienteDTORequest pacienteDTORequest);
+        Task<PacienteDTOResponse> GetPacientePorId(PacienteDTORequest pacienteDTORequest);
+        Task<string> EliminarPaciente(PacienteDTORequest pacienteDTORequest);
     }
 }

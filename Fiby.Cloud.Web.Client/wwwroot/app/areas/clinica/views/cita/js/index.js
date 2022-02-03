@@ -24,6 +24,10 @@
 
     buscarPacienteModal: function () {
 
+        if ($('#txtDniPaciente').val() == "" || $('#txtDniPaciente').val() == null) {
+            return;
+        }
+
         var pacienteDTORequest = {
             DocumentoPaciente: $('#txtDniPaciente').val()
         };
