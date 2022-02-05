@@ -1,16 +1,20 @@
 ﻿using Fiby.Cloud.Web.Client.Extensions;
 using Fiby.Cloud.Web.Persistence.Connection;
-using Fiby.Cloud.Web.Persistence.Implementations.Clinica;
+using Fiby.Cloud.Web.Persistence.Implementations.Gestion;
+using Fiby.Cloud.Web.Persistence.Implementations.Mantenimiento;
 using Fiby.Cloud.Web.Persistence.Implementations.Parametro;
 using Fiby.Cloud.Web.Persistence.Implementations.Usuario;
-using Fiby.Cloud.Web.Persistence.Interfaces.Clinica;
+using Fiby.Cloud.Web.Persistence.Interfaces.Gestion;
+using Fiby.Cloud.Web.Persistence.Interfaces.Mantenimiento;
 using Fiby.Cloud.Web.Persistence.Interfaces.Parametro;
 using Fiby.Cloud.Web.Persistence.Interfaces.Usuario;
 using Fiby.Cloud.Web.Proxy.Src;
-using Fiby.Cloud.Web.Service.Implementations.Clinica;
+using Fiby.Cloud.Web.Service.Implementations.Gestion;
+using Fiby.Cloud.Web.Service.Implementations.Mantenimiento;
 using Fiby.Cloud.Web.Service.Implementations.Parametro;
 using Fiby.Cloud.Web.Service.Implementations.Usuario;
-using Fiby.Cloud.Web.Service.Interfaces.Clinica;
+using Fiby.Cloud.Web.Service.Interfaces.Gestion;
+using Fiby.Cloud.Web.Service.Interfaces.Mantenimiento;
 using Fiby.Cloud.Web.Service.Interfaces.Parametro;
 using Fiby.Cloud.Web.Service.Interfaces.Usuario;
 using Microsoft.AspNetCore.Http;
@@ -38,9 +42,15 @@ namespace Fiby.Cloud.Web.Client.Register
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ITablaDetalleService, TablaDetalleService>();
 
+            #region Gestion
             services.AddScoped<ICitaService, CitaService>();
+            #endregion
+
+            #region Mantenimiento
             services.AddScoped<IPacienteService, PacienteService>();
             services.AddScoped<IDoctorService, DoctorService>();
+            services.AddScoped<ITrabajadorService, TrabajadorService>();
+            #endregion
 
             return services;
         }
@@ -70,10 +80,17 @@ namespace Fiby.Cloud.Web.Client.Register
             services.AddSingleton<IUserRepository, UserRepository>();
             services.AddSingleton<ITablaDetalleRepository, TablaDetalleRepository>();
 
+            #region Gestion
             services.AddSingleton<ICitaRepository, CitaRepository>();
+            #endregion
+
+            #region Mantenimiento
             services.AddSingleton<IPacienteRepository, PacienteRepository>();
             services.AddSingleton<IDoctorRepository, DoctorRepository>();
-            
+            services.AddSingleton<ITrabajadorRepository, TrabajadorRepository>();
+            #endregion
+
+
             return services;
         }
 

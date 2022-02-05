@@ -64,6 +64,17 @@ namespace Fiby.Cloud.Web.Client.Extensions
             return claim.Value;
         }
 
+        public static string GetCodigoUnico(this IIdentity identity)
+        {
+            ClaimsIdentity claimsIdentity = identity as ClaimsIdentity;
+            Claim claim = claimsIdentity?.FindFirst("CodigoUnico");
+
+            if (claim == null)
+                return "";
+
+            return claim.Value;
+        }
+
         public static string GetIdEmpleado(this IIdentity identity)
         {
             ClaimsIdentity claimsIdentity = identity as ClaimsIdentity;

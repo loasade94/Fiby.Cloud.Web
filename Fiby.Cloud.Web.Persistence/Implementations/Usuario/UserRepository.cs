@@ -99,6 +99,7 @@ namespace Fiby.Cloud.Web.Persistence.Implementations.Usuario
                         //Active = DataUtility.ObjectToBool(result["Activo"]),
                         DateRegister = DataUtility.ObjectToDateTime(result["FechaRegistro"]),
                         CompanyId = DataUtility.ObjectToInt(result["IdEmpresa"]),
+                        IdEmpleado = DataUtility.ObjectToInt(result["CodigoTrabajador"]),
                         CodigoUnico = DataUtility.ObjectToString(result["CodigoUnico"])
                     };
                 }

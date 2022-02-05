@@ -1,0 +1,108 @@
+﻿@model Fiby.Cloud.Web.DTO.Modules.Gestion.Response.CitaDTOResponse
+@{ Layout = null; }
+
+<div class="modal-content">
+    <div class="modal-header">
+        <center>
+            <h4 class="modal-title" id="myModalLabel">@ViewBag.titleModal</h4>
+        </center>
+    </div>
+    <div class="modal-body">
+        <div class="container-fluid">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group form-group-default">
+                            <label>Fecha</label>
+                            @if (Model.FechaCita == null)
+                            {
+                                <input name="dates" id="txtFecha" value="" type="date" class="form-control" required placeholder="Ingrese fecha">
+                            }
+                            else
+                            {
+                                <input name="dates" id="txtFecha" value="@Model.FechaCita.Value.ToString("yyyy-MM-dd")" type="date" class="form-control" required placeholder="Ingrese fecha">
+                            }
+
+                        </div>
+                    </div>
+                    <div class="col-md-6 pr-0">
+                        <div class="form-group form-group-default">
+                            <label>Hora</label>
+                            <input name="hour" id="txtHora" value="@Model.Hora" type="time" class="form-control" required placeholder="Ingrese la hora">
+                        </div>
+                    </div>
+                    <!-- ---------------------------------------------->
+                    <!-- ----------------------------------------------->
+                    <div class="col-sm-6">
+                        <div class="form-group form-group-default">
+                            <label>DNI Paciente</label>
+                            <input name="dnipaciente" id="txtDniPaciente" onblur="citajs.buscarPacienteModal();" maxlength="8" value="@Model.DocumentoPaciente" type="text" class="form-control" required placeholder="Ingrese DNI Paciente">
+                        </div>
+                    </div>
+                    @Html.Hidden("pCodigoPaciente", Model.CodigoPaciente)
+                    <div class="col-sm-12">
+                        <div class="form-group form-group-default">
+                            <label>Nombre Paciente</label>
+                            <input name="nombrepaciente" id="txtNombrePaciente" value="@Model.NombrePaciente" type="text" class="form-control" required readonly>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group form-group-default">
+                            <label>Especialidad</label>
+                            <select onchange="citajs.buscarDoctorEspecialidadModal();" class="form-control" id="cboEspecialidad" required name="especialidad">
+                                <option value="0">-Seleccionar-</option>
+                                @foreach (var item in ViewBag.ListaEspecialidad)
+                                {
+                                    if (Model.CodigoEspecialidad == item.CodigoRegistro)
+                                    {
+                                        <option selected value="@item.CodigoRegistro">@item.DescripcionRegistro</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@item.CodigoRegistro">@item.DescripcionRegistro</option>
+                                    }
+
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group form-group-default">
+                            <label>Médico</label>
+                            <select class="form-control" id="cboMedicos" required name="medicos">
+                                @foreach (var item in ViewBag.ListaMedicos)
+                                {
+                                    if (Model.CodigoDoctor == item.CodigoDoctor)
+                                    {
+                                        <option selected value="@item.CodigoDoctor">@item.NombreDoctor</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@item.CodigoDoctor">@item.NombreDoctor</option>
+                                    }
+
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    @*<div class="col-md-6" style="display:none;">
+                            <div class="form-group form-group-default">
+                                <label>Estado</label>
+                                <select class="form-control" required name="estado">
+                                    <option value="0">0</option>
+                                </select>
+                            </div>
+                        </div>*@
+                </div>
+            </div>
+        </div>
+        <input type="hidden" id="hiddenModalGeneralIsNew" name="hiddenModalGeneralIsNew" value="@ViewBag.ModalGeneralIsNew" />
+        <input type="hidden" id="hiddenCitaId" name="hiddenCitaId" value="@Model.IdCita" />
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">
+                <span class="glyphicon glyphicon-remove"></span> Cancelar
+            </button>
+            <button onclick="citajs.registrarCita();" type="submit" name="agregar" class="btn btn-primary"><span class="glyphicon glyphicon-floppy-disk"></span> Guardar Registro</button>
+        </div>
+    </div>
+</div>

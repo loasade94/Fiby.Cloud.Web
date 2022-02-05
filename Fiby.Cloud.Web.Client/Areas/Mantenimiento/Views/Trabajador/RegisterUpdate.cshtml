@@ -1,0 +1,52 @@
+﻿@model Fiby.Cloud.Web.DTO.Modules.Mantenimiento.Response.TrabajadorDTOResponse
+@{ Layout = null; }
+
+<div class="modal-content">
+    <div class="modal-header">
+        <center>
+            <h4 class="modal-title" id="myModalLabel">@ViewBag.titleModal</h4>
+        </center>
+    </div>
+    <div class="modal-body">
+        <div class="container-fluid">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group form-group-default">
+                            <label>DNI Trabajador</label>
+                            <input name="dni" id="txtDni" value="@Model.NumeroDocumento" type="text" class="form-control" required placeholder="Ingrese DNI">
+                        </div>
+                    </div>
+                    <div class="col-md-6 pr-0">
+                        <div class="form-group form-group-default">
+                            <label>Nombres</label>
+                            <input name="nombre" id="txtNombres" value="@Model.Nombres" type="text" class="form-control" required placeholder="Ingrese los Nombres">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group form-group-default">
+                            <label>Apellido Paterno</label>
+                            <input name="apellidoPat" id="txtApellidoPaterno" value="@Model.ApellidoPaterno" type="text" class="form-control" required placeholder="Ingrese Apellido Paterno">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group form-group-default">
+                            <label>Apellido Materno</label>
+                            <input name="apellidoMat" id="txtApellidoMaterno" value="@Model.ApellidoMaterno" type="text" class="form-control" required placeholder="Ingrese Apellido Materno">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" id="hiddenModalGeneralIsNew" name="hiddenModalGeneralIsNew" value="@ViewBag.ModalGeneralIsNew" />
+        <input type="hidden" id="hiddenCodigoTrabajador" name="hiddenCodigoTrabajador" value="@Model.CodigoTrabajador" />
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">
+                <span class="glyphicon glyphicon-remove"></span> Cancelar
+            </button>
+            <button onclick="pacientejs.registrarTrabajador();" type="submit" name="agregar" class="btn btn-primary"><span class="glyphicon glyphicon-floppy-disk"></span> Guardar Registro</button>
+        </div>
+    </div>
+</div>

@@ -81,6 +81,7 @@ namespace Fiby.Cloud.Web.Client.Controllers
                 claims.Add(new Claim(CustomClaimTypes.Profile, JsonConvert.SerializeObject(listDataUser.oRol.Description.ToString())));
                 claims.Add(new Claim(CustomClaimTypes.Nombre, JsonConvert.SerializeObject(listDataUser.oUser.Names.ToString())));
                 claims.Add(new Claim(CustomClaimTypes.IdEmpleado, listDataUser.oUser.IdEmpleado.ToString()));
+                claims.Add(new Claim(CustomClaimTypes.CodigoUnico, listDataUser.oUser.CodigoUnico.ToString()));
 
                 ClaimsIdentity userIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                 ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
