@@ -30,6 +30,7 @@ namespace Fiby.Cloud.Web.DTO.Modules.Horario.Response
         public decimal Pasaje { get; set; }
         public decimal MontoPagoCliente { get; set; }
         public string Direccion { get; set; }
+        public string Horas { get; set; }
 
     }
 }

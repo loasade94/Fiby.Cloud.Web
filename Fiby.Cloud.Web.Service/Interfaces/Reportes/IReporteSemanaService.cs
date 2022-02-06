@@ -10,6 +10,7 @@ namespace Fiby.Cloud.Web.Service.Interfaces.Reportes
     public interface IReporteSemanaService
     {
         Task<List<ReporteSemanaDTOResponse>> GetReporteRentabilidadSemanal(ReporteSemanaDTORequest reporteSemanaDTORequest);
+        Task<List<ReporteSemanaDTOResponse>> GetReporteRentabilidadSemanalEmpleado(ReporteSemanaDTORequest reporteSemanaDTORequest);
         Task<List<AnuncioDTOResponse>> GetAnunciosParaEmpleados();
     }
 }

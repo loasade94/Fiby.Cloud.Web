@@ -27,7 +27,8 @@
     buscarRentabilidad: function () {
 
         var reporteSemanaDTORequest = {
-            IdSemana: $('#cboSemana').val()
+            IdSemana: $('#cboSemana').val(),
+            IdEmpleado: $('#cboEmpleado').val()
         };
 
         $.ajax({

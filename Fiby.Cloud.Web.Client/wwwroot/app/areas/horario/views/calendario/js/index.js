@@ -445,6 +445,7 @@
                             html += '    <td style="text-align:center;">' + response[i].clienteOpcional + '</td>';
                             html += '    <td style="text-align:center;">' + response[i].horaInicio + '</td>';
                             html += '    <td style="text-align:center;">' + response[i].horaFin + '</td>';
+                            html += '    <td style="text-align:center;">' + response[i].horas + '</td>';
                             html += '    <td style="text-align:center;">' + response[i].direccion + '</td>';
                             html += '</tr>';
                             indice += 1;

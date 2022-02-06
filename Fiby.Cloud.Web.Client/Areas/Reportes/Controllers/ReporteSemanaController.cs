@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Fiby.Cloud.Web.Client.Extensions;
 using Fiby.Cloud.Web.DTO.Modules.Reportes.Request;
+using Fiby.Cloud.Web.DTO.Modules.Reportes.Response;
+using Fiby.Cloud.Web.Service.Interfaces;
 using Fiby.Cloud.Web.Service.Interfaces.Horario;
 using Fiby.Cloud.Web.Service.Interfaces.Reportes;
 using Microsoft.AspNetCore.Authorization;
@@ -16,13 +18,16 @@ namespace Fiby.Cloud.Web.Client.Areas.Reportes.Controllers
     public class ReporteSemanaController : Controller
     {
         private readonly IReporteSemanaService _reporteSemanaService;
+        private readonly IEmpleadoService _empleadoService;
         private readonly ISemanaService _semanaService;
 
         public ReporteSemanaController(IReporteSemanaService reporteSemanaService,
-                                        ISemanaService semanaService)
+                                        ISemanaService semanaService,
+                                        IEmpleadoService empleadoService)
         {
             _reporteSemanaService = reporteSemanaService;
             _semanaService = semanaService;
+            _empleadoService = empleadoService;
         }
 
         public async Task<IActionResult> Index()
@@ -32,6 +37,7 @@ namespace Fiby.Cloud.Web.Client.Areas.Reportes.Controllers
                 return RedirectToAction("Logout", "Account", new { Area = "" });
             }
 
+            ViewBag.ListaEmpleados = await _empleadoService.GetEmpleadoAll();
             ViewBag.ListaSemana = await _semanaService.GetListaSemana();
             return View();
         }
@@ -39,7 +45,16 @@ namespace Fiby.Cloud.Web.Client.Areas.Reportes.Controllers
         [HttpPost]
         public async Task<JsonResult> BuscarReporteRentabilidadSemanal(ReporteSemanaDTORequest reporteSemanaDTORequest)
         {
-            var model = await _reporteSemanaService.GetReporteRentabilidadSemanal(reporteSemanaDTORequest);
+            var model = new List<ReporteSemanaDTOResponse>();
+            if (reporteSemanaDTORequest.IdEmpleado == 0)
+            {
+                model = await _reporteSemanaService.GetReporteRentabilidadSemanal(reporteSemanaDTORequest);
+            }
+            else
+            {
+                model = await _reporteSemanaService.GetReporteRentabilidadSemanalEmpleado(reporteSemanaDTORequest);
+            }
+            
             return Json(model);
         }
 

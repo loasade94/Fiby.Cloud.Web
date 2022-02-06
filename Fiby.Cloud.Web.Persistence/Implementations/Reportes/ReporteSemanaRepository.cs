@@ -70,6 +70,56 @@ namespace Fiby.Cloud.Web.Persistence.Implementations.Reportes
             return listResponse;
         }
 
+        public async Task<List<ReporteSemanaDTOResponse>> GetReporteRentabilidadSemanalEmpleado(ReporteSemanaDTORequest pagoEmpleadoDTORequest)
+        {
+            var listResponse = new List<ReporteSemanaDTOResponse>();
+            try
+            {
+                var parameters = new DynamicParameters();
+
+                parameters.Add("@pIdSemana", pagoEmpleadoDTORequest.IdSemana, direction: ParameterDirection.Input);
+                parameters.Add("@pIdEmpleado", pagoEmpleadoDTORequest.IdEmpleado, direction: ParameterDirection.Input);
+
+                var cn = _connectionFactory.GetConnection();
+                var sp = "uspListaReporteGeneralXEmpleado";
+
+                var result = await cn.ExecuteReaderAsync(
+                             sp,
+                             parameters,
+                             commandTimeout: 0,
+                             commandType: CommandType.StoredProcedure);
+
+                if (result.FieldCount > 0)
+                {
+                    while (result.Read())
+                    {
+                        listResponse.Add(new ReporteSemanaDTOResponse
+                        {
+                            IdServicio = DataUtility.ObjectToInt(result["IdServicio"]),
+                            NombreDia = DataUtility.ObjectToString(result["NombreDia"]),
+                            NumeroDia = DataUtility.ObjectToString(result["NumeroDia"]),
+                            Cliente = DataUtility.ObjectToString(result["Cliente"]),
+                            HoraInicio = DataUtility.ObjectToString(result["HoraInicio"]),
+                            HoraFin = DataUtility.ObjectToString(result["HoraFin"]),
+                            Horas = DataUtility.ObjectToInt(result["Horas"]),
+                            Pago = DataUtility.ObjectToDecimal(result["Pago"]),
+                            SubTotal = DataUtility.ObjectToDecimal(result["SubTotal"]),
+                            Pasaje = DataUtility.ObjectToDecimal(result["Pasaje"]),
+                            MontoPagoCliente = DataUtility.ObjectToDecimal(result["MontoPagoCliente"]),
+                            Rentabilidad = DataUtility.ObjectToDecimal(result["Rentabilidad"])
+                        });
+                    }
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                listResponse = null;
+            }
+            return listResponse;
+        }
+
         public async Task<List<AnuncioDTOResponse>> GetAnunciosParaEmpleados()
         {
             var listResponse = new List<AnuncioDTOResponse>();

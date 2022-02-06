@@ -36,6 +36,18 @@
                                                     <label for="cboSemana" class="fiby-label active">Semana</label>
                                                 </div>
                                             </div>
+                                            <div class="col-md-4">
+                                                <div class="fiby-md-form">
+                                                    <select class="fiby-input-text" id="cboEmpleado">
+                                                        <option value="0">-Todos-</option>
+                                                        @foreach (var item in ViewBag.ListaEmpleados)
+                                                        {
+                                                            <option value="@item.Codigo">@item.Descripcion</option>
+                                                        }
+                                                    </select>
+                                                    <label for="cboEmpleado" class="fiby-label active">Empleado</label>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="row">
                                             <div class="card-body text-center">
