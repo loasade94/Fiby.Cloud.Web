@@ -8,9 +8,9 @@
     <table id="tablaTrabajador" class="display table table-striped table-hover">
         <thead id="thTrabajador">
             <tr>
-                <th class="text-center">Nombre</th>
-                <th class="text-center">Apellido Paterno</th>
-                <th class="text-center">Apellido Materno</th>
+                <th class="text-center">Nombre Completo</th>
+                <th class="text-center">Puesto</th>
+                <th class="text-center">Especialidad</th>
                 <th class="text-center">Tipo Trabajador</th>
                 <th class="text-center">Documento</th>
                 <th class="text-center">Telefono</th>
@@ -25,9 +25,9 @@
                 var item = Model.ToList()[i];
 
                 <tr>
-                    <td class="text-center">@item.Nombres</td>
-                    <td class="text-center">@item.ApellidoPaterno</td>
-                    <td class="text-center">@item.ApellidoMaterno</td>
+                    <td class="text-center">@item.NombreCompleto</td>
+                    <td class="text-center">@item.PuestoDescripcion</td>
+                    <td class="text-center">@item.EspecialidadMedicaDescripcion</td>
                     <td class="text-center">@item.DescripcionTipoTrabajador</td>
                     <td class="text-center">@item.NumeroDocumento</td>
                     <td class="text-center">@item.Telefono</td>

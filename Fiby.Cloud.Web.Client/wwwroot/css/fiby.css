@@ -137,3 +137,7 @@ div.ui-datepicker {
     z-index: 9999;
     background: url(/../../img/loading.gif) center no-repeat #fff;
 }
+
+.is-hidden {
+    display: none !important;
+}

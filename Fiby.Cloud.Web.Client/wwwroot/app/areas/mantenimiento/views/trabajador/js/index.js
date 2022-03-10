@@ -13,11 +13,22 @@
     },
 
     openModal: function (idTrabajador) {
+        $('#loading-screen').show();
         var url = '/Mantenimiento/Trabajador/RegisterUpdate';
         $.get(url, {
             idTrabajador: idTrabajador
         }, function (data) {
+            $('#loading-screen').hide();
             createModalSize(data, "xs");
+
+            if (idTrabajador > 0) {
+                if ($('#cboPuesto').val() == $('#hiddenCodigoDoctor').val()) {
+                    $('#dvEspecialidad').removeClass('is-hidden');
+                } else {
+                    $('#dvEspecialidad').addClass('is-hidden');
+                    $('#dvEspecialidad').val('');
+                }
+            }
             //createSelect('cboStatusClassificationNew');
         });
     },
@@ -28,11 +39,14 @@
 
         var txtDni = $("#txtDni").val();
         var txtNombres = $("#txtNombres").val();
-        var txtApellidos = $("#txtApellidos").val();
-        var cboSeguro = $("#cboSeguro").val();
+        var txtApellidoPaterno = $("#txtApellidoPaterno").val();
+        var txtApellidoMaterno = $("#txtApellidoMaterno").val();
+        var cboTipoDocumento = $("#cboTipoDocumento").val();
         var txtTelefono = $("#txtTelefono").val();
         var cboSexo = $("#cboSexo").val();
         var cboEstado = $("#cboEstado").val();
+        var cboPuesto = $("#cboPuesto").val();
+        var cboEspecialidad = $("#cboEspecialidad").val();
 
         if (txtDni == null || txtDni == '') {
             swal('Debe ingresar un DNI', '', 'warning');
@@ -44,13 +58,18 @@
             return;
         }
 
-        if (txtApellidos == null || txtApellidos == '') {
-            swal('Debe ingresar apellidos de trabajador', '', 'warning');
+        if (txtApellidoPaterno == null || txtApellidoPaterno == '') {
+            swal('Debe ingresar apellido paterno de trabajador', '', 'warning');
             return;
         }
 
-        if (cboSeguro == null || cboSeguro == '') {
-            swal('Debe seleccionar si aplica seguro', '', 'warning');
+        if (txtApellidoMaterno == null || txtApellidoMaterno == '') {
+            swal('Debe ingresar apellido materno de trabajador', '', 'warning');
+            return;
+        }
+
+        if (cboTipoDocumento == null || cboTipoDocumento == '') {
+            swal('Debe ingresar tipo de documento de trabajador', '', 'warning');
             return;
         }
 
@@ -64,9 +83,21 @@
             return;
         }
 
+        if (cboPuesto == null || cboPuesto == '') {
+            swal('Debe ingresar el puesto del trabajador', '', 'warning');
+            return;
+        }
+
         if (cboEstado == null || cboEstado == '') {
             swal('Debe ingresar el estado del trabajador', '', 'warning');
             return;
+        }
+
+        if (cboPuesto == $('#hiddenCodigoDoctor').val()) {
+            if (cboEspecialidad == null || cboEspecialidad == '') {
+                swal('Debe ingresar la especialidad del doctor', '', 'warning');
+                return;
+            }
         }
 
         var mensaje = "";
@@ -77,20 +108,38 @@
             mensaje = "¿Esta seguro de actualizar el trabajador?";
         }
 
+        //swal({
+        //    title: mensaje,
+        //    text: "",
+        //    icon: "warning",
+        //    buttons: true
+        //})
+        //    .then((willDelete) => {
+        //        if (willDelete) {
+        //            trabajadorjs.registrarTrabajador_callback();
+        //        } else {
+        //        }
+        //    });
         swal({
             title: mensaje,
-            text: "",
-            icon: "warning",
-            buttons: true
-            //dangerMode: true,
-        })
-            .then((willDelete) => {
-                if (willDelete) {
-                    trabajadorjs.registrarTrabajador_callback();
-                } else {
-                    //swal("Your imaginary file is safe!");
+            icon: 'warning',
+            buttons: {
+                confirm: {
+                    text: 'Si, continuar!',
+                    className: 'btn btn-success'
+                },
+                cancel: {
+                    visible: true,
+                    className: 'btn btn-danger'
                 }
-            });
+            }
+        }).then((Delete) => {
+            if (Delete) {
+                trabajadorjs.registrarTrabajador_callback();
+            } else {
+                swal.close();
+            }
+        });
 
     },
 
@@ -98,23 +147,28 @@
 
         var txtDni = $("#txtDni").val();
         var txtNombres = $("#txtNombres").val();
-        var txtApellidos = $("#txtApellidos").val();
-        var cboSeguro = $("#cboSeguro").val();
+        var txtApellidoPaterno = $("#txtApellidoPaterno").val();
+        var txtApellidoMaterno = $("#txtApellidoMaterno").val();
+        var cboTipoDocumento = $("#cboTipoDocumento").val();
         var txtTelefono = $("#txtTelefono").val();
         var cboSexo = $("#cboSexo").val();
+        var cboPuesto = $("#cboPuesto").val();
         var cboEstado = $("#cboEstado").val();
+        var cboEspecialidad = $("#cboEspecialidad").val();
 
         var idTrabajador = $("#hiddenCodigoTrabajador").val();
 
         var trabajadorDTORequest = {
-            CodigoTrabajador: idTrabajador,
-            DniTrabajador: txtDni,
-            NombreTrabajador: txtNombres,
-            ApellidoTrabajador: txtApellidos,
-            Seguro: cboSeguro,
+            TipoTrabajador: cboTipoDocumento,
+            Nombres: txtNombres,
+            ApellidoPaterno: txtApellidoPaterno,
+            ApellidoMaterno: txtApellidoMaterno,
+            IdPuesto: cboPuesto,
+            NumeroDocumento: txtDni,
+            SituacionRegistro: cboEstado,
+            EspecialidadMedica: cboEspecialidad,
             Telefono: txtTelefono,
-            Sexo: cboSexo,
-            SituacionRegistro: cboEstado
+            Sexo: cboSexo
         };
 
         $.ajax({
@@ -256,6 +310,15 @@
         });
 
 
+    },
+
+    activarEspecialidad: function () {
+        if ($('#cboPuesto').val() == $('#hiddenCodigoDoctor').val()) {
+            $('#dvEspecialidad').removeClass('is-hidden');
+        } else {
+            $('#dvEspecialidad').addClass('is-hidden');
+            $('#dvEspecialidad').val('');
+        }
     },
 
 }

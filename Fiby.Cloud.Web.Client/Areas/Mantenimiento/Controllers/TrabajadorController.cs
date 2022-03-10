@@ -19,12 +19,15 @@ namespace Fiby.Cloud.Web.Client.Areas.Mantenimiento.Controllers
     {
         private readonly ITrabajadorService _trabajadorService;
         private readonly ITablaDetalleService _tablaDetalleService;
+        private readonly IPuestoService _puestoService;
 
         public TrabajadorController(ITrabajadorService trabajadorService,
-                                    ITablaDetalleService tablaDetalleService)
+                                    ITablaDetalleService tablaDetalleService,
+                                    IPuestoService puestoService)
         {
             _trabajadorService = trabajadorService;
             _tablaDetalleService = tablaDetalleService;
+            _puestoService = puestoService;
         }
 
         public async Task<IActionResult> Index()
@@ -62,7 +65,12 @@ namespace Fiby.Cloud.Web.Client.Areas.Mantenimiento.Controllers
             if (idTrabajador > 0) { ViewBag.titleModal = "Editar"; }
 
             ViewBag.ListaSexo = await _tablaDetalleService.GetTablaDetalleAll(new TablaDetalleDTORequest() { CodigoTabla = "GEGE" });
+            ViewBag.ListaTipoTrabajador = await _tablaDetalleService.GetTablaDetalleAll(new TablaDetalleDTORequest() { CodigoTabla = "TPTR" });
+            ViewBag.ListaPuesto = await _puestoService.GetPuestoAll(new PuestoDTORequest() { DescripcionPuesto = "" });
+            ViewBag.ListaEspecialidad = await _tablaDetalleService.GetTablaDetalleAll(new TablaDetalleDTORequest() { CodigoTabla = "ARME" });
+            var coddoc = await _tablaDetalleService.GetTablaDetalleAll(new TablaDetalleDTORequest() { CodigoTabla = "0001" });
 
+            ViewBag.CodigoDoctor = coddoc.FirstOrDefault().CodigoRegistro;
 
             if (idTrabajador > 0)//EDITAR
             {
@@ -82,6 +90,7 @@ namespace Fiby.Cloud.Web.Client.Areas.Mantenimiento.Controllers
             string resultado = string.Empty;
             try
             {
+                trabajadorDTORequest.IdEmpresa = "1";
                 resultado = await _trabajadorService.GuardarTrabajador(trabajadorDTORequest);
             }
             catch (Exception ex)

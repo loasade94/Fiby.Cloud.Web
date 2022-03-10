@@ -36,7 +36,7 @@ namespace Fiby.Cloud.Web.Client.Areas.Gestion.Controllers
             _doctorService = doctorService;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int Id)
         {
             if (User.Identity.GetProfileId() == "2")
             {
@@ -46,6 +46,8 @@ namespace Fiby.Cloud.Web.Client.Areas.Gestion.Controllers
             {
                 ViewBag.Layout = "~/Views/Shared/_LayoutAdministrator.cshtml";
             }
+
+            ViewBag.IdMenu = Id;
             ViewBag.NombreSesion = User.Identity.GetNombre();
             ViewBag.IdPerfil = User.Identity.GetProfileId();
 

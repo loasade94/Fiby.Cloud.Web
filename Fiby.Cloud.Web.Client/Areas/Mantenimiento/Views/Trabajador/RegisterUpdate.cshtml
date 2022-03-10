@@ -14,13 +14,13 @@
                     <div class="col-sm-6">
                         <div class="form-group form-group-default">
                             <label>DNI Trabajador</label>
-                            <input name="dni" id="txtDni" value="@Model.NumeroDocumento" type="text" class="form-control" required placeholder="Ingrese DNI">
+                            <input name="dni" id="txtDni" value="@Model.NumeroDocumento" type="text" class="form-control" required placeholder="Ingrese dato">
                         </div>
                     </div>
                     <div class="col-md-6 pr-0">
                         <div class="form-group form-group-default">
                             <label>Nombres</label>
-                            <input name="nombre" id="txtNombres" value="@Model.Nombres" type="text" class="form-control" required placeholder="Ingrese los Nombres">
+                            <input name="nombre" id="txtNombres" value="@Model.Nombres" type="text" class="form-control" required placeholder="Ingrese dato">
                         </div>
                     </div>
                 </div>
@@ -28,13 +28,128 @@
                     <div class="col-sm-6">
                         <div class="form-group form-group-default">
                             <label>Apellido Paterno</label>
-                            <input name="apellidoPat" id="txtApellidoPaterno" value="@Model.ApellidoPaterno" type="text" class="form-control" required placeholder="Ingrese Apellido Paterno">
+                            <input name="apellidoPat" id="txtApellidoPaterno" value="@Model.ApellidoPaterno" type="text" class="form-control" required placeholder="Ingrese dato">
                         </div>
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-6 pr-0">
                         <div class="form-group form-group-default">
                             <label>Apellido Materno</label>
-                            <input name="apellidoMat" id="txtApellidoMaterno" value="@Model.ApellidoMaterno" type="text" class="form-control" required placeholder="Ingrese Apellido Materno">
+                            <input name="apellidoMat" id="txtApellidoMaterno" value="@Model.ApellidoMaterno" type="text" class="form-control" required placeholder="Ingrese dato">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group form-group-default">
+                            <label>Tipo Trabajador</label>
+                            <select class="form-control" id="cboTipoDocumento" required name="tipodocumento">
+                                @foreach (var item in ViewBag.ListaTipoTrabajador)
+                                {
+                                    if (Model.TipoTrabajador == item.CodigoRegistro)
+                                    {
+                                        <option selected value="@item.CodigoRegistro">@item.DescripcionRegistro</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@item.CodigoRegistro">@item.DescripcionRegistro</option>
+                                    }
+
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 pr-0">
+                        <div class="form-group form-group-default">
+                            <label>Puesto</label>
+                            <select onchange="trabajadorjs.activarEspecialidad();" class="form-control" id="cboPuesto" required name="puesto">
+                                <option value="">-Seleccione-</option>
+                                @foreach (var item in ViewBag.ListaPuesto)
+                                {
+                                    if (Model.IdPuesto.ToString() == item.IdPuesto.ToString())
+                                    {
+                                        <option selected value="@item.IdPuesto">@item.DescripcionPuesto</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@item.IdPuesto">@item.DescripcionPuesto</option>
+                                    }
+
+                                }
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group form-group-default">
+                            <label>Telefonó</label>
+                            <input name="fono" id="txtTelefono" value="@Model.Telefono" type="text" class="form-control" required placeholder="Ingrese dato">
+                        </div>
+                    </div>
+                    <div class="col-sm-6 pr-0">
+                        <div class="form-group form-group-default">
+                            <label>Sexo</label>
+                            <select class="form-control" id="cboSexo" required name="sexo">
+                                @foreach (var item in ViewBag.ListaSexo)
+                                {
+                                    if (Model.Sexo == item.CodigoRegistro)
+                                    {
+                                        <option selected value="@item.CodigoRegistro">@item.DescripcionRegistro</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@item.CodigoRegistro">@item.DescripcionRegistro</option>
+                                    }
+
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group form-group-default">
+                            <label>Estado</label>
+                            <select class="form-control" id="cboEstado" required name="cboEstado">
+
+                                @if (Model.SituacionRegistro == "A")
+                                {
+                                    <option selected value="A">ACTIVO</option>
+                                    <option value="E">INACTIVO</option>
+                                }
+                                else if (Model.SituacionRegistro == "E")
+                                {
+                                    <option value="A">ACTIVO</option>
+                                    <option selected value="E">INACTIVO</option>
+                                }
+                                else
+                                {
+                                    <option value="A">ACTIVO</option>
+                                    <option value="E">INACTIVO</option>
+                                }
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6 pr-0">
+                        <div id="dvEspecialidad" class="form-group form-group-default is-hidden">
+                            <label>Especialidad</label>
+                            <select class="form-control" id="cboEspecialidad" required name="especialidad">
+                                <option value="">-Seleccionar-</option>
+                                @foreach (var item in ViewBag.ListaEspecialidad)
+                                {
+                                    if (Model.EspecialidadMedica == item.CodigoRegistro)
+                                    {
+                                        <option selected value="@item.CodigoRegistro">@item.DescripcionRegistro</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@item.CodigoRegistro">@item.DescripcionRegistro</option>
+                                    }
+
+                                }
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -42,11 +157,12 @@
         </div>
         <input type="hidden" id="hiddenModalGeneralIsNew" name="hiddenModalGeneralIsNew" value="@ViewBag.ModalGeneralIsNew" />
         <input type="hidden" id="hiddenCodigoTrabajador" name="hiddenCodigoTrabajador" value="@Model.CodigoTrabajador" />
+        <input type="hidden" id="hiddenCodigoDoctor" name="hiddenCodigoDoctor" value="@ViewBag.CodigoDoctor" />
         <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">
                 <span class="glyphicon glyphicon-remove"></span> Cancelar
             </button>
-            <button onclick="pacientejs.registrarTrabajador();" type="submit" name="agregar" class="btn btn-primary"><span class="glyphicon glyphicon-floppy-disk"></span> Guardar Registro</button>
+            <button onclick="trabajadorjs.registrarTrabajador();" type="submit" name="agregar" class="btn btn-primary"><span class="glyphicon glyphicon-floppy-disk"></span> Guardar Registro</button>
         </div>
     </div>
 </div>

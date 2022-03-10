@@ -14,6 +14,7 @@ namespace Fiby.Cloud.Web.DTO.Modules.Mantenimiento.Response
         public string Nombres { get; set; }
         public string ApellidoPaterno { get; set; }
         public string ApellidoMaterno { get; set; }
+        public string NombreCompleto { get; set; }
         public DateTime? FechaRegistro { get; set; }
         public string FechaRegistroText { get; set; }
         public string UsuarioRegistro { get; set; }
@@ -21,7 +22,7 @@ namespace Fiby.Cloud.Web.DTO.Modules.Mantenimiento.Response
         public string FechaCambioText { get; set; }
         public string UsuarioCambio { get; set; }
         public int IdPuesto { get; set; }
-        public string IdPuestoDescripcion { get; set; }
+        public string PuestoDescripcion { get; set; }
         public string NumeroDocumento { get; set; }
         public string EspecialidadMedica { get; set; }
         public string EspecialidadMedicaDescripcion { get; set; }

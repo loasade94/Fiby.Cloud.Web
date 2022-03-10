@@ -34,7 +34,7 @@
     <script>
         WebFont.load({
             google: { "families": ["Lato:300,400,700,900"] },
-            custom: { "families": ["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"], urls: ['../css/fonts.min.css'] },
+            custom: { "families": ["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"], urls: ['../../../css/fonts.min.css'] },
             active: function () {
                 sessionStorage.fonts = true;
             }
@@ -54,7 +54,7 @@
     <div class="wrapper">
         <div class="main-header">
             <!-- Logo Header -->
-            <div class="logo-header" data-background-color="blue">
+            <div class="logo-header" data-background-color="purple">
 
                 <a href="index.html" class="logo">
                     <img src="~/img/logo.svg" alt="navbar brand" class="navbar-brand">
@@ -73,7 +73,7 @@
             </div>
             <!-- End Logo Header -->
             <!-- Navbar Header -->
-            <nav class="navbar navbar-header navbar-expand-lg" data-background-color="blue2">
+            <nav class="navbar navbar-header navbar-expand-lg" data-background-color="purple2">
 
                 <div class="container-fluid">
                     <ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
@@ -155,7 +155,7 @@
                         @for (int i = 0; i < DataListOpcionAdmin.oListMenu.Count; i++)
                         {
 
-                            <li class="nav-item">
+                            <li id="li-@DataListOpcionAdmin.oListMenu[i].MenuId" class="nav-item">
                                 <a data-toggle="collapse" href="#@DataListOpcionAdmin.oListMenu[i].MenuId">
                                     <i class="fas @DataListOpcionAdmin.oListMenu[i].Icon"></i>
                                     <p>@DataListOpcionAdmin.oListMenu[i].Name</p>
@@ -169,7 +169,7 @@
                                             @if (DataListOpcionAdmin.oListSubMenu[j].IdMenu == DataListOpcionAdmin.oListMenu[i].MenuId)
                                             {
                                                 <li>
-                                                    <a href="@Url.Action(DataListOpcionAdmin.oListSubMenu[j].Action, DataListOpcionAdmin.oListSubMenu[j].Controlator, new { Area = DataListOpcionAdmin.oListSubMenu[j].Area })">
+                                                    <a href="@Url.Action(DataListOpcionAdmin.oListSubMenu[j].Action, DataListOpcionAdmin.oListSubMenu[j].Controlator, new { Area = DataListOpcionAdmin.oListSubMenu[j].Area , Id = DataListOpcionAdmin.oListMenu[i].MenuId })">
                                                         <span class="sub-item">@DataListOpcionAdmin.oListSubMenu[j].Name</span>
                                                     </a>
                                                 </li>

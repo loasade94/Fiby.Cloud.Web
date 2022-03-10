@@ -7,6 +7,9 @@
         //});
 
         //clientejs.buscarCliente();
+        //var idMenu = $('#hiddenIdMenu').val();
+        //$('#' + 'li-' + idMenu.toString()).addClass('active');
+        //$('#' + 'li-' + idMenu.toString()).addClass('submenu');
 
         CreateDataTable("tablaCita");
 

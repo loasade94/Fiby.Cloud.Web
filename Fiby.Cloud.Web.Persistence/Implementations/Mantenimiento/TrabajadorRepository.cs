@@ -53,12 +53,17 @@ namespace Fiby.Cloud.Web.Persistence.Implementations.Mantenimiento
                             Nombres = DataUtility.ObjectToString(result["Nombres"]),
                             ApellidoPaterno = DataUtility.ObjectToString(result["ApellidoPaterno"]),
                             ApellidoMaterno = DataUtility.ObjectToString(result["ApellidoMaterno"]),
+                            NombreCompleto = DataUtility.ObjectToString(result["NombreCompleto"]),
                             NumeroDocumento = DataUtility.ObjectToString(result["NumeroDocumento"]),
                             CodigoTrabajador = DataUtility.ObjectToInt(result["CodigoTrabajador"]),
                             Telefono = DataUtility.ObjectToString(result["Telefono"]),
                             Sexo = DataUtility.ObjectToString(result["Sexo"]),
                             SexoDescripcion = DataUtility.ObjectToString(result["SexoDescripcion"]),
-                            SituacionRegistro = DataUtility.ObjectToString(result["SituacionRegistro"])
+                            SituacionRegistro = DataUtility.ObjectToString(result["SituacionRegistro"]),
+                            IdPuesto = DataUtility.ObjectToInt(result["IdPuesto"]),
+                            PuestoDescripcion = DataUtility.ObjectToString(result["DescripcionPuesto"]),
+                            EspecialidadMedica = DataUtility.ObjectToString(result["EspecialidadMedica"]),
+                            EspecialidadMedicaDescripcion = DataUtility.ObjectToString(result["EspecialidadMedicaDescripcion"])
 
                         });
                     }
@@ -195,12 +200,18 @@ namespace Fiby.Cloud.Web.Persistence.Implementations.Mantenimiento
                             Nombres = DataUtility.ObjectToString(result["Nombres"]),
                             ApellidoPaterno = DataUtility.ObjectToString(result["ApellidoPaterno"]),
                             ApellidoMaterno = DataUtility.ObjectToString(result["ApellidoMaterno"]),
+                            NombreCompleto = DataUtility.ObjectToString(result["NombreCompleto"]),
                             NumeroDocumento = DataUtility.ObjectToString(result["NumeroDocumento"]),
                             CodigoTrabajador = DataUtility.ObjectToInt(result["CodigoTrabajador"]),
                             Telefono = DataUtility.ObjectToString(result["Telefono"]),
                             Sexo = DataUtility.ObjectToString(result["Sexo"]),
                             SexoDescripcion = DataUtility.ObjectToString(result["SexoDescripcion"]),
-                            SituacionRegistro = DataUtility.ObjectToString(result["SituacionRegistro"])
+                            SituacionRegistro = DataUtility.ObjectToString(result["SituacionRegistro"]),
+                            IdPuesto = DataUtility.ObjectToInt(result["IdPuesto"]),
+                            PuestoDescripcion = DataUtility.ObjectToString(result["DescripcionPuesto"]),
+                            EspecialidadMedica = DataUtility.ObjectToString(result["EspecialidadMedica"]),
+                            EspecialidadMedicaDescripcion = DataUtility.ObjectToString(result["EspecialidadMedicaDescripcion"])
+
                         };
                     }
                 }

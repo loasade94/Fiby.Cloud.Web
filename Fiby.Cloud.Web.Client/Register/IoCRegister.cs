@@ -50,6 +50,7 @@ namespace Fiby.Cloud.Web.Client.Register
             services.AddScoped<IPacienteService, PacienteService>();
             services.AddScoped<IDoctorService, DoctorService>();
             services.AddScoped<ITrabajadorService, TrabajadorService>();
+            services.AddScoped<IPuestoService, PuestoService>();
             #endregion
 
             return services;
@@ -88,6 +89,7 @@ namespace Fiby.Cloud.Web.Client.Register
             services.AddSingleton<IPacienteRepository, PacienteRepository>();
             services.AddSingleton<IDoctorRepository, DoctorRepository>();
             services.AddSingleton<ITrabajadorRepository, TrabajadorRepository>();
+            services.AddSingleton<IPuestoRepository, PuestoRepository>();
             #endregion
 
 
