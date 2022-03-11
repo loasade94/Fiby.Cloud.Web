@@ -471,11 +471,12 @@
 
                         //$('#tbServiciosPorEmpleadoTotales tbody').append(htmlTotal);
                     }
-                    calendariojs.intitDataTable();
+                    //calendariojs.intitDataTable();
                 }
             },
             complete: function () {
-                calendariojs.buscarServicioCalendario();
+                $('#loading').hide();
+                //calendariojs.buscarServicioCalendario();
             },
             error: function (xhr, status, errorThrown) {
                 var err = "Status: " + status + " " + errorThrown;
@@ -730,7 +731,8 @@
                 }
             },
             complete: function () {
-                calendariojs.buscarServicioCalendario();
+                //calendariojs.buscarServicioCalendario();
+                $('#loading').hide();
             },
             error: function (xhr, status, errorThrown) {
                 var err = "Status: " + status + " " + errorThrown;
