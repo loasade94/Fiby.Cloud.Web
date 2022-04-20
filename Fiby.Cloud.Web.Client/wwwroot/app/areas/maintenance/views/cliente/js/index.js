@@ -89,7 +89,16 @@
         var clienteDTORequest = {
             Nombres: $("#txtNombres").val(),
             Direccion: $("#txtDireccion").val(),
-            Telefono: $("#txtTelefono").val()
+            Telefono: $("#txtTelefono").val(),
+
+            TipoDocumento: $("#cboTipoCliente").val(),
+            NumeroDocumento: $("#txtNumeroDocumento").val(),
+            NombreCompleto: $("#txtNombreCompleto").val(),
+            RazonSocial: $("#txtRazonSocial").val(),
+            DepartamentoDireccion: $("#cboDepartamento").val(),
+            ProvinciaDireccion: $("#cboProvincia").val(),
+            DistritoDireccion: $("#cboDistrito").val(),
+            UbigeoDireccion: $("#txtUbigeo").val()
         };
 
         /*        var html = "";*/
@@ -213,7 +222,16 @@
             IdCliente: $("#hiddenClienteId").val(),
             Nombres: $("#txtNombreEditar").val(),
             Telefono: $("#txtTelefonoEditar").val(),
-            Direccion: $("#txtDireccionEditar").val()
+            Direccion: $("#txtDireccionEditar").val(),
+
+            TipoDocumento: $("#cboTipoClienteEditar").val(),
+            NumeroDocumento: $("#txtNumeroDocumentoEditar").val(),
+            NombreCompleto: $("#txtNombreCompletoEditar").val(),
+            RazonSocial: $("#txtRazonSocialEditar").val(),
+            DepartamentoDireccion: $("#cboDepartamentoEditar").val(),
+            ProvinciaDireccion: $("#cboProvinciaEditar").val(),
+            DistritoDireccion: $("#cboDistritoEditar").val(),
+            UbigeoDireccion: $("#txtUbigeoEditar").val()
         };
 
         /*        var html = "";*/
@@ -255,6 +273,430 @@
             },
             async: true,
         })
+    },
+
+    buscarProvinciaPorDept: function () {
+
+        var cboDepartamento = $('#cboDepartamento').val();
+
+        if ($.trim(cboDepartamento) == "") {
+            cboDepartamento = "";
+        }
+
+        var cboProvincia = $('#cboProvincia');
+        var cboDistrito = $('#cboDistrito');
+
+        $.ajax({
+            type: "POST",
+            data:
+            {
+                codigoDepartamento: cboDepartamento
+            },
+            beforeSend: function () {
+                $('#loading').show();
+            },
+            url: '/Maintenance/Cliente/BuscarProvincia',
+            success: function (response, textStatus, jqXhr) {
+
+                cboProvincia.html('');
+                cboDistrito.html('');
+                $('#txtUbigeo').val('');
+
+                var html = '';
+
+                if (response != null) {
+
+                    html += '<option value="">.:Seleccione:.</option>';
+
+                    for (var i = 0; i < response.length; i++) {
+                        html += '<option value="' + response[i].codigoProvincia + '">' + response[i].provinciaDescripcion.toUpperCase()  + '</option>';
+                    }
+
+                    cboProvincia.append(html);
+                }
+            },
+            complete: function () {
+                $('#loading').hide();
+            },
+            error: function (xhr, status, errorThrown) {
+                var err = "Status: " + status + " " + errorThrown;
+                console.log(err);
+                $('#loading').hide();
+            },
+            async: true,
+        })
+    },
+
+    buscarDistritoPorDeptProv: function () {
+
+        var cboDepartamento = $('#cboDepartamento').val();
+        var cboProvincia = $('#cboProvincia').val();
+
+        if ($.trim(cboDepartamento) == "") {
+            cboDepartamento = "";
+        }
+
+        if ($.trim(cboProvincia) == "") {
+            cboProvincia = "";
+        }
+
+        var cboDistrito = $('#cboDistrito');
+
+        $.ajax({
+            type: "POST",
+            data:
+            {
+                codigoDepartamento: cboDepartamento,
+                codigoProvincia: cboProvincia
+            },
+            beforeSend: function () {
+                $('#loading').show();
+            },
+            url: '/Maintenance/Cliente/BuscarDistrito',
+            success: function (response, textStatus, jqXhr) {
+
+                cboDistrito.html('');
+                $('#txtUbigeo').val('');
+                var html = '';
+
+                if (response != null) {
+
+                    html += '<option value="">.:Seleccione:.</option>';
+
+                    for (var i = 0; i < response.length; i++) {
+                        //html += '<option onchange="clientejs.setearUbigeo(' + response[i].ubigeo + ');" value="' + response[i].codigoDistrito + '">' + response[i].distritoDescripcion + '</option>';
+                        html += '<option id="' + response[i].ubigeo + '" value="' + response[i].codigoDistrito + '">' + response[i].distritoDescripcion.toUpperCase() + '</option>';
+                    }
+
+                    cboDistrito.append(html);
+                }
+            },
+            complete: function () {
+                $('#loading').hide();
+            },
+            error: function (xhr, status, errorThrown) {
+                var err = "Status: " + status + " " + errorThrown;
+                console.log(err);
+                $('#loading').hide();
+            },
+            async: true,
+        })
+    },
+
+    setearUbigeo: function (s) {
+        var id = s[s.selectedIndex].id;
+        $('#txtUbigeo').val(id);
+    },
+
+    buscarProvinciaPorDeptEditar: function () {
+
+        var cboDepartamento = $('#cboDepartamentoEditar').val();
+
+        if ($.trim(cboDepartamento) == "") {
+            cboDepartamento = "";
+        }
+
+        var cboProvincia = $('#cboProvinciaEditar');
+        var cboDistrito = $('#cboDistritoEditar');
+
+        $.ajax({
+            type: "POST",
+            data:
+            {
+                codigoDepartamento: cboDepartamento
+            },
+            beforeSend: function () {
+                $('#loading').show();
+            },
+            url: '/Maintenance/Cliente/BuscarProvincia',
+            success: function (response, textStatus, jqXhr) {
+
+                cboProvincia.html('');
+                cboDistrito.html('');
+                $('#txtUbigeoEditar').val('');
+
+                var html = '';
+
+                if (response != null) {
+
+                    html += '<option value="">.:Seleccione:.</option>';
+
+                    for (var i = 0; i < response.length; i++) {
+                        html += '<option value="' + response[i].codigoProvincia + '">' + response[i].provinciaDescripcion.toUpperCase() + '</option>';
+                    }
+
+                    cboProvincia.append(html);
+                }
+            },
+            complete: function () {
+                $('#loading').hide();
+            },
+            error: function (xhr, status, errorThrown) {
+                var err = "Status: " + status + " " + errorThrown;
+                console.log(err);
+                $('#loading').hide();
+            },
+            async: true,
+        })
+    },
+
+    buscarDistritoPorDeptProvEditar: function () {
+
+        var cboDepartamento = $('#cboDepartamentoEditar').val();
+        var cboProvincia = $('#cboProvinciaEditar').val();
+
+        if ($.trim(cboDepartamento) == "") {
+            cboDepartamento = "";
+        }
+
+        if ($.trim(cboProvincia) == "") {
+            cboProvincia = "";
+        }
+
+        var cboDistrito = $('#cboDistritoEditar');
+
+        $.ajax({
+            type: "POST",
+            data:
+            {
+                codigoDepartamento: cboDepartamento,
+                codigoProvincia: cboProvincia
+            },
+            beforeSend: function () {
+                $('#loading').show();
+            },
+            url: '/Maintenance/Cliente/BuscarDistrito',
+            success: function (response, textStatus, jqXhr) {
+
+                cboDistrito.html('');
+                $('#txtUbigeoEditar').val('');
+                var html = '';
+
+                if (response != null) {
+
+                    html += '<option value="">.:Seleccione:.</option>';
+
+                    for (var i = 0; i < response.length; i++) {
+                        //html += '<option onchange="clientejs.setearUbigeo(' + response[i].ubigeo + ');" value="' + response[i].codigoDistrito + '">' + response[i].distritoDescripcion + '</option>';
+                        html += '<option id="' + response[i].ubigeo + '" value="' + response[i].codigoDistrito + '">' + response[i].distritoDescripcion.toUpperCase() + '</option>';
+                    }
+
+                    cboDistrito.append(html);
+                }
+            },
+            complete: function () {
+                $('#loading').hide();
+            },
+            error: function (xhr, status, errorThrown) {
+                var err = "Status: " + status + " " + errorThrown;
+                console.log(err);
+                $('#loading').hide();
+            },
+            async: true,
+        })
+    },
+
+    setearUbigeoEditar: function (s) {
+        var id = s[s.selectedIndex].id;
+        $('#txtUbigeoEditar').val(id);
+    },
+
+    ocultarTipoDocumento: function () {
+
+        var tipo = $('#cboTipoCliente').val();
+
+        if (tipo == "01") {
+            $('#dvNombreCompleto').val('');
+            $('#dvNombreCompleto').addClass('is-hidden');
+            $('#dvRazonSocial').removeClass('is-hidden');
+        } else {
+            $('#dvRazonSocial').val('');
+            $('#dvNombreCompleto').removeClass('is-hidden');
+            $('#dvRazonSocial').addClass('is-hidden');
+        }
+
+    },
+
+    ocultarTipoDocumentoEditar: function () {
+
+        var tipo = $('#cboTipoClienteEditar').val();
+
+        if (tipo == "01") {
+            $('#dvNombreCompletoEditar').val('');
+            $('#dvNombreCompletoEditar').addClass('is-hidden');
+            $('#dvRazonSocialEditar').removeClass('is-hidden');
+        } else {
+            $('#dvRazonSocialEditar').val('');
+            $('#dvNombreCompletoEditar').removeClass('is-hidden');
+            $('#dvRazonSocialEditar').addClass('is-hidden');
+        }
+
+    },
+
+    buscarProvinciaPorDeptCodigo: function (ubigeo) {
+
+        var cboDepartamento = ubigeo.substring(0, 2);
+        var provincia = ubigeo.substring(2, 4);
+
+        if ($.trim(cboDepartamento) == "") {
+            cboDepartamento = "";
+        }
+
+        var cboProvincia = $('#cboProvincia');
+        var cboDistrito = $('#cboDistrito');
+
+        $.ajax({
+            type: "POST",
+            data:
+            {
+                codigoDepartamento: cboDepartamento
+            },
+            beforeSend: function () {
+                $('#loading').show();
+            },
+            url: '/Maintenance/Cliente/BuscarProvincia',
+            success: function (response, textStatus, jqXhr) {
+
+                cboProvincia.html('');
+                cboDistrito.html('');
+
+                var html = '';
+
+                if (response != null) {
+
+                    html += '<option value="">.:Seleccione:.</option>';
+
+                    for (var i = 0; i < response.length; i++) {
+                        html += '<option value="' + response[i].codigoProvincia + '">' + response[i].provinciaDescripcion.toUpperCase() + '</option>';
+                    }
+
+                    cboProvincia.append(html);
+
+                    cboProvincia.val(provincia);
+                }
+            },
+            complete: function () {
+                clientejs.buscarDistritoPorDeptProvCodigo(ubigeo);
+                //$('#loading').hide();
+            },
+            error: function (xhr, status, errorThrown) {
+                var err = "Status: " + status + " " + errorThrown;
+                console.log(err);
+                $('#loading').hide();
+            },
+            async: true,
+        })
+    },
+
+    buscarDistritoPorDeptProvCodigo: function (ubigeo) {
+
+        var cboDepartamento = ubigeo.substring(0, 2);
+        var cboProvincia = ubigeo.substring(2, 4);
+        var cboDistrito = ubigeo.substring(4, 6);;
+
+        var distrito = $('#cboDistrito');
+
+        if ($.trim(cboDepartamento) == "") {
+            cboDepartamento = "";
+        }
+
+        if ($.trim(cboProvincia) == "") {
+            cboProvincia = "";
+        }
+
+        $.ajax({
+            type: "POST",
+            data:
+            {
+                codigoDepartamento: cboDepartamento,
+                codigoProvincia: cboProvincia
+            },
+            beforeSend: function () {
+                /*$('#loading').show();*/
+            },
+            url: '/Maintenance/Cliente/BuscarDistrito',
+            success: function (response, textStatus, jqXhr) {
+
+                distrito.html('');
+
+                var html = '';
+
+                if (response != null) {
+
+                    html += '<option value="">.:Seleccione:.</option>';
+
+                    for (var i = 0; i < response.length; i++) {
+                        //html += '<option onchange="clientejs.setearUbigeo(' + response[i].ubigeo + ');" value="' + response[i].codigoDistrito + '">' + response[i].distritoDescripcion + '</option>';
+                        html += '<option id="' + response[i].ubigeo + '" value="' + response[i].codigoDistrito + '">' + response[i].distritoDescripcion.toUpperCase() + '</option>';
+                    }
+                    
+                    distrito.append(html);
+                    $('#cboDistrito').val(cboDistrito);
+                }
+            },
+            complete: function () {
+                $('#loading').hide();
+            },
+            error: function (xhr, status, errorThrown) {
+                var err = "Status: " + status + " " + errorThrown;
+                console.log(err);
+                $('#loading').hide();
+            },
+            async: true,
+        })
+    },
+
+    buscarRUC: function () {
+
+        var ruc = $('#txtNumeroDocumento').val();
+        var tipoCliente = $('#cboTipoCliente').val();
+        var departamento = $('#cboDepartamento');
+
+        if (tipoCliente == '01') {
+
+            if ($.trim(ruc) == "") {
+                return;
+            }
+
+            $.ajax({
+                type: "POST",
+                data:
+                {
+                    ruc: ruc
+                },
+                beforeSend: function () {
+                    $('#loading').show();
+                },
+                url: '/Maintenance/Cliente/BuscarEmpresa',
+                success: function (response, textStatus, jqXhr) {
+
+                    if (response != null) {
+
+                        $('#txtRazonSocial').val(response.nombre);
+                        $('#txtUbigeo').val(response.ubigeo);
+                        $('#txtDireccion').val(response.direccion);
+
+                        var ubigeo = response.ubigeo;
+                        var dpto = response.ubigeo.substring(0, 2);
+                        departamento.val(dpto);
+                        clientejs.buscarProvinciaPorDeptCodigo(ubigeo);
+
+
+                    }
+                },
+                complete: function () {
+                    $('#loading').hide();
+                },
+                error: function (xhr, status, errorThrown) {
+                    var err = "Status: " + status + " " + errorThrown;
+                    console.log(err);
+                    $('#loading').hide();
+                },
+                async: true,
+            })
+        }
+
+        
     },
 }
 

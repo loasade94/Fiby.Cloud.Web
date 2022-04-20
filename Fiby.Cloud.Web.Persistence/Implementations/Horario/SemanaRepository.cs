@@ -412,12 +412,14 @@ namespace Fiby.Cloud.Web.Persistence.Implementations.Horario
                     {
                         listResponse.Add(new ServicioClienteDTOResponse
                         {
+                            IdServicio = DataUtility.ObjectToInt32(result["IdServicio"]),
                             Fecha = DataUtility.ObjectToDateTime(result["Fecha"]),
                             Horario = DataUtility.ObjectToString(result["Horario"]),
                             Pasaje = DataUtility.ObjectToDecimal(result["Pasaje"]),
                             MontoPagoCliente = DataUtility.ObjectToDecimal(result["MontoPagoCliente"]),
                             NombreEmpleado = DataUtility.ObjectToString(result["NombreEmpleado"]),
-                            Direccion = DataUtility.ObjectToString(result["Direccion"])
+                            Direccion = DataUtility.ObjectToString(result["Direccion"]),
+                            Horas = DataUtility.ObjectToString(result["horas"])
                         });
                     }
                 }

@@ -1,0 +1,271 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutAdministrator.cshtml";
+}
+
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+            <h4 class="page-title">Generar y Consultar Boleta/Factura</h4>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body wizard-content">
+        @*<h4 class="card-title">Gestión de Entradas : </h4>*@
+        <h6 class="card-subtitle"></h6>
+        <form id="example-form" action="#" class="mt-5" novalidate="novalidate">
+            <div role="application" class="wizard clearfix" id="steps-uid-0">
+                <div class="steps clearfix">
+                    <ul style="width:55%" role="tablist">
+                        <li role="tab" class="first current" id="tabConsult" aria-disabled="false" aria-selected="true">
+                            <a style="cursor:pointer;" id="steps-uid-0-t-0" href="#steps-uid-0-h-0" aria-controls="steps-uid-0-p-0">
+                                <span class="current-info audible">current step: </span>
+                                <span class="number">Consultar</span>
+                            </a>
+                        </li>
+                        <li role="tab" class="disabled" aria-disabled="false" id="tabAdd" aria-selected="true">
+                            <a style="cursor:pointer;" id="steps-uid-0-t-1" href="#steps-uid-0-h-1" aria-controls="steps-uid-0-p1">
+                                <span class="current-info audible">current step: </span>
+                                <span class="number">Nuevo</span>
+                            </a>
+                        </li>
+                        @*<li role="tab" class="disabled is-hidden" aria-disabled="true"><a id="steps-uid-0-t-2" href="#steps-uid-0-h-2" aria-controls="steps-uid-0-p-2"><span class="number">3.</span> Hints</a></li>
+                            <li role="tab" class="disabled last is-hidden" aria-disabled="true"><a id="steps-uid-0-t-3" href="#steps-uid-0-h-3" aria-controls="steps-uid-0-p-3"><span class="number">4.</span> Finish</a></li>*@
+                    </ul>
+                </div>
+                <div class="content clearfix">
+                    <div id="steps-uid-0-p-0" role="tabpanel" class="body" aria-labelledby="steps-uid-0-h-0" aria-hidden="false">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title">Consulta de Boletas/Facturas</h4>
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <div class="fiby-md-form">
+                                                        <input type="text" class="fiby-input-text form-control" id="txtFechaInicialEntrada" value="@DateTime.Now.ToString("dd/MM/yyyy")">
+                                                        <label for="txtFechaInicialEntrada" class="fiby-label active">Fecha Inicial</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="fiby-md-form">
+                                                        <input type="text" class="fiby-input-text form-control" id="txtFechaFinalEntrada" value="@DateTime.Now.ToString("dd/MM/yyyy")">
+                                                        <label for="txtFechaFinalEntrada" class="fiby-label active">Fecha Final</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="card-body text-center">
+                                        <div class="ctn-button">
+                                            <button type="button" id="btnBuscar" class="btn btn-info btn">Buscar</button>
+                                            <button type="button" id="btnLimpiar" class="btn btn-info btn">Limpiar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Listado de Boletas/Facturas</h5>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                @*@Html.Partial("Grid")*@
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="steps-uid-0-p-1" class="body" role="tabpanel" aria-labelledby="steps-uid-0-h-1" aria-hidden="true" style="display: none;">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title">Busqueda de Cliente</h4>
+                                        <br />
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="fiby-md-form">
+                                                        <input type="text" onblur="generarjs.buscarDocumento();" class="fiby-input-text form-control" id="txtNumeroDocumento" placeholder="Ingrese Documento">
+                                                        <label for="txtNumeroDocumento" class="fiby-label active">Numero Documento</label>
+                                                        <input type="hidden" id="hiddenidCliente" value="" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="fiby-md-form">
+                                                        <input type="text" readonly class="fiby-input-text form-control" id="txtTipoDocumento" placeholder="">
+                                                        <label for="txtTipoDocumento" class="fiby-label active">Tipo Documento</label>
+                                                        <input type="hidden" id="hiddenTipoDocumento" value="" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="fiby-md-form">
+                                                        <input type="text" readonly class="fiby-input-text form-control" id="txtNumeroComprobante" placeholder="">
+                                                        <label for="txtNumeroComprobante" class="fiby-label active">Numero de Nuevo Comprobante</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6 is-hidden" id="dvNombreCompleto">
+                                                    <div class="fiby-md-form">
+                                                        <input type="text" class="fiby-input-text form-control" readonly id="txtNombreCompleto" placeholder=" ">
+                                                        <label for="txtNombreCompleto" class="fiby-label active">Nombres Completos</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 is-hidden" id="dvRazonSocial">
+                                                    <div class="fiby-md-form">
+                                                        <input type="text" class="fiby-input-text form-control" readonly id="txtRazonSocial" placeholder=" ">
+                                                        <label for="txtRazonSocial" class="fiby-label active">Razón Social</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="fiby-md-form">
+                                                        <input type="text" class="fiby-input-text form-control" readonly id="txtDepartamento" placeholder=" ">
+                                                        <label for="txtDepartamento" class="fiby-label active">Departamento</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="fiby-md-form">
+                                                        <input type="text" class="fiby-input-text form-control" readonly id="txtProvincia" placeholder=" ">
+                                                        <label for="txtProvincia" class="fiby-label active">Provincia</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="fiby-md-form">
+                                                        <input type="text" class="fiby-input-text form-control" readonly id="txtDistrito" placeholder=" ">
+                                                        <label for="txtDistrito" class="fiby-label active">Distrito</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-9">
+                                                    <div class="fiby-md-form">
+                                                        <input type="text" class="fiby-input-text form-control" readonly id="txtDireccion" placeholder=" ">
+                                                        <label for="txtDireccion" class="fiby-label active">Dirección</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="fiby-md-form">
+                                                        <input type="text" readonly class="fiby-input-text form-control" id="txtUbigeo" placeholder=" ">
+                                                        <label for="txtUbigeo" class="fiby-label active">Ubigeo</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title">Ingresar detalle de Venta</h4>
+                                        <br />
+                                        <div class="col-md-3">
+                                            <div class="fiby-md-form">
+                                                <select class="fiby-input-text" id="cboServicios">
+                                                    @*@foreach (var item in ViewBag.ListaHorario)
+                                                    {
+                                                        <option value="@item.Horario">@item.Horario</option>
+                                                    }*@
+                                                    @*<option value="@item.Horario">@item.Horario</option>*@
+                                                </select>
+                                                <label for="cboServicios" class="fiby-label active">Servicio Asociado</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="fiby-md-form">
+                                                        <input type="text" class="fiby-input-text form-control" id="txtDealleDescripcion" placeholder="Ingrese Documento">
+                                                        <label for="txtDealleDescripcion" class="fiby-label active">Descripcion</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="fiby-md-form">
+                                                        <input type="text" class="fiby-input-text form-control" readonly id="txtSubTotal" placeholder=" ">
+                                                        <label for="txtSubTotal" class="fiby-label active">SubTotal</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="fiby-md-form">
+                                                        <input type="text" class="fiby-input-text form-control" readonly id="txtIgv" placeholder=" ">
+                                                        <label for="txtIgv" class="fiby-label active">IGV</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="fiby-md-form">
+                                                        <input type="text" onblur="generarjs.calcularIGV();" class="fiby-input-text form-control" id="txtTotal" placeholder=" ">
+                                                        <label for="txtTotal" class="fiby-label active">Total</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card-body text-center">
+                                                <div class="ctn-button">
+                                                    <button type="button" id="btnAgregarDetalle" onclick="generarjs.agregarDetalle();" class="btn btn-info btn">Agregar Detalle</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="table-responsive">
+                                                    <table id="tbEntradaAgregar" class="table table-striped table-bordered">
+                                                        <thead id="thEntradaAgregarData">
+                                                            <tr>
+                                                                <th class="text-center"></th>
+                                                                <th class="text-center is-hidden">Codigo</th>
+                                                                <th class="text-center">Servicio</th>
+                                                                <th class="text-center">Descripción</th>
+                                                                <th class="text-center">SubTotal</th>
+                                                                <th class="text-center">IGV</th>
+                                                                <th class="text-center">Total</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="tbEntradaAgregarData">
+                                                        </tbody>
+                                                        <tfoot>
+                                                            <tr>
+                                                                <th colspan="3" style="text-align:right"><b>Totales:</b></th>
+                                                                <th style="text-align:center"><b id="sumaSubTotal">0.00</b></th>
+                                                                <th style="text-align:center"><b id="sumaIGV">0.00</b></th>
+                                                                <th style="text-align:center"><b id="sumaTotal">0.00</b></th>
+                                                            </tr>
+                                                        </tfoot>
+                                                    </table>
+                                                </div>
+                                                @*<label for="txtNumeroDocumentoEntrada" class="text-right control-label col-form-label" style=""><b>Cantidad de Items : 0 - Total : s/ 0.00</b></label>*@
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript" src="@Url.Content("~/app/areas/facturacion/views/generar/js/index.js")" asp-append-version="true"></script>

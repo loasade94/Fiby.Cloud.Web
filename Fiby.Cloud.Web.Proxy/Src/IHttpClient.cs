@@ -10,6 +10,7 @@ namespace Fiby.Cloud.Web.Proxy.Src
     {
         Task<string> GetStringAsync(string uri);
         Task<string> GetStringAsync<T>(string uri, T item);
+        Task<string> GetStringAsync(string uri, string authorizationToken = null, string authorizationMethod = "Bearer");
         Task<HttpResponseMessage> PostInitAsync<T>(string uri, T item);
         Task<HttpResponseMessage> PostAsync<T>(string uri, T item, string requestId = null);
         Task<HttpResponseMessage> DeleteAsync(string uri, string requestId = null);

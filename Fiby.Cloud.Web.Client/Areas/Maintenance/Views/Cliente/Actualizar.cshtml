@@ -11,7 +11,7 @@
             <div class="col-md-6">
                 <div class="fiby-md-form">
                     <input type="text" value="@Model.Nombres" class="fiby-input-text form-control" id="txtNombreEditar" placeholder=" ">
-                    <label for="txtNombreEditar" class="fiby-label active">Nombres</label>
+                    <label for="txtNombreEditar" class="fiby-label active">Alias</label>
                 </div>
             </div>
             <div class="col-md-6">
@@ -21,8 +21,127 @@
                 </div>
             </div>
         </div>
+        <h5 class="card-title">Facturación</h5>
         <div class="row">
             <div class="col-md-6">
+                <div class="fiby-md-form">
+                    <select class="fiby-input-text"  onchange="clientejs.ocultarTipoDocumentoEditar();" id="cboTipoClienteEditar">
+                        <option value="0">.:Seleccionar:.</option>
+                        @foreach (var item in ViewBag.ListaTipoCliente)
+                        {
+                            if (Model.TipoDocumento == item.CodigoRegistro)
+                            {
+                                <option selected value="@item.CodigoRegistro">@item.DescripcionRegistro</option>
+                            }
+                            else
+                            {
+                                <option value="@item.CodigoRegistro">@item.DescripcionRegistro</option>
+                            }
+                        }
+                    </select>
+                    <label for="cboTipoClienteEditar" class="fiby-label active">Tipo Cliente</label>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="fiby-md-form">
+                    <input type="text" value="@Model.NumeroDocumento" class="fiby-input-text form-control" id="txtNumeroDocumentoEditar" placeholder=" ">
+                    <label for="txtNumeroDocumentoEditar" class="fiby-label active">Numero Documento</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6" id="dvNombreCompletoEditar">
+                <div class="fiby-md-form">
+                    <input value="@Model.NombreCompleto" type="text" class="fiby-input-text form-control" id="txtNombreCompletoEditar" placeholder=" ">
+                    <label for="txtNombreCompletoEditar" class="fiby-label active">Nombres Completos</label>
+                </div>
+            </div>
+            <div class="col-md-6" id="dvRazonSocialEditar">
+                <div class="fiby-md-form">
+                    <input value="@Model.RazonSocial" type="text" class="fiby-input-text form-control" id="txtRazonSocialEditar" placeholder=" ">
+                    <label for="txtRazonSocialEditar" class="fiby-label active">Razón Social</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="fiby-md-form">
+                    <select class="fiby-input-text" onchange="clientejs.buscarProvinciaPorDeptEditar();" id="cboDepartamentoEditar">
+                        <option value="">.:Seleccionar:.</option>
+                        @foreach (var item in ViewBag.ListaDepartamento)
+                        {
+                            if (Model.DepartamentoDireccion == item.CodigoDepartamento)
+                            {
+                                <option selected value="@item.CodigoDepartamento">@item.DepartamentoDescripcion</option>
+                            }
+                            else
+                            {
+                                <option value="@item.CodigoDepartamento">@item.DepartamentoDescripcion</option>
+                            }
+                        }
+                    </select>
+                    <label for="cboDepartamentoEditar" class="fiby-label active">Departamento</label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="fiby-md-form">
+                    <select class="fiby-input-text" onchange="clientejs.buscarDistritoPorDeptProvEditar();" id="cboProvinciaEditar">
+                        @if (string.IsNullOrEmpty(Model.ProvinciaDireccion))
+                        {
+
+                        }
+                        else
+                        {
+                            foreach (var item in ViewBag.ListaProvincia)
+                            {
+                                if (Model.ProvinciaDireccion == item.CodigoProvincia)
+                                {
+                                    <option selected value="@item.CodigoProvincia">@item.ProvinciaDescripcion</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.CodigoProvincia">@item.ProvinciaDescripcion</option>
+                                }
+                            }
+                        }
+                    </select>
+                    <label for="cboProvinciaEditar" class="fiby-label active">Provincia</label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="fiby-md-form">
+                    <select onchange="clientejs.setearUbigeoEditar(this);" class="fiby-input-text" id="cboDistritoEditar">
+                        @if (string.IsNullOrEmpty(Model.DistritoDireccion))
+                        {
+
+                        }
+                        else
+                        {
+                            foreach (var item in ViewBag.ListaDistrito)
+                            {
+                                if (Model.DistritoDireccion == item.CodigoDistrito)
+                                {
+                                    <option selected value="@item.CodigoDistrito">@item.DistritoDescripcion</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.CodigoDistrito">@item.DistritoDescripcion</option>
+                                }
+                            }
+                        }
+                    </select>
+                    <label for="cboDistritoEditar" class="fiby-label active">Distrito</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="fiby-md-form">
+                    <input type="text" value="@Model.UbigeoDireccion" readonly class="fiby-input-text form-control" id="txtUbigeoEditar" placeholder=" ">
+                    <label for="txtUbigeoEditar" class="fiby-label active">Ubigeo</label>
+                </div>
+            </div>
+            <div class="col-md-9">
                 <div class="fiby-md-form">
                     <input type="text" value="@Model.Direccion" class="fiby-input-text form-control" id="txtDireccionEditar" placeholder=" ">
                     <label for="txtDireccionEditar" class="fiby-label active">Dirección</label>

@@ -13,5 +13,6 @@ namespace Fiby.Cloud.Web.Persistence.Interfaces.Maintenance
         Task<List<ClienteDTOResponse>> GetClienteAll();
         Task<string> EliminarCliente(ClienteDTORequest clienteDTORequest);
         Task<ClienteDTOResponse> GetClientePorCodigo(ClienteDTORequest clienteDTORequest);
+        Task<ClienteDTOResponse> GetClientePorDocumento(ClienteDTORequest clienteDTORequest);
     }
 }

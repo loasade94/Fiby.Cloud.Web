@@ -1,30 +1,38 @@
 ﻿using Fiby.Cloud.Web.Client.Extensions;
 using Fiby.Cloud.Web.Persistence.Connection;
 using Fiby.Cloud.Web.Persistence.Implementations;
+using Fiby.Cloud.Web.Persistence.Implementations.Facturacion;
 using Fiby.Cloud.Web.Persistence.Implementations.Horario;
 using Fiby.Cloud.Web.Persistence.Implementations.Inversiones;
 using Fiby.Cloud.Web.Persistence.Implementations.Maintenance;
 using Fiby.Cloud.Web.Persistence.Implementations.Pagos;
+using Fiby.Cloud.Web.Persistence.Implementations.Parametro;
 using Fiby.Cloud.Web.Persistence.Implementations.Reportes;
 using Fiby.Cloud.Web.Persistence.Implementations.Sale;
 using Fiby.Cloud.Web.Persistence.Interfaces;
+using Fiby.Cloud.Web.Persistence.Interfaces.Facturacion;
 using Fiby.Cloud.Web.Persistence.Interfaces.Horario;
 using Fiby.Cloud.Web.Persistence.Interfaces.Inversiones;
 using Fiby.Cloud.Web.Persistence.Interfaces.Maintenance;
 using Fiby.Cloud.Web.Persistence.Interfaces.Pagos;
+using Fiby.Cloud.Web.Persistence.Interfaces.Parametro;
 using Fiby.Cloud.Web.Persistence.Interfaces.Reportes;
 using Fiby.Cloud.Web.Proxy.Src;
 using Fiby.Cloud.Web.Service.Implementations;
+using Fiby.Cloud.Web.Service.Implementations.Facturacion;
 using Fiby.Cloud.Web.Service.Implementations.Horario;
 using Fiby.Cloud.Web.Service.Implementations.Inversiones;
 using Fiby.Cloud.Web.Service.Implementations.Maintenance;
 using Fiby.Cloud.Web.Service.Implementations.Pagos;
+using Fiby.Cloud.Web.Service.Implementations.Parametro;
 using Fiby.Cloud.Web.Service.Implementations.Reportes;
 using Fiby.Cloud.Web.Service.Interfaces;
+using Fiby.Cloud.Web.Service.Interfaces.Facturacion;
 using Fiby.Cloud.Web.Service.Interfaces.Horario;
 using Fiby.Cloud.Web.Service.Interfaces.Inversiones;
 using Fiby.Cloud.Web.Service.Interfaces.Maintenance;
 using Fiby.Cloud.Web.Service.Interfaces.Pagos;
+using Fiby.Cloud.Web.Service.Interfaces.Parametro;
 using Fiby.Cloud.Web.Service.Interfaces.Reportes;
 using Fiby.Cloud.Web.Service.Modules.Data.Implementations;
 using Fiby.Cloud.Web.Service.Modules.Data.Implementations.Sale;
@@ -71,6 +79,9 @@ namespace Fiby.Cloud.Web.Client.Register
             services.AddScoped<IGastoService, GastoService>();
             services.AddScoped<IAnuncioService, AnuncioService>();
 
+            services.AddScoped<ITablaDetalleService, TablaDetalleService>();
+            services.AddScoped<IGenerarService, GenerarService>();
+
             return services;
         }
         private static IServiceCollection AddRegisterConnection(this IServiceCollection services)
@@ -96,6 +107,8 @@ namespace Fiby.Cloud.Web.Client.Register
         }
         private static IServiceCollection AddRegisterRepositories(this IServiceCollection services)
         {
+            services.AddSingleton<ITablaDetalleRepository, TablaDetalleRepository>();
+
             services.AddSingleton<IPleRepository, PleRepository>();
             services.AddSingleton<IUserRepository, UserRepository>();
             services.AddSingleton<ISerieRepository, SerieRepository>();
@@ -108,6 +121,7 @@ namespace Fiby.Cloud.Web.Client.Register
             services.AddSingleton<IClienteRepository, ClienteRepository>();
             services.AddSingleton<IGastoRepository, GastoRepository>();
             services.AddSingleton<IAnuncioRepository, AnuncioRepository>();
+            services.AddSingleton<IGenerarRepository, GenerarRepository>();
             return services;
         }
 

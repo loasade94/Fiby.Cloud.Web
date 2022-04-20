@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -234,6 +235,32 @@ namespace Fiby.Cloud.Web.Proxy.Src
             };
             var response = await _client.SendAsync(requestMessage);
             return response;
+        }
+
+        public async Task<string> GetStringAsync(string uri, string authorizationToken = null, string authorizationMethod = "Bearer")
+        {
+            _logger.LogInformation($"Send HTTP request: {uri}");
+            authorizationToken = GetValue(CookieAuthenticationDefaults.AuthenticationScheme, "Token");
+            var requestMessage = new HttpRequestMessage(HttpMethod.Get, uri);
+            if (authorizationToken != null)
+            {
+                requestMessage.Headers.Authorization =
+                    new AuthenticationHeaderValue(authorizationMethod, authorizationToken);
+            }
+            var response = await _client.SendAsync(requestMessage);
+            if (response.StatusCode == HttpStatusCode.InternalServerError)
+            {
+                throw new HttpRequestException();
+            }
+            //if (response.StatusCode == HttpStatusCode.Unauthorized && response.Headers.Contains("Token-Expired"))
+            //{
+            //    var callRefreshToken = await CallRefreshToken();
+            //    if (callRefreshToken.Success)
+            //    {
+            //        response = await GetStringRecursiveAsync(uri);
+            //    }
+            //}
+            return await response.Content.ReadAsStringAsync();
         }
 
         #endregion Get

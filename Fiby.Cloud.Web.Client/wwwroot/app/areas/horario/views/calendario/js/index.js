@@ -435,6 +435,8 @@
                             html += '<tr>';
                             html += '    <td>';
                             html += '        <div class="ctn-btn-tabla ctn-btn-tabla-mx">';
+                            //html += '            <img src="/cssadmin/assets/images/printing.png" onclick="calendariojs.edit(\'' + response[i].idServicio + '\',\'' + 0 + '\');" alt="Generar Facturación" data-toggle="tooltip" title="Generar" ';
+                            //html += '                      class="material-tooltip-main" data-id-ctn="_editar-consulta">';
                             html += '            <img src="/cssadmin/assets/images/edit.png" onclick="calendariojs.edit(\'' + response[i].idServicio + '\',\'' + 0 + '\');" alt="Editar" data-toggle="tooltip" title="Editar" ';
                             html += '                      class="material-tooltip-main" data-id-ctn="_editar-consulta">';
                             html += '            <img src="/cssadmin/assets/images/trash.png" onclick="calendariojs.eliminarCalendario(\'' + response[i].idServicio + '\');" class="material-tooltip-main eliminar-movimiento" alt="Eliminar" ';
