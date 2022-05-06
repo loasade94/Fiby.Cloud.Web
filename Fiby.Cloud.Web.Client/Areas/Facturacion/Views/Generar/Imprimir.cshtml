@@ -1,0 +1,224 @@
+﻿@using Fiby.Cloud.Web.Util.Utility;
+@model Fiby.Cloud.Web.DTO.Modules.Facturacion.Response.VentaDTOResponse
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Crear facturas con HTML, CSS y JavaScript</title>
+    <link rel="stylesheet" href="~/imprimir/assets/css/main.css">
+</head>
+<body>
+    <div class="control-bar">
+        <div class="container">
+            <div class="row">
+                <div class="col-2-4">
+                    <div class="slogan">Facturación </div>
+
+                    @*<label for="config_tax">
+                            IVA:
+                            <input type="checkbox" id="config_tax" />
+                        </label>
+                        <label for="config_tax_rate" class="taxrelated">
+                            Tasa:
+                            <input type="text" id="config_tax_rate" value="13" />%
+                        </label>
+                        <label for="config_note">
+                            Nota:
+                            <input type="checkbox" id="config_note" />
+                        </label>*@
+
+                </div>
+                <div class="col-4 text-right">
+                    <a href="javascript:window.print()">Imprimir</a>
+                </div><!--.col-->
+            </div><!--.row-->
+        </div><!--.container-->
+    </div><!--.control-bar-->
+
+    <header class="row">
+        <div class="logoholder text-center">
+            @*<img src="~/imprimir/assets/img/logo.png">*@
+            @*<img src="~/imprimir/assets/img/logo_fiby.png">*@
+            <img src="~/imprimir/assets/img/azul pastel.svg">
+        </div><!--.logoholder-->
+
+        <div class="me">
+            <p>
+                <strong>@Model.EmpresaRazonsocialEmisora</strong><br>
+                @Model.DireccionEmpresaEmisora<br>
+                @Model.DistmpresaEmisora - @Model.ProvempresaEmisora - @Model.DptoempresaEmisora<br>
+            </p>
+        </div><!--.me-->
+
+        <div class="info">
+            <p>
+                Web: <a href="https://www.fibysoft.com/">www.fibysoft.com</a><br>
+                E-mail: <a href="mailto:info@fibycloud.com">info@fibycloud.com</a><br>
+                Cel: 937-271-265<br>
+                Facebook: Osfiby
+            </p>
+        </div><!-- .info -->
+
+        <div class="bank">
+            <p>
+                @if (Model.CodigoComprobante == "01")
+                {
+                    <strong>FACTURA ELECTRONICA</strong><br>
+                }
+                else
+                {
+                    <strong>BOLETA DE VENTA ELECTRONICA</strong><br>
+                }
+                <strong>RUC: @Model.EmpresaRUCemisor</strong><br>
+                <strong>@Model.Serie-@Model.Correlativo</strong><br>
+            </p>
+        </div><!--.bank-->
+
+    </header>
+
+
+    <div class="row section">
+
+        <div class="col-2">
+            <h1>Datos del Cliente</h1><br>
+        </div><!--.col-->
+
+        <div class="col-2 text-right details">
+            <p>
+                Fecha de Emisión:<input type="text" readonly style="width:70px;" value="@Model.FechaEmision.Value.ToString("dd/MM/yyyy")"><br>
+                Fecha de Vencimiento:<input type="text" readonly style="width:70px;"><br>
+            </p><p></p>
+        </div><!--.col-->
+
+
+
+        <div class="col-1">
+
+            <p class="client">
+                @*<strong>Facturar a</strong><br>*@
+                <strong>Señor(es)</strong>             : @Model.EmpresaRazonsocialCliente<br>
+                <strong>@(Model.CodigoComprobante == "01" ? "RUC" : "DNI")</strong>                   : @Model.EmpresaRUCCliente<br>
+                <strong>Dirección del Cliente</strong> : @Model.DireccionCliente @Model.DptoempresaCliente-@Model.ProvempresaCliente-@Model.DistempresaCliente<br>
+                <strong>Tipo de Moneda</strong>        : SOLES<br>
+                <strong>Forma de Pago</strong>         : CONTADO
+            </p>
+        </div><!--.col-->
+        <!--<div class="col-2">
+
+
+            <p contenteditable class="client">
+                <strong>Enviar a</strong><br>
+                [Nombre cliente]<br>
+                [Nombre emmpresa]<br>
+                [Dirección empresa]<br>
+                [Tel empresa]
+            </p>
+        </div>-->
+        <!--.col-->
+
+
+
+    </div><!--.row-->
+    <!--<div class="row section" style="margin-top:-1rem">
+        <div class="col-1">
+            <table style='width:100%'>
+                <thead contenteditable>
+                    <tr class="invoice_detail">
+                        <th width="25%" style="text-align">Vendedor</th>
+                        <th width="25%">Orden de compra </th>
+                        <th width="20%">Enviar por</th>
+                        <th width="30%">Términos y condiciones</th>
+                    </tr>
+                </thead>
+                <tbody contenteditable>
+                    <tr class="invoice_detail">
+                        <td width="25%" style="text-align">John Doe</td>
+                        <td width="25%">#PO-2020 </td>
+                        <td width="20%">DHL</td>
+                        <td width="30%">Pago al contado</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>-->
+    <!--.row-->
+
+    <div class="invoicelist-body">
+        <table>
+            <thead>
+                <tr>
+                    <th width="40%">Descripción</th>
+                    <th width="5%">Unidad Medida</th>
+                    <th width="10%">Cant.</th>
+                    <th width="15%">SubTotal</th>
+                    <th width="15%">IGV</th>
+                    <th width="15%">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.listaDetalleVenta.Count; i++)
+                {
+
+                    var item = Model.listaDetalleVenta[i];
+
+                    <tr>
+                        @*<td width='5%'> <span>76111501</span></td>*@
+                        <td width='40%'><span>@item.Descripcion</span></td>
+                        <td width='5%'> <span>UNIDAD</span></td>
+                        <td class="amount"><input readonly type="text" value="1" /></td>
+                        <td class="rate"><input readonly type="text" value="@item.Total_a_pagar.ToString("0.00")" /></td>
+                        <td class="tax"><input readonly type="text" value="@item.igv.ToString("0.00")" /></td>
+                        <td class="sum"><input readonly type="text" value="@item.preciounitario.ToString("0.00")" /></td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+        @*<a class="control newRow" href="#">+ Nueva fila</a>*@
+    </div><!--.invoice-body-->
+
+    <div class="invoicelist-footer">
+        <table>
+            <tr>
+                <td><strong>Total SubTotal:</strong></td>
+                <td id="total_tax">@Model.TotSubtotal.ToString("0.00")</td>
+            </tr>
+            <tr>
+                <td><strong>Total IGV:</strong></td>
+                <td id="total_tax">@Model.TotalIgv.ToString("0.00")</td>
+            </tr>
+            <tr>
+                <td><strong>Monto Total:</strong></td>
+                <td id="total_price">@Model.Monto_total.ToString("0.00")</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="col-1 text-right">
+        <p class="client" style="">
+            @*<strong>SON: CIENTO TREINTA Y TRES 90 /100 SOLES</strong>*@
+            <strong>SON: @DataUtility.NumeroALetras(Model.Monto_total)</strong>
+        </p>
+    </div>
+
+    <div class="note">
+        <h2>
+            Esta es una representación impresa de la factura electrónica, generada en el Sistema de SUNAT. Puede
+            verificarla utilizando su clave SOL
+        </h2>
+    </div><!--.note-->
+
+    <footer class="row">
+        <div class="col-1 text-center">
+            @*<p class="notaxrelated">El monto de la factura no incluye el impuesto sobre las ventas.</p>*@
+            <p class="notaxrelated"></p>
+
+        </div>
+    </footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="~/imprimir/assets/bower_components/jquery/dist/jquery.min.js"><\/script>')</script>
+    @*<script src="~/imprimir/assets/js/main.js"></script>*@
+</body>
+</html>

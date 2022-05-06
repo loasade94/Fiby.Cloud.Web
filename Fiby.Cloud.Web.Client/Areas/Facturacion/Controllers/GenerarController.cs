@@ -6,6 +6,7 @@ using Fiby.Cloud.Web.DTO.Modules.Parametro.Request;
 using Fiby.Cloud.Web.Service.Interfaces.Facturacion;
 using Fiby.Cloud.Web.Service.Interfaces.Maintenance;
 using Fiby.Cloud.Web.Service.Interfaces.Parametro;
+using Fiby.Cloud.Web.Util.Utility;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -43,7 +44,26 @@ namespace Fiby.Cloud.Web.Client.Areas.Facturacion.Controllers
 
             ViewBag.ListaTipoCliente = await _tablaDetalleService.GetTablaDetalleAll(new TablaDetalleDTORequest() { CodigoTabla = "TI01" });
 
-            return View();
+            var model = await _generarService.ListarDocumentosGenerados(new VentaDTORequest() { });
+
+            return View(model);
+        }
+
+        public async Task<IActionResult> Imprimir(int idVenta)
+        {
+            if (User.Identity.GetProfileId() != "1")
+            {
+                return RedirectToAction("Logout", "Account", new { Area = "" });
+            }
+
+            //ViewBag.ListaTipoCliente = await _tablaDetalleService.GetTablaDetalleAll(new TablaDetalleDTORequest() { CodigoTabla = "TI01" });
+
+            var venta = await _generarService.ListarVentaPorId(new VentaDTORequest() { IdVenta = idVenta });
+            var detalleVenta = await _generarService.ListarDetallePorId(new VentaDTORequest() { IdVenta = idVenta });
+
+            venta.listaDetalleVenta = detalleVenta;
+
+            return View(venta);
         }
 
         [HttpPost]
@@ -88,14 +108,12 @@ namespace Fiby.Cloud.Web.Client.Areas.Facturacion.Controllers
             return Json(lista);
         }
 
-        public async Task<string> RegistrarVenta(VentaDTORequest ventaDTORequest, List<DetalleVentaDTORequest> listDetalleVentaDTORequest)
+        public async Task<JsonResult> RegistrarVenta(VentaDTORequest ventaDTORequest, List<DetalleVentaDTORequest> listDetalleVentaDTORequest)
         {
             string resultado = string.Empty;
 
             try
             {
-
-                //int total = filtroDet.Sum(item => item.CantidadPeticion);
 
                 ventaDTORequest.IdEmpresa = 1;
                 ventaDTORequest.CodigoTipoIdentificacion = ventaDTORequest.CodigoComprobante == "01" ? "6" : "1";
@@ -123,7 +141,6 @@ namespace Fiby.Cloud.Web.Client.Areas.Facturacion.Controllers
                         {
                             for (int i = 0; i < listDetalleVentaDTORequest.Count; i++)
                             {
-                                //var resultadoDetalle = string.Empty;
 
                                 listDetalleVentaDTORequest[i].idventa = int.Parse(listaResultado[2]);
                                 listDetalleVentaDTORequest[i].Unidad_de_medida = "ZZ";
@@ -142,37 +159,21 @@ namespace Fiby.Cloud.Web.Client.Areas.Facturacion.Controllers
                                 listDetalleVentaDTORequest[i].porIgvItem = porIgvItem;
 
                                 var resultadoDetalle = await _generarService.RegistrarDetalleVenta(listDetalleVentaDTORequest[i]);
-
-                                //if (resultadoDetalle != null)
-                                //{
-                                //    var listaResultadoDetalle = resultadoDetalle.Split('|');
-
-                                //    if (listaResultadoDetalle.Length > 0)
-                                //    {
-                                //        if (listaResultadoDetalle[1] != "0")
-                                //        {
-                                //            SolicReservaSuministro solicReservaSuministro = new SolicReservaSuministro();
-
-                                //            solicReservaSuministro.UsuarioModifica = SessionActiva.UsuarioSesion.CodigoUnicoUsuario;
-                                //            solicReservaSuministro.IdReservaCab = int.Parse(listaResultado[0]);
-
-                                //            var eliminarRegistro = _logica.EliminarReserva(SessionActiva.UsuarioSesion.EsquemaDbCompania, solicReservaSuministro);
-
-                                //            resultado = listaResultadoDetalle[2];
-                                //            return Json(resultado, JsonRequestBehavior.AllowGet);
-
-                                //        }
-                                //    }
-                                //}
                             }
 
                             #region GenerarComprobanteXML
 
                             var generar = await _generarService.GenerarComprobante(listaResultado[2]);
 
-                            if (generar != "OK")
-                            {
+                            var listaGenerar = generar.Split('|');
 
+                            if (listaGenerar.Length == 2)
+                            {
+                                return Json(listaGenerar[1].Trim());
+                            }
+                            else
+                            {
+                                return Json(listaResultado[2]);
                             }
 
                             #endregion
@@ -180,7 +181,7 @@ namespace Fiby.Cloud.Web.Client.Areas.Facturacion.Controllers
                         else
                         {
                             resultado = listaResultado[2];
-                            return resultado;
+                            return Json(resultado.Trim());
                         }
 
                     }
@@ -195,7 +196,43 @@ namespace Fiby.Cloud.Web.Client.Areas.Facturacion.Controllers
                 resultado = ex.Message;
             }
 
+            return Json(resultado.Trim());
+        }
+
+        public async Task<string> RegistrarBaja(VentaDTORequest ventaDTORequest)
+        {
+            string resultado = string.Empty;
+
+            try
+            {
+
+                var resultadoOne = await _generarService.GenerarBaja(ventaDTORequest.IdVenta);
+
+                if (resultadoOne != null)
+                {
+                    var resultadoCab = await _generarService.RegistrarBaja(ventaDTORequest);
+                }
+                else
+                {
+                    resultado = "Ocurrio un error al grabar el registro";
+                }
+            }
+            catch (Exception ex)
+            {
+                resultado = ex.Message;
+            }
+
             return resultado.Trim();
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> BuscarDocumentosGenerados(VentaDTORequest ventaDTORequest)
+        {
+            ventaDTORequest.FechaInicio = General.ConvertFormatDateTime(ventaDTORequest.FechaInicioTexto);
+            ventaDTORequest.FechaFin = General.ConvertFormatDateTime(ventaDTORequest.FechaFinTexto);
+
+            var model = await _generarService.ListarDocumentosGenerados(ventaDTORequest);
+            return Json(model);
         }
     }
 }

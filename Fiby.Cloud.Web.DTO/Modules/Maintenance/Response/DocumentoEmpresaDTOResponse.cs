@@ -26,5 +26,8 @@ namespace Fiby.Cloud.Web.DTO.Modules.Maintenance.Response
         public string distrito { get; set; }
         public string provincia { get; set; }
         public string departamento { get; set; }
+        public string nombres { get; set; }
+        public string apellidoPaterno { get; set; }
+        public string apellidoMaterno { get; set; }
     }
 }

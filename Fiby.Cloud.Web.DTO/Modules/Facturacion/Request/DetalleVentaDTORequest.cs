@@ -27,5 +27,10 @@ namespace Fiby.Cloud.Web.DTO.Modules.Facturacion.Request
         public decimal porIgvItem { get; set; }
         public string porIgvItemTexto { get; set; }
         public string CodigoProdSunat { get; set; }
+
+        //-----------------------------------------------
+
+        
+        public decimal igv { get; set; }
     }
 }

@@ -146,9 +146,11 @@ namespace Fiby.Cloud.Web.Client.Areas.Maintenance.Controllers
         }
 
         [HttpPost]
-        public async Task<JsonResult> BuscarEmpresa(string ruc)
+        public async Task<JsonResult> BuscarEmpresa(string ruc,string tipo)
         {
-            var model = await _clienteService.GetEmpresaPorDocumento(ruc);
+            var model = tipo.Equals("01") ?
+                await _clienteService.GetEmpresaPorDocumento(ruc) :
+                await _clienteService.GetPersonaPorDocumento(ruc) ;
             return Json(model);
         }
 

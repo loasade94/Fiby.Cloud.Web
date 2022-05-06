@@ -19,6 +19,7 @@ namespace Fiby.Cloud.Web.DTO.Modules.Maintenance.Request
         public string ProvinciaDireccion { get; set; }
         public string DistritoDireccion { get; set; }
         public string UbigeoDireccion { get; set; }
+        public string FacturacionDireccion { get; set; }
         public string DepartamentoDireccionDescripcion { get; set; }
         public string ProvinciaDireccionDescripcion { get; set; }
         public string DistritoDireccionDescripcion { get; set; }

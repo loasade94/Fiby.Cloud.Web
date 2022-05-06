@@ -1,0 +1,36 @@
+﻿@model List<Fiby.Cloud.Web.DTO.Modules.Facturacion.Response.VentaDTOResponse>
+<div class="table-responsive">
+    @Html.Hidden("items_count", Model.Count())
+    <table id="tbComprobantesAll" class="table table-striped table-bordered">
+        <thead id="thComprobantesAllData">
+            <tr>
+                <th class="text-center">Acciones</th>
+                <th class="text-center">Comprobante</th>
+                <th class="text-center">Cliente</th>
+                <th class="text-center">Documento</th>
+                <th class="text-center">Tipo</th>
+                <th class="text-center">Fecha</th>
+            </tr>
+        </thead>
+        <tbody id="tbComprobantesAllData">
+            @for (var i = 0; i < Model.Count(); i++)
+            {
+                var item = Model[i];
+
+            <tr>
+                <td>
+                    <div class="ctn-btn-tabla ctn-btn-tabla-mx">
+                        <img src="/cssadmin/assets/images/search.png" onclick="generarjs.consultaFactura(@item.IdVenta);" alt="Consulta Factura" data-toggle="tooltip" title="Consultar"
+                            class="material-tooltip-main" data-id-ctn="_editar-consulta">
+                    </div>
+                </td>
+                <td>@item.Correlativo</td>
+                <td>@item.EmpresaRazonsocialCliente</td>
+                <td>@item.EmpresaRUCcliente</td>
+                <td>@item.CodigoComprobante</td>
+                <td>@item.FechaEmision</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>

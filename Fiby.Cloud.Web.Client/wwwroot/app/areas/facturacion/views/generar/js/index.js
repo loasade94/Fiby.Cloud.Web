@@ -52,7 +52,10 @@
             url: '/Facturacion/Generar/BuscarDocumento',
             success: function (response, textStatus, jqXhr) {
 
-                if (response != null) {
+                if (response.idCliente != 0) {
+
+                    $('#dvDetalleVenta').removeClass('is-hidden');
+                    $('#dvTablaDetalleVenta').removeClass('is-hidden');
 
                     $('#hiddenidCliente').val('');
                     $('#hiddenTipoDocumento').val('');
@@ -72,11 +75,32 @@
                     $('#txtDepartamento').val(response.departamentoDireccionDescripcion);
                     $('#txtProvincia').val(response.provinciaDireccionDescripcion);
                     $('#txtDistrito').val(response.distritoDireccionDescripcion);
-                    $('#txtDireccion').val(response.direccion);
+                    $('#txtDireccion').val(response.facturacionDireccion);
                     $('#txtUbigeo').val(response.ubigeoDireccion);
                     $('#hiddenidCliente').val(response.idCliente);
                     $('#hiddenTipoDocumento').val(response.tipoDocumento);
 
+                } else {
+                    $('#dvDetalleVenta').addClass('is-hidden');
+                    $('#dvTablaDetalleVenta').addClass('is-hidden');
+
+                    $('#txtNumeroComprobante').val('');
+                    $('#txtTipoDocumento').val('');
+                    $('#txtNombreCompleto').val('');
+                    $('#txtRazonSocial').val('');
+                    $('#txtDepartamento').val('');
+                    $('#txtProvincia').val('');
+                    $('#txtDistrito').val('');
+                    $('#txtDireccion').val('');
+                    $('#txtUbigeo').val('');
+                    $('#hiddenidCliente').val('');
+                    $('#hiddenTipoDocumento').val('');
+
+                    $('#sumaSubTotal').text('0.00');
+                    $('#sumaIGV').text('0.00');
+                    $('#sumaTotal').text('0.00');
+
+                    $('#tbEntradaAgregarData').html('');
                 }
             },
             complete: function () {
@@ -197,6 +221,12 @@
         $('#sumaSubTotal').text(valorSubtotal);
         $('#sumaIGV').text(valorIGV);
         $('#sumaTotal').text(valorTotal);
+
+        $('#txtDealleDescripcion').val('');
+        $('#txtSubTotal').val('');
+        $('#txtIgv').val('');
+        $('#txtTotal').val('');
+        $('#cboServicios').val('0');
     },
 
     buscarServicio: function () {
@@ -219,11 +249,15 @@
             url: '/Horario/ServicioCliente/BuscarServicioXCliente',
             success: function (response, textStatus, jqXhr) {
 
+                comboServicio.html('');
+
                 if (response != null) {
                     
                     if (response.length > 0) {
 
                         var html = "";
+
+                        html += '<option value="0">.::Seleccionar::.</option>';
 
                         for (var i = 0; i < response.length; i++) {
                             html += '<option value="' + response[i].idServicio + '">' + formatDateTime(response[i].fecha) + ' - ' + response[i].horas  + ' Horas</option>';
@@ -246,6 +280,11 @@
         })
     },
 
+    guardarReserva: function (obj) {
+
+        ModalConfirm('¿Seguro que desea generar el documento?', 'generarjs.guardarReserva_callback();');
+    },
+
     guardarReserva_callback: function () {
 
         var hiddenidCliente = $('#hiddenidCliente').val();
@@ -254,6 +293,7 @@
         var txtDireccion = $('#txtDireccion').val();
         var txtNumeroDocumento = $('#txtNumeroDocumento').val();
         var txtRazonSocial = $('#txtRazonSocial').val();
+        var txtNombreCompleto = $('#txtNombreCompleto').val();
         var txtDepartamento = $('#txtDepartamento').val();
         var txtProvincia = $('#txtProvincia').val();
         var txtDistrito = $('#txtDistrito').val();
@@ -262,6 +302,14 @@
         var sumaIGV = $('#sumaIGV').text();
         var sumaTotal = $('#sumaTotal').text();
 
+        var name = "";
+
+        if (hiddenTipoDocumento == "01") {
+            name = txtRazonSocial;
+        } else {
+            name = txtNombreCompleto;
+        }
+
         var ventaDTORequest = {
             IdCliente: hiddenidCliente,
             CodigoComprobante: hiddenTipoDocumento,
@@ -269,7 +317,7 @@
 /*            CodigoTipoIdentificacion: periodo,*/
             DireccionCliente: txtDireccion,
             EmpresaRUCcliente: txtNumeroDocumento,
-            EmpresaRazonsocialCliente: txtRazonSocial,
+            EmpresaRazonsocialCliente: name,
             DptoempresaCliente: txtDepartamento,
             ProvempresaCliente: txtProvincia,
             DistempresaCliente: txtDistrito,
@@ -316,11 +364,15 @@
             },
             success: function (response, textStatus, jqXhr) {
 
-                //if (response == "OK") {
-                //    $('#modal-register').modal('hide');
-                //    ModalAlert("Actualizado correctamente");
-                //    pagoclientejs.buscarDetallePagoCliente();
-                //}
+                if (response != "") {
+                    window.open("https://localhost:5087/Facturacion/Generar/Imprimir?idVenta=" + response);
+                    //window.open("https://fibycloud.com/Facturacion/Generar/Imprimir?idVenta=" + response);
+
+                    var url = "https://localhost:5087/Facturacion/Generar";
+                    //var url = "https://fibycloud.com/Facturacion/Generar";
+                    window.location = url;
+
+                }
                 //else {
                 //    $('#modal-register').modal('hide');
                 //    ModalAlert('Error al actualizar : ' + response);
@@ -335,6 +387,11 @@
             },
             async: true,
         })
+    },
+
+    consultaFactura: function (idVenta) {
+        window.open("https://localhost:5087/Facturacion/Generar/Imprimir?idVenta=" + idVenta);
+        //window.open("https://fibycloud.com/Facturacion/Generar/Imprimir?idVenta=" + idVenta);
     },
 
 }

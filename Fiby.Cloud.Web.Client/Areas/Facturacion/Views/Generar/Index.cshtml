@@ -1,4 +1,5 @@
-﻿@{
+﻿@model List<Fiby.Cloud.Web.DTO.Modules.Facturacion.Response.VentaDTOResponse>
+@{
     Layout = "~/Views/Shared/_LayoutAdministrator.cshtml";
 }
 
@@ -75,7 +76,7 @@
                                         <h5 class="card-title">Listado de Boletas/Facturas</h5>
                                         <div class="row">
                                             <div class="col-md-12">
-                                                @*@Html.Partial("Grid")*@
+                                                @Html.Partial("GridComprobantes")
                                             </div>
                                         </div>
                                     </div>
@@ -166,7 +167,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row is-hidden" id="dvDetalleVenta" >
                             <div class="col-md-12">
                                 <div class="card">
                                     <div class="card-body">
@@ -176,9 +177,9 @@
                                             <div class="fiby-md-form">
                                                 <select class="fiby-input-text" id="cboServicios">
                                                     @*@foreach (var item in ViewBag.ListaHorario)
-                                                    {
-                                                        <option value="@item.Horario">@item.Horario</option>
-                                                    }*@
+                                                        {
+                                                            <option value="@item.Horario">@item.Horario</option>
+                                                        }*@
                                                     @*<option value="@item.Horario">@item.Horario</option>*@
                                                 </select>
                                                 <label for="cboServicios" class="fiby-label active">Servicio Asociado</label>
@@ -223,7 +224,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row is-hidden" id="dvTablaDetalleVenta">
                             <div class="col-md-12">
                                 <div class="card">
                                     <div class="card-body">
@@ -255,9 +256,14 @@
                                                     </table>
                                                 </div>
                                                 @*<label for="txtNumeroDocumentoEntrada" class="text-right control-label col-form-label" style=""><b>Cantidad de Items : 0 - Total : s/ 0.00</b></label>*@
+                                                <div class="card-body text-center">
+                                                    <div class="ctn-button">
+                                                        <button type="button" id="btnGenerarDocumento" onclick="generarjs.guardarReserva();" class="btn btn-info btn">Generar Documento</button>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                        
+
                                     </div>
                                 </div>
                             </div>

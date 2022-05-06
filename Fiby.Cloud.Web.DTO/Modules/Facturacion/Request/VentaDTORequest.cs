@@ -40,5 +40,22 @@ namespace Fiby.Cloud.Web.DTO.Modules.Facturacion.Request
         public double Porcentaje_IGV { get; set; }
         public string SituacionRegistro { get; set; }
         public string Estado { get; set; }
+
+        public string Ticket { get; set; }
+        public string Estadosunat { get; set; }
+        public string Codigo { get; set; }
+
+        public DateTime? FechaInicio { get; set; }
+        public string FechaInicioTexto { get; set; }
+        public DateTime? FechaFin { get; set; }
+        public string FechaFinTexto { get; set; }
+        public string Comprobante { get; set; }
+        public DateTime? FechaEmision { get; set; }
+
+        //----------------------------------------
+
+        public string NumeroCorrelativo { get; set; }
+        public string EmpresaRUCCliente { get; set; }
+        
     }
 }

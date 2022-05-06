@@ -41,6 +41,7 @@ namespace Fiby.Cloud.Web.Persistence.Implementations.Maintenance
                 parameters.Add("@pProvinciaDireccion", clienteDTORequest.ProvinciaDireccion, direction: ParameterDirection.Input);
                 parameters.Add("@pDistritoDireccion", clienteDTORequest.DistritoDireccion, direction: ParameterDirection.Input);
                 parameters.Add("@pUbigeoDireccion", clienteDTORequest.UbigeoDireccion, direction: ParameterDirection.Input);
+                parameters.Add("@pFacturacionDireccion", clienteDTORequest.FacturacionDireccion, direction: ParameterDirection.Input);
 
                 parameters.Add("@pMensajeResultado", string.Empty, direction: ParameterDirection.Output);
 
@@ -190,7 +191,8 @@ namespace Fiby.Cloud.Web.Persistence.Implementations.Maintenance
                             DepartamentoDireccion = DataUtility.ObjectToString(result["DepartamentoDireccion"]),
                             ProvinciaDireccion = DataUtility.ObjectToString(result["ProvinciaDireccion"]),
                             DistritoDireccion = DataUtility.ObjectToString(result["DistritoDireccion"]),
-                            UbigeoDireccion = DataUtility.ObjectToString(result["UbigeoDireccion"])
+                            UbigeoDireccion = DataUtility.ObjectToString(result["UbigeoDireccion"]),
+                            FacturacionDireccion = DataUtility.ObjectToString(result["FacturacionDireccion"])
                         };
                     }
                 }
@@ -231,6 +233,7 @@ namespace Fiby.Cloud.Web.Persistence.Implementations.Maintenance
                             IdCliente = DataUtility.ObjectToInt(result["IdCliente"]),
                             Nombres = DataUtility.ObjectToString(result["Nombre"]),
                             Direccion = DataUtility.ObjectToString(result["Direccion"]),
+                            FacturacionDireccion = DataUtility.ObjectToString(result["FacturacionDireccion"]),
                             Telefono = DataUtility.ObjectToString(result["Telefono"]),
                             TipoDocumento = DataUtility.ObjectToString(result["TipoDocumento"]),
                             NumeroDocumento = DataUtility.ObjectToString(result["NumeroDocumento"]),
