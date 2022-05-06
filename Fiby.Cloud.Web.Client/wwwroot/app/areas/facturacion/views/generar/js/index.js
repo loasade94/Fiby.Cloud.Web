@@ -365,11 +365,11 @@
             success: function (response, textStatus, jqXhr) {
 
                 if (response != "") {
-                    window.open("https://localhost:5087/Facturacion/Generar/Imprimir?idVenta=" + response);
-                    //window.open("https://fibycloud.com/Facturacion/Generar/Imprimir?idVenta=" + response);
+                    //window.open("https://localhost:5087/Facturacion/Generar/Imprimir?idVenta=" + response);
+                    window.open("https://fibycloud.com/Facturacion/Generar/Imprimir?idVenta=" + response);
 
-                    var url = "https://localhost:5087/Facturacion/Generar";
-                    //var url = "https://fibycloud.com/Facturacion/Generar";
+                    //var url = "https://localhost:5087/Facturacion/Generar";
+                    var url = "https://fibycloud.com/Facturacion/Generar";
                     window.location = url;
 
                 }
@@ -390,8 +390,8 @@
     },
 
     consultaFactura: function (idVenta) {
-        window.open("https://localhost:5087/Facturacion/Generar/Imprimir?idVenta=" + idVenta);
-        //window.open("https://fibycloud.com/Facturacion/Generar/Imprimir?idVenta=" + idVenta);
+        //window.open("https://localhost:5087/Facturacion/Generar/Imprimir?idVenta=" + idVenta);
+        window.open("https://fibycloud.com/Facturacion/Generar/Imprimir?idVenta=" + idVenta);
     },
 
 }
