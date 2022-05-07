@@ -199,6 +199,14 @@ namespace Fiby.Cloud.Web.Client.Areas.Facturacion.Controllers
             return Json(resultado.Trim());
         }
 
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> BuscarComprobantes(VentaDTORequest filtro)
+        {
+            var modelo = await _generarService.ListarDocumentosGenerados(new VentaDTORequest() { });
+
+            return View("GridComprobantes", modelo);
+        }
+
         public async Task<string> RegistrarBaja(VentaDTORequest ventaDTORequest)
         {
             string resultado = string.Empty;
@@ -206,16 +214,55 @@ namespace Fiby.Cloud.Web.Client.Areas.Facturacion.Controllers
             try
             {
 
-                var resultadoOne = await _generarService.GenerarBaja(ventaDTORequest.IdVenta);
+                var listResultadoOne = await _generarService.GenerarBaja(ventaDTORequest.IdVenta);
 
-                if (resultadoOne != null)
+                if (listResultadoOne != null)
                 {
-                    var resultadoCab = await _generarService.RegistrarBaja(ventaDTORequest);
+                    var resultadoOne = listResultadoOne.Split('|');
+
+                    if (resultadoOne.Length > 0)
+                    {
+                        if (resultadoOne[1] == "0")
+                        {
+                            ventaDTORequest.Ticket = resultadoOne[0];
+                            ventaDTORequest.Estadosunat = "A";
+                            ventaDTORequest.Codigo = resultadoOne[1];
+                            var listResultadoCab = await _generarService.RegistrarBaja(ventaDTORequest);
+
+                            if (listResultadoCab.Count > 0)
+                            {
+                                if (listResultadoCab[0] == "0")
+                                {
+                                    resultado = string.Empty;
+                                }
+                                else
+                                {
+                                    resultado = "No hay respuesta del BD";
+                                }
+                            }
+                            else
+                            {
+                                resultado = "No hay respuesta del BD";
+                            }
+                        }
+                        else
+                        {
+                            resultado = "No hay respuesta del servidor";
+                        }
+
+                        
+                    }
+                    else
+                    {
+                        resultado = "No hay respuesta del servidor";
+                    }
                 }
                 else
                 {
-                    resultado = "Ocurrio un error al grabar el registro";
+                    resultado = "No hay respuesta del servidor";
                 }
+
+               
             }
             catch (Exception ex)
             {

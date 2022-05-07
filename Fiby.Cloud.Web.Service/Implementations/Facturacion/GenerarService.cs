@@ -3,6 +3,7 @@ using Fiby.Cloud.Web.DTO.Modules.Facturacion.Response;
 using Fiby.Cloud.Web.Persistence.Interfaces.Facturacion;
 using Fiby.Cloud.Web.Proxy.Src;
 using Fiby.Cloud.Web.Service.Interfaces.Facturacion;
+using Fiby.Cloud.Web.Util.Utility;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -55,9 +56,10 @@ namespace Fiby.Cloud.Web.Service.Implementations.Facturacion
 
         public async Task<string> GenerarBaja(int idVenta)
         {
-            string uri = "http://localhost:58683/api/Operaciones/GenerarComunicacionBaja_XML/" + idVenta.ToString();
+            //string uri = "http://localhost:58683/api/Operaciones/GenerarComunicacionBaja_XML/" + idVenta.ToString();
+            string uri = "http://factfiby.fibycloud.com/api/Operaciones/GenerarComunicacionBaja_XML/" + idVenta.ToString();
             var result = await _httpClient.GetStringAsync(uri);
-            return result;
+            return DataUtility.OkString(result);
         }
 
         public async Task<List<VentaDTOResponse>> ListarDocumentosGenerados(VentaDTORequest ventaDTORequest)

@@ -10,6 +10,8 @@
                 <th class="text-center">Documento</th>
                 <th class="text-center">Tipo</th>
                 <th class="text-center">Fecha</th>
+                <th class="text-center">Estado</th>
+                <th class="text-center">Observación</th>
             </tr>
         </thead>
         <tbody id="tbComprobantesAllData">
@@ -20,8 +22,13 @@
             <tr>
                 <td>
                     <div class="ctn-btn-tabla ctn-btn-tabla-mx">
-                        <img src="/cssadmin/assets/images/search.png" onclick="generarjs.consultaFactura(@item.IdVenta);" alt="Consulta Factura" data-toggle="tooltip" title="Consultar"
-                            class="material-tooltip-main" data-id-ctn="_editar-consulta">
+                        <img src="/cssadmin/assets/images/search.png" onclick="generarjs.consultaFactura(@item.IdVenta);" alt="Consulta Comprobante" data-toggle="tooltip" title="Consultar"
+                             class="material-tooltip-main" data-id-ctn="_editar-consulta">
+                        @if (item.Estado == "R")
+                        {
+                            <img src="/cssadmin/assets/images/trash.png" onclick="generarjs.bajaFactura(@item.IdVenta);" alt="Dar de Baja Factura" data-toggle="tooltip" title="Anular"
+                                 class="material-tooltip-main" data-id-ctn="_editar-anular">
+                        }
                     </div>
                 </td>
                 <td>@item.Correlativo</td>
@@ -29,6 +36,8 @@
                 <td>@item.EmpresaRUCcliente</td>
                 <td>@item.CodigoComprobante</td>
                 <td>@item.FechaEmision</td>
+                <td>@item.DescripcionEstado</td>
+                <td>@item.Observacion</td>
             </tr>
             }
         </tbody>

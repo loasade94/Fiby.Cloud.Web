@@ -239,7 +239,10 @@ namespace Fiby.Cloud.Web.Persistence.Implementations.Facturacion
                             EmpresaRazonsocialCliente = DataUtility.ObjectToString(result["Cliente"]),
                             EmpresaRUCcliente = DataUtility.ObjectToString(result["DocumentoCliente"]),
                             CodigoComprobante = DataUtility.ObjectToString(result["Tipo"]),
-                            FechaEmision = DataUtility.ObjectToDateTime(result["FechaEmision"])
+                            FechaEmision = DataUtility.ObjectToDateTime(result["FechaEmision"]),
+                            Estado = DataUtility.ObjectToString(result["Estado"]),
+                            DescripcionEstado = DataUtility.ObjectToString(result["EstadoDescripcion"]),
+                            Observacion = DataUtility.ObjectToString(result["Observacion"])
                         });
                     }
                 }

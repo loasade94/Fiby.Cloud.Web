@@ -56,6 +56,8 @@ namespace Fiby.Cloud.Web.DTO.Modules.Facturacion.Request
 
         public string NumeroCorrelativo { get; set; }
         public string EmpresaRUCCliente { get; set; }
-        
+        public string DescripcionEstado { get; set; }
+        public string Observacion { get; set; }
+
     }
 }

@@ -671,5 +671,21 @@ namespace Fiby.Cloud.Web.Util.Utility
             }
             return num2Text;
         }
+
+        public static string OkString(string obj)
+        {
+            var value = string.Empty;
+
+            if (string.IsNullOrEmpty(obj))
+            {
+                value = string.Empty;
+            }
+            else
+            {
+                value = obj.Replace("\"", "");
+            }
+                
+            return value;
+        }
     }
 }

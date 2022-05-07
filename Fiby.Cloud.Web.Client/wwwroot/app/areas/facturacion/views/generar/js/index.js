@@ -394,6 +394,80 @@
         window.open("https://fibycloud.com/Facturacion/Generar/Imprimir?idVenta=" + idVenta);
     },
 
+    bajaFactura: function (idventa) {
+
+        ModalConfirm('¿Seguro que desea dar de baja a la Factura?', 'generarjs.bajaFactura_callback(' + idventa.toString() +');');
+    },
+
+    bajaFactura_callback: function (idventa) {
+
+        var ventaDTORequest = {
+            IdVenta: idventa
+        };
+
+        $.ajax({
+            type: "POST",
+            data:
+            {
+                ventaDTORequest: ventaDTORequest
+            },
+            url: '/Facturacion/Generar/RegistrarBaja',
+            // dataType: "json",
+            beforeSend: function () {
+                $('#loading').show();
+            },
+            complete: function () {
+                $('#loading').hide();
+            },
+            success: function (response, textStatus, jqXhr) {
+
+                if (response == "") {
+                    ModalAlert('Anulado correctamente');
+                    generarjs.buscarComprobantes();
+                }
+
+            },
+            error: function (xhr, status, errorThrown) {
+                var err = "Status: " + status + " " + errorThrown;
+                console.log(err);
+                $('#loading').hide();
+            },
+            async: true,
+        })
+    },
+
+    buscarComprobantes: function () {
+
+        var filtro = {
+            /*IdCliente: $("#hiddenidCliente").val()*/
+        };
+
+        $.ajax({
+            type: "POST",
+            data:
+            {
+                filtro
+            },
+            beforeSend: function () {
+                /*  $('#loading').show();*/
+            },
+            url: '/Facturacion/Generar/BuscarComprobantes',
+            success: function (response, textStatus, jqXhr) {
+                $("#divGrid").html(response);
+            },
+            complete: function () {
+                $('#loading').hide();
+            },
+            error: function (xhr, status, errorThrown) {
+                var err = "Status: " + status + " " + errorThrown;
+                console.log(err);
+                $('#loading').hide();
+            },
+            async: true,
+        })
+    },
+
+
 }
 
 $(function () {
