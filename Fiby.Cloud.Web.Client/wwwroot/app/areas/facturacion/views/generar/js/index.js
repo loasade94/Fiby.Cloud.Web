@@ -365,19 +365,14 @@
             success: function (response, textStatus, jqXhr) {
 
                 if (response != "") {
-                    //window.open("https://localhost:5087/Facturacion/Generar/Imprimir?idVenta=" + response);
-                    window.open("https://fibycloud.com/Facturacion/Generar/Imprimir?idVenta=" + response);
+                    window.open("https://localhost:5087/Facturacion/Generar/Imprimir?idVenta=" + response);
+                    //window.open("https://fibycloud.com/Facturacion/Generar/Imprimir?idVenta=" + response);
 
-                    //var url = "https://localhost:5087/Facturacion/Generar";
-                    var url = "https://fibycloud.com/Facturacion/Generar";
+                    var url = "https://localhost:5087/Facturacion/Generar";
+                    //var url = "https://fibycloud.com/Facturacion/Generar";
                     window.location = url;
 
                 }
-                //else {
-                //    $('#modal-register').modal('hide');
-                //    ModalAlert('Error al actualizar : ' + response);
-                //    pagoclientejs.buscarDetallePagoCliente();
-                //}
 
             },
             error: function (xhr, status, errorThrown) {
@@ -390,8 +385,8 @@
     },
 
     consultaFactura: function (idVenta) {
-        //window.open("https://localhost:5087/Facturacion/Generar/Imprimir?idVenta=" + idVenta);
-        window.open("https://fibycloud.com/Facturacion/Generar/Imprimir?idVenta=" + idVenta);
+        window.open("https://localhost:5087/Facturacion/Generar/Imprimir?idVenta=" + idVenta);
+        //window.open("https://fibycloud.com/Facturacion/Generar/Imprimir?idVenta=" + idVenta);
     },
 
     bajaFactura: function (idventa) {
@@ -411,7 +406,49 @@
             {
                 ventaDTORequest: ventaDTORequest
             },
-            url: '/Facturacion/Generar/RegistrarBaja',
+            url: '/Facturacion/Generar/RegistrarBajaFactura',
+            // dataType: "json",
+            beforeSend: function () {
+                $('#loading').show();
+            },
+            complete: function () {
+                $('#loading').hide();
+            },
+            success: function (response, textStatus, jqXhr) {
+
+                if (response == "") {
+                    ModalAlert('Anulado correctamente');
+                    generarjs.buscarComprobantes();
+                }
+
+            },
+            error: function (xhr, status, errorThrown) {
+                var err = "Status: " + status + " " + errorThrown;
+                console.log(err);
+                $('#loading').hide();
+            },
+            async: true,
+        })
+    },
+
+    bajaBoleta: function (idventa) {
+
+        ModalConfirm('¿Seguro que desea dar de baja a la Boleta?', 'generarjs.bajaBoleta_callback(' + idventa.toString() + ');');
+    },
+
+    bajaBoleta_callback: function (idventa) {
+
+        var ventaDTORequest = {
+            IdVenta: idventa
+        };
+
+        $.ajax({
+            type: "POST",
+            data:
+            {
+                ventaDTORequest: ventaDTORequest
+            },
+            url: '/Facturacion/Generar/RegistrarBajaBoleta',
             // dataType: "json",
             beforeSend: function () {
                 $('#loading').show();

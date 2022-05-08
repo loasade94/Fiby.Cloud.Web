@@ -62,6 +62,14 @@ namespace Fiby.Cloud.Web.Service.Implementations.Facturacion
             return DataUtility.OkString(result);
         }
 
+        public async Task<string> GenerarBajaBoleta(int idVenta)
+        {
+            //string uri = "http://localhost:58683/api/Operaciones/GenerarComunicacionBaja_XML/" + idVenta.ToString();
+            string uri = "http://factfiby.fibycloud.com/api/OperacionBoleta/GenerarResumenDiario_XML/" + idVenta.ToString();
+            var result = await _httpClient.GetStringAsync(uri);
+            return DataUtility.OkString(result);
+        }
+
         public async Task<List<VentaDTOResponse>> ListarDocumentosGenerados(VentaDTORequest ventaDTORequest)
         {
             var response = await _generarRepository.ListarDocumentosGenerados(ventaDTORequest);

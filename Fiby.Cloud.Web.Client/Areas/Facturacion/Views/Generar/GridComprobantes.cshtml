@@ -26,8 +26,17 @@
                              class="material-tooltip-main" data-id-ctn="_editar-consulta">
                         @if (item.Estado == "R")
                         {
-                            <img src="/cssadmin/assets/images/trash.png" onclick="generarjs.bajaFactura(@item.IdVenta);" alt="Dar de Baja Factura" data-toggle="tooltip" title="Anular"
-                                 class="material-tooltip-main" data-id-ctn="_editar-anular">
+                            if (item.CodigoComprobante == "BOLETA")
+                            {
+                                <img src="/cssadmin/assets/images/trash.png" onclick="generarjs.bajaBoleta(@item.IdVenta);" alt="Dar de Baja Boleta" data-toggle="tooltip" title="Anular"
+                                     class="material-tooltip-main" data-id-ctn="_editar-anular">
+                            }
+                            else
+                            {
+                                <img src="/cssadmin/assets/images/trash.png" onclick="generarjs.bajaFactura(@item.IdVenta);" alt="Dar de Baja Factura" data-toggle="tooltip" title="Anular"
+                                     class="material-tooltip-main" data-id-ctn="_editar-anular">
+                            }
+
                         }
                     </div>
                 </td>

@@ -15,6 +15,7 @@ namespace Fiby.Cloud.Web.Service.Interfaces.Facturacion
         Task<string> GenerarComprobante(string idVenta);
         Task<List<string>> RegistrarBaja(VentaDTORequest ventaDTORequest);
         Task<string> GenerarBaja(int idVenta);
+        Task<string> GenerarBajaBoleta(int idVenta);
         Task<List<VentaDTOResponse>> ListarDocumentosGenerados(VentaDTORequest ventaDTORequest);
         Task<VentaDTOResponse> ListarVentaPorId(VentaDTORequest ventaDTORequest);
         Task<List<DetalleVentaDTOResponse>> ListarDetallePorId(VentaDTORequest ventaDTORequest);
