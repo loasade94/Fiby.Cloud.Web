@@ -199,7 +199,6 @@ namespace Fiby.Cloud.Web.Client.Areas.Facturacion.Controllers
             return Json(resultado.Trim());
         }
 
-        [ValidateAntiForgeryToken]
         public async Task<ActionResult> BuscarComprobantes(VentaDTORequest filtro)
         {
             var modelo = await _generarService.ListarDocumentosGenerados(new VentaDTORequest() { });

@@ -56,8 +56,8 @@ namespace Fiby.Cloud.Web.Service.Implementations.Facturacion
 
         public async Task<string> GenerarBaja(int idVenta)
         {
-            string uri = "http://localhost:58683/api/Operaciones/GenerarComunicacionBaja_XML/" + idVenta.ToString();
-            //string uri = "http://factfiby.fibycloud.com/api/Operaciones/GenerarComunicacionBaja_XML/" + idVenta.ToString();
+            //string uri = "http://localhost:58683/api/Operaciones/GenerarComunicacionBaja_XML/" + idVenta.ToString();
+            string uri = "http://factfiby.fibycloud.com/api/Operaciones/GenerarComunicacionBaja_XML/" + idVenta.ToString();
             var result = await _httpClient.GetStringAsync(uri);
             return DataUtility.OkString(result);
         }
