@@ -286,7 +286,7 @@ namespace Fiby.Cloud.Web.Client.Areas.Facturacion.Controllers
 
                     if (resultadoOne.Length > 0)
                     {
-                        if (resultadoOne[1] == "0")
+                        if (resultadoOne[1] == "0" || resultadoOne[1] == "0098")
                         {
                             ventaDTORequest.Ticket = resultadoOne[0];
                             ventaDTORequest.Estadosunat = "A";

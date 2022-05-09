@@ -419,6 +419,8 @@
                 if (response == "") {
                     ModalAlert('Anulado correctamente');
                     generarjs.buscarComprobantes();
+                } else {
+                    ModalAlertCancel('A Ocurrido un Error');
                 }
 
             },
@@ -461,6 +463,8 @@
                 if (response == "") {
                     ModalAlert('Anulado correctamente');
                     generarjs.buscarComprobantes();
+                } else {
+                    ModalAlertCancel('A Ocurrido un Error');
                 }
 
             },
