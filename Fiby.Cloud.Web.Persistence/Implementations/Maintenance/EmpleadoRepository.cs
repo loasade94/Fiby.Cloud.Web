@@ -47,7 +47,8 @@ namespace Fiby.Cloud.Web.Persistence.Implementations.Maintenance
                         listResponse.Add(new EmpleadoDTOResponse
                         {
                             Codigo = DataUtility.ObjectToInt32(result["IdEmpleado"]),
-                            Descripcion = DataUtility.ObjectToString(result["Descripcion"])
+                            Descripcion = DataUtility.ObjectToString(result["Descripcion"]),
+                            Estado = DataUtility.ObjectToInt32(result["Estado"]),
                         });
                     }
                 }

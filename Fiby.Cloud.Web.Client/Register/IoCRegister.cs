@@ -81,6 +81,7 @@ namespace Fiby.Cloud.Web.Client.Register
 
             services.AddScoped<ITablaDetalleService, TablaDetalleService>();
             services.AddScoped<IGenerarService, GenerarService>();
+            services.AddScoped<ICargaFacturaService, CargaFacturaService>();
 
             return services;
         }
@@ -122,6 +123,7 @@ namespace Fiby.Cloud.Web.Client.Register
             services.AddSingleton<IGastoRepository, GastoRepository>();
             services.AddSingleton<IAnuncioRepository, AnuncioRepository>();
             services.AddSingleton<IGenerarRepository, GenerarRepository>();
+            services.AddSingleton<ICargaFacturaRepository, CargaFacturaRepository>();
             return services;
         }
 

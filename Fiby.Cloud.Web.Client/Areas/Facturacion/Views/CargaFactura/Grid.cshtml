@@ -1,0 +1,40 @@
+﻿@model List<Fiby.Cloud.Web.DTO.Modules.Facturacion.Response.CargaFacturaDTOResponse>
+
+<div class="table-responsive">
+    <table id="tbCargaFactura" class="table table-striped table-bordered">
+        <thead id="thCargaFacturaData">
+            <tr>
+                <th class="text-center">Acciones</th>
+                <th class="text-center">Fecha</th>
+                <th class="text-center">Factura</th>
+                <th class="text-center">Numero Cliente</th>
+                <th class="text-center">Cliente</th>
+                <th class="text-center">SubTotal</th>
+                <th class="text-center">Igv</th>
+                <th class="text-center">Total</th>
+            </tr>
+        </thead>
+        <tbody id="tbCargaFacturaData">
+            @for (var i = 0; i < Model.Count(); i++)
+            {
+                var item = Model.ToList()[i];
+
+                <tr>
+                    <td>
+                        <div class="ctn-btn-tabla ctn-btn-tabla-mx">
+
+                        </div>
+                    </td>
+                    <td style="text-align:center;">@item.FechaEmision</td>
+                    <td style="text-align:center;">@(item.Serie + "" + item.Numero)</td>
+                    @*<td style="text-align:center;">@item.Numero</td>*@
+                    <td style="text-align:center;">@item.NumeroDocumentoCliente</td>
+                    <td style="text-align:center;">@item.RazonSocialCliente</td>
+                    <td style="text-align:center;">@item.ValorNeto</td>
+                    <td style="text-align:center;">@item.Igv</td>
+                    <td style="text-align:center;">@item.ValorTotal</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

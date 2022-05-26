@@ -43,7 +43,9 @@ namespace Fiby.Cloud.Web.Client.Areas.Horario.Controllers
                 return RedirectToAction("Logout", "Account", new { Area = "" });
             }
 
-            ViewBag.ListaEmpleados = await _empleadoService.GetEmpleadoAll();
+            var empleados = await _empleadoService.GetEmpleadoAll();
+
+            ViewBag.ListaEmpleados = empleados.Where(x => x.Estado == 1).ToList();
             ViewBag.ListaHorario = await _semanaService.GetListaHorario();
             ViewBag.ListaCliente = await _clienteService.GetClienteAll();
 
