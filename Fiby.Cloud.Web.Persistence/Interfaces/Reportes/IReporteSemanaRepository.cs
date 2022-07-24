@@ -12,5 +12,6 @@ namespace Fiby.Cloud.Web.Persistence.Interfaces.Reportes
         Task<List<ReporteSemanaDTOResponse>> GetReporteRentabilidadSemanal(ReporteSemanaDTORequest pagoEmpleadoDTORequest);
         Task<List<ReporteSemanaDTOResponse>> GetReporteRentabilidadSemanalEmpleado(ReporteSemanaDTORequest pagoEmpleadoDTORequest);
         Task<List<AnuncioDTOResponse>> GetAnunciosParaEmpleados();
+        Task<List<ReporteSemanaDTOResponse>> GetReporteLogin(ReporteSemanaDTORequest pagoEmpleadoDTORequest);
     }
 }

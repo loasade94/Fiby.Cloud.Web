@@ -38,5 +38,10 @@ namespace Fiby.Cloud.Web.Service.Implementations.Reportes
             var response = await _reporteSemanaRepository.GetAnunciosParaEmpleados();
             return response;
         }
+        public async Task<List<ReporteSemanaDTOResponse>> GetReporteLogin(ReporteSemanaDTORequest reporteSemanaDTORequest)
+        {
+            var response = await _reporteSemanaRepository.GetReporteLogin(reporteSemanaDTORequest);
+            return response;
+        }
     }
 }

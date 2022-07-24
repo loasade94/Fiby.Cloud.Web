@@ -44,7 +44,7 @@ namespace Fiby.Cloud.Web.Service.Implementations.Facturacion
         {
             //string uri = "http://localhost:58683/api/Venta/GenerarBoletaFactura/" + idVenta;
             //string uri = "http://factfiby.fibycloud.com/api/Venta/GenerarBoletaFactura/" + idVenta;
-            string uri = "http://rosita97-001-site1.itempurl.com/api/Venta/GenerarBoletaFactura/" + idVenta;
+            string uri = "http://rosita98-001-site1.atempurl.com/api/Venta/GenerarBoletaFactura/" + idVenta;
             var result = await _httpClient.GetStringAsync(uri);
             return result;
         }
@@ -59,7 +59,7 @@ namespace Fiby.Cloud.Web.Service.Implementations.Facturacion
         {
             //string uri = "http://localhost:58683/api/Operaciones/GenerarComunicacionBaja_XML/" + idVenta.ToString();
             //string uri = "http://factfiby.fibycloud.com/api/Operaciones/GenerarComunicacionBaja_XML/" + idVenta.ToString();
-            string uri = "http://rosita97-001-site1.itempurl.com/api/Operaciones/GenerarComunicacionBaja_XML/" + idVenta.ToString();
+            string uri = "http://rosita98-001-site1.atempurl.com/api/Operaciones/GenerarComunicacionBaja_XML/" + idVenta.ToString();
             var result = await _httpClient.GetStringAsync(uri);
             return DataUtility.OkString(result);
         }
@@ -68,7 +68,7 @@ namespace Fiby.Cloud.Web.Service.Implementations.Facturacion
         {
             //string uri = "http://localhost:58683/api/OperacionBoleta/GenerarResumenDiario_XML/" + idVenta.ToString();
             //string uri = "http://factfiby.fibycloud.com/api/OperacionBoleta/GenerarResumenDiario_XML/" + idVenta.ToString();
-            string uri = "http://rosita97-001-site1.itempurl.com/api/OperacionBoleta/GenerarResumenDiario_XML/" + idVenta.ToString();
+            string uri = "http://rosita98-001-site1.atempurl.com/api/OperacionBoleta/GenerarResumenDiario_XML/" + idVenta.ToString();
             var result = await _httpClient.GetStringAsync(uri);
             return DataUtility.OkString(result);
         }

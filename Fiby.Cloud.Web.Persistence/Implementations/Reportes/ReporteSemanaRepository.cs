@@ -160,5 +160,46 @@ namespace Fiby.Cloud.Web.Persistence.Implementations.Reportes
             }
             return listResponse;
         }
+
+        public async Task<List<ReporteSemanaDTOResponse>> GetReporteLogin(ReporteSemanaDTORequest pagoEmpleadoDTORequest)
+        {
+            var listResponse = new List<ReporteSemanaDTOResponse>();
+            try
+            {
+                var parameters = new DynamicParameters();
+
+                parameters.Add("@pIdEmpleado", pagoEmpleadoDTORequest.IdEmpleado, direction: ParameterDirection.Input);
+
+                var cn = _connectionFactory.GetConnection();
+                var sp = "uspListaReporteLogin";
+
+                var result = await cn.ExecuteReaderAsync(
+                             sp,
+                             parameters,
+                             commandTimeout: 0,
+                             commandType: CommandType.StoredProcedure);
+
+                if (result.FieldCount > 0)
+                {
+                    while (result.Read())
+                    {
+                        listResponse.Add(new ReporteSemanaDTOResponse
+                        {
+                            Cliente = DataUtility.ObjectToString(result["NombreCompleto"]),
+                            Nombres = DataUtility.ObjectToString(result["Usuario"]),
+                            Fecha = DataUtility.ObjectToDateTime(result["FechaRegistro"]),
+                        });
+                    }
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                listResponse = null;
+            }
+            return listResponse;
+        }
+
     }
 }
