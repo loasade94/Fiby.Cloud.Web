@@ -12,5 +12,6 @@ namespace Fiby.Cloud.Web.DTO.Modules.Inversiones.Request
         public string Descripcion { get; set; }
         public decimal Monto { get; set; }
         public string MontoText { get; set; }
+        public string Adicional { get; set; }
     }
 }

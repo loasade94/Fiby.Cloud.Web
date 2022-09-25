@@ -96,7 +96,8 @@
         var gastoDTORequest = {
             IdSemana: $("#cboSemana").val(),
             Descripcion: $("#txtDescripcion").val(),
-            MontoText: $("#txtMonto").val()
+            MontoText: $("#txtMonto").val(),
+            Adicional: $("#txtAdicional").val()
         };
 
         /*        var html = "";*/

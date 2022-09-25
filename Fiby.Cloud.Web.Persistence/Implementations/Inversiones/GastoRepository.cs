@@ -33,6 +33,7 @@ namespace Fiby.Cloud.Web.Persistence.Implementations.Inversiones
                 parameters.Add("@pIdCategoria", gastoDTORequest.IdCategoria, direction: ParameterDirection.Input);
                 parameters.Add("@pDescripcion", gastoDTORequest.Descripcion, direction: ParameterDirection.Input);
                 parameters.Add("@pMonto", gastoDTORequest.Monto, direction: ParameterDirection.Input);
+                parameters.Add("@pAdicional", gastoDTORequest.Adicional, direction: ParameterDirection.Input);
 
                 parameters.Add("@pMensajeResultado", string.Empty, direction: ParameterDirection.Output);
 
