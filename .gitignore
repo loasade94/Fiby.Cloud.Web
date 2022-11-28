@@ -361,3 +361,4 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/Fiby.Cloud.Web.Client/Keys/key-1cbb19a5-3729-48e4-9040-e63c2cff8c15.xml
