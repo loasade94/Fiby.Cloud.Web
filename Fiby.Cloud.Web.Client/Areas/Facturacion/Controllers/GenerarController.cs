@@ -1,5 +1,6 @@
 ﻿using Fiby.Cloud.Web.Client.Extensions;
 using Fiby.Cloud.Web.DTO.Modules.Facturacion.Request;
+using Fiby.Cloud.Web.DTO.Modules.Horario.Request;
 using Fiby.Cloud.Web.DTO.Modules.Maintenance.Request;
 using Fiby.Cloud.Web.DTO.Modules.Pagos.Request;
 using Fiby.Cloud.Web.DTO.Modules.Parametro.Request;
@@ -44,9 +45,33 @@ namespace Fiby.Cloud.Web.Client.Areas.Facturacion.Controllers
 
             ViewBag.ListaTipoCliente = await _tablaDetalleService.GetTablaDetalleAll(new TablaDetalleDTORequest() { CodigoTabla = "TI01" });
 
-            var model = await _generarService.ListarDocumentosGenerados(new VentaDTORequest() { });
+            ViewBag.FechaInicial = DateTime.Now.AddMonths(-3).ToString("dd/MM/yyyy");
+            ViewBag.FechaFinal = DateTime.Now.AddMonths(+3).ToString("dd/MM/yyyy");
+
+            var model = await _generarService.ListarDocumentosGenerados(new VentaDTORequest() {
+                FechaInicio = DateTime.Now.AddMonths(-3),
+                FechaFin = DateTime.Now.AddMonths(+3)
+            });
 
             return View(model);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> BuscarComprobantes(VentaDTORequest request)
+        {
+            if (User.Identity.GetProfileId() != "1")
+            {
+                return RedirectToAction("Logout", "Account", new { Area = "" });
+            }
+
+            request.FechaInicio = General.ConvertFormatDateTime(request.FechaInicioTexto);
+            request.FechaFin = General.ConvertFormatDateTime(request.FechaFinTexto);
+
+            ViewBag.ListaTipoCliente = await _tablaDetalleService.GetTablaDetalleAll(new TablaDetalleDTORequest() { CodigoTabla = "TI01" });
+
+            var model = await _generarService.ListarDocumentosGenerados(request);
+
+            return View("GridComprobantes", model);
         }
 
         public async Task<IActionResult> Imprimir(int idVenta)
@@ -199,12 +224,12 @@ namespace Fiby.Cloud.Web.Client.Areas.Facturacion.Controllers
             return Json(resultado.Trim());
         }
 
-        public async Task<ActionResult> BuscarComprobantes(VentaDTORequest filtro)
-        {
-            var modelo = await _generarService.ListarDocumentosGenerados(new VentaDTORequest() { });
+        //public async Task<ActionResult> BuscarComprobantes(VentaDTORequest filtro)
+        //{
+        //    var modelo = await _generarService.ListarDocumentosGenerados(new VentaDTORequest() { });
 
-            return View("GridComprobantes", modelo);
-        }
+        //    return View("GridComprobantes", modelo);
+        //}
 
         public async Task<string> RegistrarBajaFactura(VentaDTORequest ventaDTORequest)
         {

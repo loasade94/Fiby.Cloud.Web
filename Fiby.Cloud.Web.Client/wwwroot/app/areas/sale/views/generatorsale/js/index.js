@@ -40,15 +40,6 @@
         mesValue.id = "mes";
 
 
-
-        //var emailValue = document.createElement("INPUT");
-        //emailValue.type = "text";
-        //emailValue.value = usernamemail;
-        //emailValue.name = "usernamemail";
-        //emailValue.id = "usernamemail";
-
-
-
         form.style.display = "none";
         form.appendChild(mesValue);
         //form.appendChild(emailValue);

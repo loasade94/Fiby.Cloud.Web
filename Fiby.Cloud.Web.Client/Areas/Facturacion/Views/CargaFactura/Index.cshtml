@@ -24,19 +24,37 @@
                                 <label for="" class="text-right control-label col-form-label">Mes:</label>
                             </div>
                             <div class="col-lg-2">
-                                <select class="form-select modal-select" id="cboTypeDocumentSale">
-                                    <option value="01">Enero</option>
-                                    <option value="02">Febrero</option>
-                                    <option value="03">Marzo</option>
-                                    <option value="04">Abril</option>
-                                    <option value="05">Mayo</option>
-                                    <option value="06">Junio</option>
-                                    <option value="07">Julio</option>
-                                    <option value="08">Agosto</option>
-                                    <option value="09">Setiembre</option>
-                                    <option value="10">Octubre</option>
-                                    <option value="11">Noviembre</option>
-                                    <option value="12">Diciembre</option>
+                                <select class="form-select modal-select" id="cboMonthtRegisterSale">
+                                    @foreach (var item in ViewBag.listaMeses)
+                                    {
+                                        if (item.Value == DateTime.Now.ToString("MM"))
+                                        {
+                                            <option selected value="@item.Value">@item.Text</option>
+                                        }else
+                                        {
+                                            <option value="@item.Value">@item.Text</option>
+                                        }
+                                        
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-lg-2">
+                                <label for="" class="text-right control-label col-form-label">Año: </label>
+                            </div>
+                            <div class="col-lg-2">
+                                <select class="form-select modal-select" id="txtYearRegisterSale">
+                                    @foreach (var item in ViewBag.listaAnios)
+                                    {
+                                        if (item.Value == DateTime.Now.ToString("yyyy"))
+                                        {
+                                            <option selected value="@item.Value">@item.Text</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@item.Value">@item.Text</option>
+                                        }
+
+                                    }
                                 </select>
                             </div>
                         </div>
@@ -62,7 +80,7 @@
                                 <label for="txtSerieRegisterSale" class="text-right control-label col-form-label">Serie :</label>
                             </div>
                             <div class="col-lg-2">
-                                <input type="text" class="form-control" id="txtSerieRegisterSale" placeholder="Ingrese dato">
+                                <input type="text" maxlength="4" class="form-control" id="txtSerieRegisterSale" placeholder="Ingrese dato">
                             </div>
                             <div class="col-lg-2">
                                 <label for="" class="text-right control-label col-form-label">Numero Serie : </label>
@@ -95,6 +113,12 @@
                         </div>
                     </div>
                     <div class="form-group row">
+                        <label for="txtIGVProduct" class="col-sm-3 text-right control-label col-form-label">Otros Cargos: </label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="txtOtherChargeProduct" placeholder="Ingrese dato">
+                        </div>
+                    </div>
+                    <div class="form-group row">
                         <label for="txtBrutoProduct" class="col-sm-3 text-right control-label col-form-label">Valot Bruto(con igv): </label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control" id="txtBrutoProduct" placeholder="Ingrese dato">
@@ -120,7 +144,7 @@
                     <div class="form-group row">
                         <label for="txtNumberDocumentClient" class="col-sm-3 text-right control-label col-form-label">Numero de documento: </label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="txtNumberDocumentClient" placeholder="Ingrese dato">
+                            <input type="text" maxlength="11" class="form-control" id="txtNumberDocumentClient" placeholder="Ingrese dato">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -139,9 +163,9 @@
             <div class="ctn-button">
                 @*<button type="button" id="btnGenerarXML" class="btn btn-info btn">Generar XML</button>*@
                 <button type="button" id="btnBuscar" class="btn btn-info btn">Buscar</button>
-                <button type="button" id="btnLimpiar" class="btn btn-info btn">Limpiar</button>
-                <button type="button" id="btnGrabar" class="btn btn-info btn">Grabar</button>
-                @*<button type="button" id="btnGenerarArchivo" class="btn btn-info btn">Generar Archivo PLE</button>*@
+                @*<button type="button" id="btnLimpiar" class="btn btn-info btn">Limpiar</button>*@
+                <button type="button" id="btnGrabar" onclick="cargafacturajs.registrarFactura();" class="btn btn-info btn">Grabar</button>
+                <button type="button" id="btnGenerarArchivo" onclick="cargafacturajs.DownloadDocument();" class="btn btn-info btn">Generar Archivo PLE COMPRAS</button>
             </div>
 
         </div>

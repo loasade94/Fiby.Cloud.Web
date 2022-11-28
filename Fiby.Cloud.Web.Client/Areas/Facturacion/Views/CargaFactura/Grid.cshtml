@@ -5,12 +5,14 @@
         <thead id="thCargaFacturaData">
             <tr>
                 <th class="text-center">Acciones</th>
+                <th class="text-center">Periodo</th>
                 <th class="text-center">Fecha</th>
                 <th class="text-center">Factura</th>
-                <th class="text-center">Numero Cliente</th>
+                <th class="text-center">Numero <br /> Cliente</th>
                 <th class="text-center">Cliente</th>
                 <th class="text-center">SubTotal</th>
                 <th class="text-center">Igv</th>
+                <th class="text-center">Otros <br /> Cargos</th>
                 <th class="text-center">Total</th>
             </tr>
         </thead>
@@ -22,16 +24,17 @@
                 <tr>
                     <td>
                         <div class="ctn-btn-tabla ctn-btn-tabla-mx">
-
+                            <img src="/cssadmin/assets/images/trash.png" onclick="cargafacturajs.eliminarFactura(@item.IdFacturaEmpresa);" class="material-tooltip-main eliminar-movimiento" alt="Eliminar" data-toggle="tooltip" title="Eliminar">
                         </div>
                     </td>
+                    <td style="text-align:center;">@(item.Mes + "-" + item.Ano) </td>
                     <td style="text-align:center;">@item.FechaEmision</td>
-                    <td style="text-align:center;">@(item.Serie + "" + item.Numero)</td>
-                    @*<td style="text-align:center;">@item.Numero</td>*@
+                    <td style="text-align:center;">@(item.Serie + " - " + item.Numero)</td>
                     <td style="text-align:center;">@item.NumeroDocumentoCliente</td>
                     <td style="text-align:center;">@item.RazonSocialCliente</td>
                     <td style="text-align:center;">@item.ValorNeto</td>
                     <td style="text-align:center;">@item.Igv</td>
+                    <td style="text-align:center;">@item.OtrosCargos</td>
                     <td style="text-align:center;">@item.ValorTotal</td>
                 </tr>
             }

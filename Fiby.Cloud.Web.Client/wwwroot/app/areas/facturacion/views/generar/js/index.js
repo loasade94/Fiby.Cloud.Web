@@ -30,6 +30,16 @@
 
         });
 
+        $("#btnBuscar").click(function () {
+
+            generarjs.buscarComprobantes();
+
+        });
+
+
+        CreatePickaDate('txtFechaInicialEntrada');
+        CreatePickaDate('txtFechaFinalEntrada');
+
     },
 
     buscarDocumento: function () {
@@ -479,25 +489,31 @@
 
     buscarComprobantes: function () {
 
-        var filtro = {
-            /*IdCliente: $("#hiddenidCliente").val()*/
+        var fechaInicial = $("#txtFechaInicialEntrada").val();
+        var fechaFinal = $("#txtFechaFinalEntrada").val();
+
+        var div = "#divGrid";
+        var request = {
+            FechaInicioTexto: fechaInicial,
+            FechaFinTexto: fechaFinal
         };
 
         $.ajax({
             type: "POST",
             data:
             {
-                filtro
-            },
-            beforeSend: function () {
-                /*  $('#loading').show();*/
+                request
             },
             url: '/Facturacion/Generar/BuscarComprobantes',
-            success: function (response, textStatus, jqXhr) {
-                $("#divGrid").html(response);
+            beforeSend: function () {
+                $('#loading').show();
             },
             complete: function () {
                 $('#loading').hide();
+            },
+            success: function (response, textStatus, jqXhr) {
+                $("#tbComprobantesAll > tbody").html("");
+                $(div).html(response); generarjs.createDataTableCompro('tbComprobantesAll');
             },
             error: function (xhr, status, errorThrown) {
                 var err = "Status: " + status + " " + errorThrown;
@@ -507,6 +523,33 @@
             async: true,
         })
     },
+
+    createDataTableCompro: function (value) {
+
+        $('#' + value).DataTable({
+            "ordering": false,
+            "aoColumnDefs": [
+                { "bSortable": false, "aTargets": [0, 1, 2] },
+                { "bSearchable": false, "aTargets": [0, 1, 2] }
+            ],
+            "language": {
+                "lengthMenu": "Mostrar _MENU_ registros por página",
+                "zeroRecords": "No se ha encontrado nada",
+                "info": "Mostrando página _PAGE_ de _PAGES_",
+                "infoEmpty": "No hay registros disponibles",
+                "infoFiltered": "(filtered from _MAX_ total records)",
+                //"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
+                "processing": "Procesando...",
+                "search": "Buscar:",
+                "paginate": {
+                    "first": "Primero",
+                    "last": "Último",
+                    "next": "Siguiente",
+                    "previous": "Anterior"
+                },
+            }
+        });
+    }
 
 
 }

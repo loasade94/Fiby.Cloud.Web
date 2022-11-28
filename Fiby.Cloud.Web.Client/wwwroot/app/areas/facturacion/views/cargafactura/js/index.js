@@ -12,106 +12,9 @@
 
     },
 
-
-    //search: function () {
-
-    //    var mes = $("#cboTypeDocumentSale").val();
-
-    //    var cargaFacturaDTORequest = {
-    //        Mes: mes
-    //    };
-
-    //    var html = "";
-
-    //    $.ajax({
-    //        type: "POST",
-    //        data:
-    //        {
-    //            cargaFacturaDTORequest
-    //        },
-    //        url: '/Facturacion/CargaFactura/ConsultaFacturas',
-    //        // dataType: "json",
-    //        beforeSend: function () {
-    //            $('#loading').show();
-    //        },
-    //        complete: function () {
-    //            $('#loading').hide();
-    //        },
-    //        success: function (response, textStatus, jqXhr) {
-
-    //            if (response != null) {
-    //                $("#tbCargaFactura > tbody").html("");
-    //                $('#tbCargaFactura').DataTable().clear().destroy();
-
-    //                if (response.length > 0) {
-
-    //                    var html = "";
-    //                    var eje = "";
-    //                    for (var i = 0; i < response.length; i++) {
-
-    //                        html += '<tr>';
-    //                        html += '    <td>';
-    //                        html += '        <div class="ctn-btn-tabla ctn-btn-tabla-mx">';
-    //                        html += '            <img src="/cssadmin/assets/images/edit.png" onclick="roljs.edit(\'' + response[i].rolId + '\',\'' + 0 + '\');" alt="Editar" data-toggle="tooltip" title="Editar" ';
-    //                        html += '                      class="material-tooltip-main" data-id-ctn="_editar-consulta">';
-    //                        html += '            <img src="/cssadmin/assets/images/trash.png" onclick="roljs.deleteRol(\'' + response[i].rolId + '\');" class="material-tooltip-main eliminar-movimiento" alt="Eliminar" ';
-    //                        html += '                      data-toggle="tooltip" title="Eliminar">';
-    //                        html += '        </div>';
-    //                        html += '    </td>';
-    //                        html += '    <td style="text-align:center;">' + response[i].fechaEmision + '</td>';
-    //                        html += '    <td style="text-align:center;">' + response[i].serie + '-' + response[i].numero + '</td>';
-    //                        html += '    <td style="text-align:center;">' + response[i].numeroDocumentoCliente + '</td>';
-    //                        html += '    <td style="text-align:center;">' + response[i].cliente + '</td>';
-    //                        html += '    <td style="text-align:center;">' + response[i].valorNeto + '</td>';
-    //                        html += '    <td style="text-align:center;">' + response[i].igv + '</td>';
-    //                        html += '    <td style="text-align:center;">' + response[i].valorTotal + '</td>';
-    //                        html += '</tr>';
-    //                    }
-    //                    $('#tbCargaFactura tbody').append(html);
-    //                }
-    //                CreateDataTable('tbCargaFactura');
-    //            }
-    //        },
-    //        error: function (xhr, status, errorThrown) {
-    //            var err = "Status: " + status + " " + errorThrown;
-    //            console.log(err);
-    //            $('#loading').hide();
-    //        },
-    //        async: true,
-    //    })
-    //},
-
-    //obtenerBuscar: function (pagina, orden, direccion, cambio, div) {
-    //    var filtro = {
-    //        //TipoTrabajador: $("#Filtro_TipoTrabajador").val(),
-    //        AnoPeriodo: $("#Filtro_AnoPeriodo").val(),
-    //        CodigoPeriodo: $("#Filtro_CodigoPeriodo").val(),
-    //        CodigoUnico: $("#Filtro_CodigoUnico").val()
-    //    };
-
-    //    var request = {
-    //        url: helperjs.urlBase + "SolicBonoEscolaridad/Buscar",
-    //        data: {
-    //            filtro: filtro,
-    //            pagina: pagina,
-    //            orden: orden,
-    //            direccion: direccion,
-    //            cambio: cambio
-    //        },
-    //        success: function (data, textStatus, jqXhr) {
-    //            $(div).html(data); jsUtil.crearDataTable();
-    //        },
-    //        error: function (data, textStatus, jqXhr) {
-    //            $(div).html("");
-    //            $("#MensajeValidacion").html(helperjs.llamarMensajeError(jqXhr));
-    //        }
-    //    };
-    //    helperjs.ajaxSend(request);
-    //},
-
     buscar: function () {
 
-        var mes = $("#cboTypeDocumentSale").val();
+        var mes = $("#cboMonthtRegisterSale").val();
         var div = "#divGrid";
         var cargaFacturaDTORequest = {
             Mes: mes
@@ -136,6 +39,158 @@
             success: function (response, textStatus, jqXhr) {
 
                 $(div).html(response); //jsUtil.crearDataTable();
+            },
+            error: function (xhr, status, errorThrown) {
+                var err = "Status: " + status + " " + errorThrown;
+                console.log(err);
+                $('#loading').hide();
+            },
+            async: true,
+        })
+    },
+
+    DownloadDocument: function (en) {
+
+        var mes = $('#cboMonthtRegisterSale').val();
+        var anio = $('#txtYearRegisterSale').val();
+
+        var form = document.createElement("FORM");
+        var mesValue = document.createElement("INPUT");
+        mesValue.type = "text";
+        mesValue.value = mes;
+        mesValue.name = "mes";
+        mesValue.id = "mes";
+
+        var anioValue = document.createElement("INPUT");
+        anioValue.type = "text";
+        anioValue.value = anio;
+        anioValue.name = "anio";
+        anioValue.id = "anio";
+
+
+        form.style.display = "none";
+        form.appendChild(mesValue);
+        form.appendChild(anioValue);
+        form.action = "/Facturacion/CargaFactura/GetPle0801";
+        form.method = 'POST';
+        document.body.appendChild(form);
+        form.submit();
+
+    },
+
+    eliminarFactura: function (obj) {
+        ModalConfirm('¿Seguro que desea eliminar el registro?', 'cargafacturajs.eliminarFactura_callback(\'' + obj + '\');');
+    },
+
+    eliminarFactura_callback: function (obj) {
+
+        var idFacturaEmpresa = obj;
+
+        $.ajax({
+            type: "DELETE",
+            data: {
+                idFacturaEmpresa
+            },
+            beforeSend: function () {
+                $('#loading').show();
+            },
+            url: '/Facturacion/CargaFactura/EliminarFactura',
+            success: function (response, textStatus, jqXhr) {
+
+                if (response != null) {
+                    if (response == "OK") {
+                        ModalAlert('Factura eliminada correctamente');
+                        cargafacturajs.buscar();
+                    } else {
+                        ModalAlertCancel('A Ocurrido un Error');
+                    }
+                } else {
+                    ModalAlertCancel('A Ocurrido un Error');
+                }
+
+            },
+            complete: function () {
+                $('#loading').hide();
+            },
+            error: function (xhr, status, errorThrown) {
+                var err = "Status: " + status + " " + errorThrown;
+                console.log(err);
+                IziToastMessage(1, 'Ocurrio un error.', '', 'topRight', 5000);
+                $('#loading').hide();
+
+            },
+            async: true,
+        });
+
+
+    },
+
+    registrarFactura: function (idventa) {
+
+        ModalConfirm('¿Seguro que desea registrar la Factura?', 'cargafacturajs.registrarFactura_callback();');
+    },
+
+    registrarFactura_callback: function () {
+
+        var pMes = $('#cboMonthtRegisterSale').val();
+        var pAno = $('#txtYearRegisterSale').val();
+        var pTipoDocumentoVenta = $('#cboTypeDocumentSale').val();
+        var pFechaEmision = $('#txtDateRegisterSale').val();
+        var pSerie = $('#txtSerieRegisterSale').val();
+        var pNumero = $('#txtNumberSerieRegisterSale').val();
+        var pValorNeto = $('#txtNetoProduct').val();
+        var pIgv = $('#txtIGVProduct').val();
+        var pOtrosCargos = $('#txtOtherChargeProduct').val();
+        var pValorTotal = $('#txtBrutoProduct').val();
+        var pTipoDocumentoCliente = $('#cboTypeDocumentClientSale').val();
+        var pNumeroDocumentoCliente = $('#txtNumberDocumentClient').val();
+        var pRazonSocialCliente = $('#txtNameCompleteClient').val();
+
+        var request = {
+            Mes: pMes,
+            Ano: pAno,
+            TipoDocumentoVenta: pTipoDocumentoVenta,
+            FechaEmision: pFechaEmision,
+            Serie: pSerie,
+            Numero: pNumero,
+            ValorNeto: pValorNeto,
+            Igv: pIgv,
+            OtrosCargos: pOtrosCargos,
+            ValorTotal: pValorTotal,
+            TipoDocumentoCliente: pTipoDocumentoCliente,
+            NumeroDocumentoCliente: pNumeroDocumentoCliente,
+            RazonSocialCliente: pRazonSocialCliente
+        };
+
+        $.ajax({
+            type: "POST",
+            data:
+            {
+                request
+            },
+            url: '/Facturacion/CargaFactura/RegistrarCargaFactura',
+            // dataType: "json",
+            beforeSend: function () {
+                $('#loading').show();
+            },
+            complete: function () {
+                $('#loading').hide();
+            },
+            success: function (response, textStatus, jqXhr) {
+
+                if (response != null) {
+                    if (response[0] == "0") {
+                        ModalAlert('Factura registrada correctamente');
+                        cargafacturajs.buscar();
+                    } else {
+                        ModalAlertCancel('A Ocurrido un Error');
+                    }
+                } else {
+                    ModalAlertCancel('A Ocurrido un Error');
+                }
+
+                
+
             },
             error: function (xhr, status, errorThrown) {
                 var err = "Status: " + status + " " + errorThrown;
