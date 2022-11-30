@@ -12,6 +12,7 @@ namespace Fiby.Cloud.Web.Persistence.Interfaces.Facturacion
         Task<List<string>> RegistrarFactura(CargaFacturaDTORequest cargaFacturaDTORequest);
         Task<List<CargaFacturaDTOResponse>> ConsultaFacturas(CargaFacturaDTORequest cargaFacturaDTORequest);
         Task<List<string>> GetPle0801(CargaFacturaDTORequest request);
+        Task<List<string>> GetPle1401(CargaFacturaDTORequest request);
         Task<string> EliminarFactura(CargaFacturaDTORequest request);
     }
 }

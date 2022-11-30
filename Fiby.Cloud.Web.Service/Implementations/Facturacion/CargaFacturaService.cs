@@ -39,6 +39,12 @@ namespace Fiby.Cloud.Web.Service.Implementations.Facturacion
             return response;
         }
 
+        public async Task<List<string>> GetPle1401(CargaFacturaDTORequest cargaFacturaDTORequest)
+        {
+            var response = await _cargaFacturaRepository.GetPle1401(cargaFacturaDTORequest);
+            return response;
+        }
+
         public async Task<string> EliminarFactura(CargaFacturaDTORequest cargaFacturaDTORequest)
         {
             var response = await _cargaFacturaRepository.EliminarFactura(cargaFacturaDTORequest);

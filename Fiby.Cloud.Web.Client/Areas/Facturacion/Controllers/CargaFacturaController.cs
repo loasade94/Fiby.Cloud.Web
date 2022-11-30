@@ -74,7 +74,9 @@ namespace Fiby.Cloud.Web.Client.Areas.Facturacion.Controllers
 
         public async Task<FileResult> GetPle0801(string mes , string anio)
         {
-            TextWriter tw = new StreamWriter(Path.Combine(Path.GetTempPath(), "plantilla.txt"), true);
+
+            var nombreArhivoTemp = DateTime.Now.ToString("yyyyMMddhhmmss");
+            TextWriter tw = new StreamWriter(Path.Combine(Path.GetTempPath(), nombreArhivoTemp + ".txt"), true);
 
 
             CargaFacturaDTORequest request = new CargaFacturaDTORequest();
@@ -90,9 +92,57 @@ namespace Fiby.Cloud.Web.Client.Areas.Facturacion.Controllers
 
             tw.Close();
 
-            byte[] byteArray = System.IO.File.ReadAllBytes(Path.Combine(Path.GetTempPath(), "plantilla.txt"));
+            byte[] byteArray = System.IO.File.ReadAllBytes(Path.Combine(Path.GetTempPath(), nombreArhivoTemp + ".txt"));
 
-            return File(byteArray, "text/plain", "ple.txt");
+            return File(byteArray, "text/plain", "LE20606961805" + anio + mes + "00080100001111.txt");
+        }
+
+        public async Task<FileResult> GetPle1401(string mes, string anio)
+        {
+            var nombreArhivoTemp = DateTime.Now.ToString("yyyyMMddhhmmss");
+            TextWriter tw = new StreamWriter(Path.Combine(Path.GetTempPath(), nombreArhivoTemp + ".txt"), true);
+
+
+            CargaFacturaDTORequest request = new CargaFacturaDTORequest();
+            request.Mes = mes;
+            request.Ano = anio;
+
+            var model = await _cargaFacturaService.GetPle1401(request);
+
+            for (int i = 0; i < model.Count; i++)
+            {
+                tw.WriteLine(model[i]);
+            }
+
+            tw.Close();
+
+            byte[] byteArray = System.IO.File.ReadAllBytes(Path.Combine(Path.GetTempPath(), nombreArhivoTemp + ".txt"));
+
+            return File(byteArray, "text/plain", "LE20606961805" + anio + mes + "00140100001111.txt");
+        }
+
+        public FileResult GetPle0802(string mes, string anio)
+        {
+            var nombreArhivoTemp = DateTime.Now.ToString("yyyyMMddhhmmss");
+            TextWriter tw = new StreamWriter(Path.Combine(Path.GetTempPath(), nombreArhivoTemp + ".txt"), true);
+
+
+            CargaFacturaDTORequest request = new CargaFacturaDTORequest();
+            request.Mes = mes;
+            request.Ano = anio;
+
+            var model = new List<string>();
+
+            for (int i = 0; i < model.Count; i++)
+            {
+                tw.WriteLine(model[i]);
+            }
+
+            tw.Close();
+
+            byte[] byteArray = System.IO.File.ReadAllBytes(Path.Combine(Path.GetTempPath(), nombreArhivoTemp + ".txt"));
+
+            return File(byteArray, "text/plain", "LE20606961805" + anio + mes + "00080200001011.txt");
         }
 
         [HttpDelete]

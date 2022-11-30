@@ -167,6 +167,42 @@ namespace Fiby.Cloud.Web.Persistence.Implementations.Facturacion
             return listResponse;
         }
 
+        public async Task<List<string>> GetPle1401(CargaFacturaDTORequest request)
+        {
+            var listResponse = new List<string>();
+            try
+            {
+                var parameters = new DynamicParameters();
+
+                parameters.Add("@pMes", request.Mes, direction: ParameterDirection.Input);
+                parameters.Add("@pAnio", request.Ano, direction: ParameterDirection.Input);
+
+                var cn = _connectionFactory.GetConnection();
+                var sp = "uspGenerarDataPLE1401";
+
+                var result = await cn.ExecuteReaderAsync(
+                             sp,
+                             parameters,
+                             commandTimeout: 0,
+                             commandType: CommandType.StoredProcedure);
+
+                if (result.FieldCount > 0)
+                {
+                    while (result.Read())
+                    {
+                        listResponse.Add(DataUtility.ObjectToString(result["linea"]));
+                    }
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                listResponse = null;
+            }
+            return listResponse;
+        }
+
 
         public async Task<string> EliminarFactura(CargaFacturaDTORequest request)
         {

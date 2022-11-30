@@ -49,7 +49,7 @@
         })
     },
 
-    DownloadDocument: function (en) {
+    DownloadDocument0801: function (en) {
 
         var mes = $('#cboMonthtRegisterSale').val();
         var anio = $('#txtYearRegisterSale').val();
@@ -72,6 +72,64 @@
         form.appendChild(mesValue);
         form.appendChild(anioValue);
         form.action = "/Facturacion/CargaFactura/GetPle0801";
+        form.method = 'POST';
+        document.body.appendChild(form);
+        form.submit();
+
+    },
+
+    DownloadDocument0802: function (en) {
+
+        var mes = $('#cboMonthtRegisterSale').val();
+        var anio = $('#txtYearRegisterSale').val();
+
+        var form = document.createElement("FORM");
+        var mesValue = document.createElement("INPUT");
+        mesValue.type = "text";
+        mesValue.value = mes;
+        mesValue.name = "mes";
+        mesValue.id = "mes";
+
+        var anioValue = document.createElement("INPUT");
+        anioValue.type = "text";
+        anioValue.value = anio;
+        anioValue.name = "anio";
+        anioValue.id = "anio";
+
+
+        form.style.display = "none";
+        form.appendChild(mesValue);
+        form.appendChild(anioValue);
+        form.action = "/Facturacion/CargaFactura/GetPle0802";
+        form.method = 'POST';
+        document.body.appendChild(form);
+        form.submit();
+
+    },
+
+    DownloadDocument1401: function (en) {
+
+        var mes = $('#cboMonthtRegisterSale').val();
+        var anio = $('#txtYearRegisterSale').val();
+
+        var form = document.createElement("FORM");
+        var mesValue = document.createElement("INPUT");
+        mesValue.type = "text";
+        mesValue.value = mes;
+        mesValue.name = "mes";
+        mesValue.id = "mes";
+
+        var anioValue = document.createElement("INPUT");
+        anioValue.type = "text";
+        anioValue.value = anio;
+        anioValue.name = "anio";
+        anioValue.id = "anio";
+
+
+        form.style.display = "none";
+        form.appendChild(mesValue);
+        form.appendChild(anioValue);
+        form.action = "/Facturacion/CargaFactura/GetPle1401";
         form.method = 'POST';
         document.body.appendChild(form);
         form.submit();
