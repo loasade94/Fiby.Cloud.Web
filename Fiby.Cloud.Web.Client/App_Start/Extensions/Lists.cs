@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using static Azure.Core.HttpHeader;
@@ -58,7 +59,8 @@ namespace Fiby.Cloud.Web.Client.App_Start.Extensions
                 meses.Add(new SelectListItem
                 {
                     Value = i.ToString("00"),
-                    Text = Convert.ToDateTime(String.Format("01/{0}/2015", i)).ToString(Formatos.NombreMes).ToUpper()
+                    //Text = Convert.ToDateTime(String.Format("01/{0}/2015", i)).ToString(Formatos.NombreMes).ToUpper()
+                    Text = (new DateTime(2015, i, 1).ToString("MMMM", CultureInfo.CreateSpecificCulture("es"))).ToUpper()
                 });
             }
             return meses;
