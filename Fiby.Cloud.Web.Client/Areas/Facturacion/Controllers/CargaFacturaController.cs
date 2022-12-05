@@ -44,9 +44,11 @@ namespace Fiby.Cloud.Web.Client.Areas.Facturacion.Controllers
             ViewBag.listaMeses = Lists.GeneraMeses(todos: false, seleccione: false);
             ViewBag.listaAnios = Lists.GeneraAnios(todos: false, anioInicial: 2021);
 
-            var model = await _cargaFacturaService.ConsultaFacturas(new CargaFacturaDTORequest() { 
-            
-            
+            var model = await _cargaFacturaService.ConsultaFacturas(new CargaFacturaDTORequest()
+            {
+                Mes = DateTime.Now.ToString("MM"),
+                Ano = DateTime.Now.ToString("MM")
+
             });
 
             return View(model);

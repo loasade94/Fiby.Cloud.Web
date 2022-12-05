@@ -86,6 +86,7 @@ namespace Fiby.Cloud.Web.Persistence.Implementations.Facturacion
                 var parameters = new DynamicParameters();
 
                 parameters.Add("@pMes", cargaFacturaDTORequest.Mes, direction: ParameterDirection.Input);
+                parameters.Add("@pAnio", cargaFacturaDTORequest.Ano, direction: ParameterDirection.Input);
 
                 var cn = _connectionFactory.GetConnection();
                 var sp = "uspListarFacturaEmpresa";
