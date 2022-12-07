@@ -211,6 +211,7 @@
                             html += '<tr>';
                             html += '    <td style="text-align:center;">' + formatDateTime(response[i].fecha) + '</td>';
                             html += '    <td style="text-align:center;">' + response[i].horario + '</td>';
+                            html += '    <td style="text-align:center;">' + response[i].horas + '</td>';
                             html += '    <td style="text-align:center;">' + response[i].pasaje + '</td>';
                             html += '    <td style="text-align:center;">' + response[i].montoPagoCliente + '</td>';
                             html += '    <td style="text-align:center;">' + response[i].nombreEmpleado + '</td>';
