@@ -15,9 +15,12 @@
     buscar: function () {
 
         var mes = $("#cboMonthtRegisterSale").val();
+        var anio = $("#txtYearRegisterSale").val();
+
         var div = "#divGrid";
         var cargaFacturaDTORequest = {
-            Mes: mes
+            Mes: mes,
+            Ano: anio
         };
 
         var html = "";

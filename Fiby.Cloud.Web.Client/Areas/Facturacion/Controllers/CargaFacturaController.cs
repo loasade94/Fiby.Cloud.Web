@@ -47,7 +47,7 @@ namespace Fiby.Cloud.Web.Client.Areas.Facturacion.Controllers
             var model = await _cargaFacturaService.ConsultaFacturas(new CargaFacturaDTORequest()
             {
                 Mes = DateTime.Now.ToString("MM"),
-                Ano = DateTime.Now.ToString("MM")
+                Ano = DateTime.Now.ToString("yyyy")
 
             });
 
