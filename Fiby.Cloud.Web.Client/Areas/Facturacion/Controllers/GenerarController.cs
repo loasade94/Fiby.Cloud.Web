@@ -91,6 +91,12 @@ namespace Fiby.Cloud.Web.Client.Areas.Facturacion.Controllers
             return View(venta);
         }
 
+        public async Task<IActionResult> ImprimirNC()
+        {
+
+            return View();
+        }
+
         [HttpPost]
         public async Task<JsonResult> BuscarDocumento(string documento)
         {
