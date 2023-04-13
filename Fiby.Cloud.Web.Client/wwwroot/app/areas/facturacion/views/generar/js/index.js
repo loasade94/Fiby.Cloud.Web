@@ -376,10 +376,12 @@
 
                 if (response != "") {
                     //window.open("https://localhost:5087/Facturacion/Generar/Imprimir?idVenta=" + response);
-                    window.open("https://fibycloud.com/Facturacion/Generar/Imprimir?idVenta=" + response);
+                    //window.open("https://fibycloud.com/Facturacion/Generar/Imprimir?idVenta=" + response);
+                    window.open("http://loasadexd01-001-site1.htempurl.com/Facturacion/Generar/Imprimir?idVenta=" + response);
 
                     //var url = "https://localhost:5087/Facturacion/Generar";
-                    var url = "https://fibycloud.com/Facturacion/Generar";
+                    //var url = "https://fibycloud.com/Facturacion/Generar";
+                    var url = "http://loasadexd01-001-site1.htempurl.com/Facturacion/Generar";
                     window.location = url;
 
                 }
@@ -396,7 +398,8 @@
 
     consultaFactura: function (idVenta) {
         //window.open("https://localhost:5087/Facturacion/Generar/Imprimir?idVenta=" + idVenta);
-        window.open("https://fibycloud.com/Facturacion/Generar/Imprimir?idVenta=" + idVenta);
+        //window.open("https://fibycloud.com/Facturacion/Generar/Imprimir?idVenta=" + idVenta);
+        window.open("http://loasadexd01-001-site1.htempurl.com/Facturacion/Generar/Imprimir?idVenta=" + idVenta);
     },
 
     bajaFactura: function (idventa) {

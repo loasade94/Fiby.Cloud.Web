@@ -42,12 +42,12 @@ namespace Fiby.Cloud.Web.Service.Implementations.Facturacion
 
         public async Task<string> GenerarComprobante(string idVenta)
         {
-            //string uri = "http://localhost:58683/api/Venta/GenerarBoletaFactura/" + idVenta;
+            string uri = "http://localhost:58683/api/Venta/GenerarBoletaFactura/" + idVenta;
             //string uri = "http://factfiby.fibycloud.com/api/Venta/GenerarBoletaFactura/" + idVenta;
             //string uri = "http://rosita98-001-site1.atempurl.com/api/Venta/GenerarBoletaFactura/" + idVenta;
             //string uri = "http://rosita99-001-site1.atempurl.com/api/Venta/GenerarBoletaFactura/" + idVenta;
             //string uri = "http://rosita100-001-site1.gtempurl.com/api/Venta/GenerarBoletaFactura/" + idVenta;
-            string uri = "http://rosita101-001-site1.htempurl.com/api/Venta/GenerarBoletaFactura/" + idVenta;
+            //string uri = "http://rosita101-001-site1.htempurl.com/api/Venta/GenerarBoletaFactura/" + idVenta;
             var result = await _httpClient.GetStringAsync(uri);
             return result;
         }
@@ -60,24 +60,24 @@ namespace Fiby.Cloud.Web.Service.Implementations.Facturacion
 
         public async Task<string> GenerarBaja(int idVenta)
         {
-            //string uri = "http://localhost:58683/api/Operaciones/GenerarComunicacionBaja_XML/" + idVenta.ToString();
+            string uri = "http://localhost:58683/api/Operaciones/GenerarComunicacionBaja_XML/" + idVenta.ToString();
             //string uri = "http://factfiby.fibycloud.com/api/Operaciones/GenerarComunicacionBaja_XML/" + idVenta.ToString();
             //string uri = "http://rosita98-001-site1.atempurl.com/api/Operaciones/GenerarComunicacionBaja_XML/" + idVenta.ToString();
             //string uri = "http://rosita99-001-site1.atempurl.com/api/Operaciones/GenerarComunicacionBaja_XML/" + idVenta.ToString();
             //string uri = "http://rosita100-001-site1.gtempurl.com/api/Operaciones/GenerarComunicacionBaja_XML/" + idVenta.ToString();
-            string uri = "http://rosita101-001-site1.htempurl.com/api/Operaciones/GenerarComunicacionBaja_XML/" + idVenta.ToString();
+            //string uri = "http://rosita101-001-site1.htempurl.com/api/Operaciones/GenerarComunicacionBaja_XML/" + idVenta.ToString();
             var result = await _httpClient.GetStringAsync(uri);
             return DataUtility.OkString(result);
         }
 
         public async Task<string> GenerarBajaBoleta(int idVenta)
         {
-            //string uri = "http://localhost:58683/api/OperacionBoleta/GenerarResumenDiario_XML/" + idVenta.ToString();
+            string uri = "http://localhost:58683/api/OperacionBoleta/GenerarResumenDiario_XML/" + idVenta.ToString();
             //string uri = "http://factfiby.fibycloud.com/api/OperacionBoleta/GenerarResumenDiario_XML/" + idVenta.ToString();
             //string uri = "http://rosita98-001-site1.atempurl.com/api/OperacionBoleta/GenerarResumenDiario_XML/" + idVenta.ToString();
             //string uri = "http://rosita99-001-site1.atempurl.com/api/OperacionBoleta/GenerarResumenDiario_XML/" + idVenta.ToString();
             //string uri = "http://rosita100-001-site1.gtempurl.com/api/OperacionBoleta/GenerarResumenDiario_XML/" + idVenta.ToString();
-            string uri = "http://rosita101-001-site1.htempurl.com/api/OperacionBoleta/GenerarResumenDiario_XML/" + idVenta.ToString();
+            //string uri = "http://rosita101-001-site1.htempurl.com/api/OperacionBoleta/GenerarResumenDiario_XML/" + idVenta.ToString();
             var result = await _httpClient.GetStringAsync(uri);
             return DataUtility.OkString(result);
         }
