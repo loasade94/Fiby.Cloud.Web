@@ -42,9 +42,9 @@ namespace Fiby.Cloud.Web.Client
             {
                 Directory.CreateDirectory(keysDirectoryPath);
             }
-            services.AddDataProtection()
-              .PersistKeysToFileSystem(new DirectoryInfo(keysDirectoryPath))
-              .SetApplicationName("CustomCookieAuthentication");
+            //services.AddDataProtection()
+            //  .PersistKeysToFileSystem(new DirectoryInfo(keysDirectoryPath))
+            //  .SetApplicationName("CustomCookieAuthentication");
 
             services.Configure<CookiePolicyOptions>(options =>
             {
